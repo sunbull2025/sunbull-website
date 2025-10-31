@@ -1,4 +1,4 @@
-// script.js — Final interactions (i18n, reveal on scroll, protection, coin fx, footer behavior)
+// script.js — Final interactions (i18n, reveal on scroll, protection, effects)
 document.addEventListener('DOMContentLoaded', () => {
   // language toggle
   const btnEn = document.getElementById('btn-en');
@@ -21,9 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   btnEn.addEventListener('click', showEN);
   btnZh.addEventListener('click', showZH);
+  // default language: English
   showEN();
 
-  // reveal on scroll
+  // reveal on scroll (IntersectionObserver)
   const reveals = document.querySelectorAll('.reveal, .phase, .listing-card');
   const io = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const el = document.querySelector(href);
       if(!el) return;
       e.preventDefault();
-      const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 96;
+      const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 92;
       const top = el.getBoundingClientRect().top + window.scrollY - headerH + 12;
       window.scrollTo({ top, behavior: 'smooth' });
     });
@@ -73,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // footer track behavior: ensure smooth loop (pause on hover)
+  // footer track behavior: pause on hover
   const footerTrack = document.querySelector('.footer-track');
   if(footerTrack){
     footerTrack.addEventListener('mouseenter', () => footerTrack.style.animationPlayState = 'paused');
@@ -92,13 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // block long-press open image on mobile
         e.preventDefault();
       }, {passive:false});
-      // clicking image should not open anything
-      img.addEventListener('click', e => {
-        e.preventDefault();
-        e.stopPropagation();
-      });
+      img.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); });
     });
-    // overlays block any contextmenu/drag
     const overlays = document.querySelectorAll('.protect-overlay');
     overlays.forEach(o => {
       o.addEventListener('contextmenu', e => e.preventDefault());
@@ -108,22 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   protectImages();
 
-  // disable general image right-click on whole page (best effort)
+  // disable general image right-click
   document.addEventListener('contextmenu', (e) => {
     const el = e.target;
     if(el && el.tagName === 'IMG') e.preventDefault();
   });
-
-  // small logo explosive pulse
-  const logo = document.querySelector('.logo-round');
-  if(logo){
-    setInterval(()=> {
-      logo.animate([
-        { transform: 'scale(1) rotate(0deg)' },
-        { transform: 'scale(1.06) rotate(-1deg)' },
-        { transform: 'scale(1) rotate(0deg)' }
-      ], { duration: 2200, easing: 'cubic-bezier(.22,.9,.2,1)' });
-    }, 2600);
-  }
 
 });
