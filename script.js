@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // footer track behavior: pause on hover
+  // footer track behavior: pause on hover (desktop)
   const footerTrack = document.querySelector('.footer-track');
   if(footerTrack){
     footerTrack.addEventListener('mouseenter', () => footerTrack.style.animationPlayState = 'paused');
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   protectImages();
 
-  // disable general image right-click
+  // disable general image right-click (best-effort)
   document.addEventListener('contextmenu', (e) => {
     const el = e.target;
     if(el && el.tagName === 'IMG') e.preventDefault();

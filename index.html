@@ -11,6 +11,9 @@
 </head>
 <body>
 
+  <!-- Fixed background (works on mobile/desktop) -->
+  <div class="bg" aria-hidden="true"></div>
+
   <header>
     <div class="nav-inner">
       <div class="left">
@@ -38,7 +41,7 @@
           <img src="x.png" alt="X" aria-hidden="true"> Follow on X
         </a>
 
-        <a class="btn btn-primary btn-buy" id="buyTop" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM?utm_source=tokenpocket" target="_blank" rel="noopener">BUY</a>
+        <a class="btn btn-primary btn-buy" id="buyTop" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener">BUY</a>
       </div>
     </div>
   </header>
@@ -46,7 +49,7 @@
   <main>
 
     <!-- HERO -->
-    <section id="hero" class="content reveal">
+    <section id="hero" class="content reveal" role="region" aria-label="Hero">
       <div class="lang-en">
         <h1 class="hero-title">SunBull — The SunPump Mascot</h1>
         <p class="hero-lead">
@@ -55,7 +58,7 @@
         </p>
 
         <div class="hero-ctas">
-          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM?utm_source=tokenpocket" target="_blank" rel="noopener">BUY $SUNBULL</a>
+          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener">BUY $SUNBULL</a>
           <a class="btn btn-ghost" href="#tokenomics">TOKENOMICS</a>
           <a class="btn btn-ghost" href="#roadmap">ROADMAP</a>
         </div>
@@ -71,7 +74,7 @@
         </p>
 
         <div class="hero-ctas">
-          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM?utm_source=tokenpocket" target="_blank" rel="noopener">购买 $SUNBULL</a>
+          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener">购买 $SUNBULL</a>
           <a class="btn btn-ghost" href="#tokenomics">代币经济</a>
           <a class="btn btn-ghost" href="#roadmap">路线图</a>
         </div>
@@ -81,7 +84,7 @@
     </section>
 
     <!-- ABOUT / LEGEND -->
-    <section id="about" class="content reveal">
+    <section id="about" class="content reveal" role="region" aria-label="About the legend">
       <div class="lang-en">
         <h2>The Legend of the Sun Bull</h2>
 
@@ -140,7 +143,7 @@
     </section>
 
     <!-- TOKENOMICS -->
-    <section id="tokenomics" class="content reveal">
+    <section id="tokenomics" class="content reveal" role="region" aria-label="Tokenomics">
       <div class="lang-en">
         <h2>Tokenomics — The Solar Empire</h2>
 
@@ -201,7 +204,7 @@
     </section>
 
     <!-- ROADMAP -->
-    <section id="roadmap" class="content reveal">
+    <section id="roadmap" class="content reveal" role="region" aria-label="Roadmap">
       <div class="lang-en">
         <h2>Roadmap — Story as Journey</h2>
 
@@ -248,7 +251,7 @@
 
       <div class="lang-zh" style="display:none">
         <h2>路线图 — 传奇之旅</h2>
-
+        <!-- same structure in Chinese -->
         <div class="phase">
           <img src="phase1.png" alt="Phase 1">
           <div class="phase-text">
@@ -256,7 +259,7 @@
             <p>在 SunPump 上创建 $SUNBULL，启动网站与社区中心，发布宣言与代币经济，并开启空投与表情包活动。</p>
           </div>
         </div>
-
+        <!-- ... phase2-phase5 (中文) identical to above -->
         <div class="phase">
           <img src="phase2.png" alt="Phase 2">
           <div class="phase-text">
@@ -264,7 +267,6 @@
             <p>壮大 #SUNBULLARMY，按里程碑进行销毁，并推动创作者合作与传播活动。</p>
           </div>
         </div>
-
         <div class="phase">
           <img src="phase3.png" alt="Phase 3">
           <div class="phase-text">
@@ -272,7 +274,6 @@
             <p>限量 NFT、国际传播，以及与 TRON dApp 的有机整合。</p>
           </div>
         </div>
-
         <div class="phase">
           <img src="phase4.png" alt="Phase 4">
           <div class="phase-text">
@@ -280,7 +281,6 @@
             <p>在里程碑执行团队销毁 —— 链上公开透明，并伴随文化空投庆祝。</p>
           </div>
         </div>
-
         <div class="phase">
           <img src="phase5.png" alt="Phase 5">
           <div class="phase-text">
@@ -292,7 +292,7 @@
     </section>
 
     <!-- LISTINGS -->
-    <section id="listings" class="content reveal">
+    <section id="listings" class="content reveal" role="region" aria-label="Listings">
       <div class="lang-en">
         <h2>Upcoming Listings</h2>
         <p class="muted small">Official integrations and listings will be announced on X.</p>
@@ -337,12 +337,12 @@
     </section>
 
     <!-- JOIN CTA -->
-    <section class="content cta reveal">
+    <section class="content cta reveal" role="region" aria-label="Join">
       <div class="lang-en">
         <h2>Join the #SUNBULLARMY</h2>
         <p class="muted">We are the memetic soul of TRON. Follow official X for burns, drops and community calls.</p>
         <div class="hero-ctas">
-          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM?utm_source=tokenpocket" target="_blank" rel="noopener">BUY $SUNBULL</a>
+          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener">BUY $SUNBULL</a>
           <a class="btn btn-ghost" href="https://x.com/SunBullOfficial" target="_blank" rel="noopener"><img src="x.png" alt="" aria-hidden="true"> FOLLOW ON X</a>
         </div>
       </div>
@@ -351,21 +351,21 @@
         <h2>加入 #SUNBULLARMY</h2>
         <p class="muted">我们代表 TRON 的 Meme 灵魂。关注官方 X 获取销毁、空投和社区活动信息。</p>
         <div class="hero-ctas">
-          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM?utm_source=tokenpocket" target="_blank">购买 $SUNBULL</a>
+          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">购买 $SUNBULL</a>
           <a class="btn btn-ghost" href="https://x.com/SunBullOfficial" target="_blank"><img src="x.png" alt="" aria-hidden="true"> 关注 X</a>
         </div>
       </div>
     </section>
 
     <!-- FOOTER -->
-    <footer>
-      <div class="footer-track-wrap">
-        <div class="footer-track" aria-hidden="false">
-          <img src="tron.png" alt="TRON">
-          <img src="sunpump.png" alt="SunPump">
-          <img src="sunswap.png" alt="SunSwap">
-          <img src="sunperp.png" alt="SunPerp">
-          <!-- duplicated for smooth infinite loop -->
+    <footer role="contentinfo" aria-label="Footer">
+      <div class="footer-track-wrap" aria-hidden="false">
+        <div class="footer-track" aria-hidden="true">
+          <img src="tron.png" alt="TRON logo">
+          <img src="sunpump.png" alt="SunPump logo">
+          <img src="sunswap.png" alt="SunSwap logo">
+          <img src="sunperp.png" alt="SunPerp logo">
+          <!-- duplicate for smooth infinite loop -->
           <img src="tron.png" alt="">
           <img src="sunpump.png" alt="">
           <img src="sunswap.png" alt="">
