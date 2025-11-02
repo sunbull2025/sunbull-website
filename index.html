@@ -3,22 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SunBull - The SunPump Mascot</title>
-  <meta name="description" content="SunBull ($SUNBULL) — The mascot of SunPump and the meme soul of TRON.">
+  <title>SunBull — The SunPump Mascot</title>
+  <meta name="description" content="SunBull ($SUNBULL) — community memecoin on TRON. Tokenomics, roadmap, burn schedule and how to buy." />
   <link rel="icon" href="favicon.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <!-- Fullscreen background -->
+
+  <!-- fixed background covering the whole page -->
   <div class="bg" aria-hidden="true"></div>
 
-  <!-- HEADER -->
-  <header>
+  <header class="site-header" role="banner" aria-label="Main header">
     <div class="nav-inner">
       <div class="left">
-        <div class="logo-round">
+        <div class="logo-round" title="SunBull">
           <img src="logo.png" alt="SunBull logo">
         </div>
         <div class="brand">
@@ -27,130 +26,361 @@
         </div>
       </div>
 
-      <nav class="nav-links">
-        <a href="#about">About</a>
-        <a href="#tokenomics">Tokenomics</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#listings">Listings</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="nav-btn" href="#about">About</a>
+        <a class="nav-btn" href="#tokenomics">Tokenomics</a>
+        <a class="nav-btn" href="#roadmap">Roadmap</a>
+        <a class="nav-btn" href="#listings">Listings</a>
       </nav>
 
       <div class="nav-actions">
-        <button id="btn-en" class="lang-btn active">EN</button>
-        <button id="btn-zh" class="lang-btn">中文</button>
-        <a class="btn btn-ghost" href="https://x.com/SunBullOfficial" target="_blank" rel="noopener">
-          <img src="x.png" alt="X" /> Follow on X
+        <button id="btn-en" class="lang-btn active" aria-pressed="true" aria-label="English">EN</button>
+        <button id="btn-zh" class="lang-btn" aria-pressed="false" aria-label="中文">中文</button>
+
+        <a class="btn btn-ghost btn-x" href="https://x.com/SunBullOfficial" target="_blank" rel="noopener" aria-label="Follow on X">
+          <img src="x.png" alt="X" aria-hidden="true"> Follow on X
         </a>
-        <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">BUY</a>
+
+        <a class="btn btn-primary btn-buy" id="buyTop" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener" aria-label="Buy on SunPump">BUY</a>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- HERO -->
-    <section id="hero" class="content reveal">
-      <div class="lang-en">
-        <h1 class="hero-title">SunBull — The SunPump Mascot</h1>
-        <p class="hero-lead">
-          Forged from TRON’s legendary Bull and the explosive energy of SunPump — SunBull is the cultural emblem of the SUN family: SunPump · SunSwap · SunPerp.  
-          Built by the community, for the community — our goal: make $SUNBULL the first TRON memecoin to reach <strong>$1B market cap</strong>.
-        </p>
 
-        <div class="hero-ctas">
-          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">BUY $SUNBULL</a>
-          <a class="btn btn-ghost" href="#tokenomics">TOKENOMICS</a>
-          <a class="btn btn-ghost" href="#roadmap">ROADMAP</a>
-        </div>
-        <p class="muted small">Contract (test): <code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
+    <!-- HERO EN -->
+    <section id="hero" class="content reveal lang-en" role="region" aria-label="Hero">
+      <h1 class="hero-title">SunBull — The SunPump Mascot</h1>
+      <p class="hero-lead">
+        Forged from TRON’s legendary Bull and the explosive memetic energy of SunPump — SunBull is the cultural emblem of the SUN family: SunPump · SunSwap · SunPerp.
+        Built by the community, for the community — our audacious goal: make <strong>$SUNBULL</strong> the first TRON memecoin to reach <strong>$1B market cap</strong>.
+      </p>
+
+      <div class="hero-ctas">
+        <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener">BUY $SUNBULL</a>
+        <a class="btn btn-ghost" href="#tokenomics">TOKENOMICS</a>
+        <a class="btn btn-ghost" href="#roadmap">ROADMAP</a>
       </div>
+
+      <p class="muted small" style="margin-top:12px">Contract (test): <code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
+    </section>
+
+    <!-- HERO ZH -->
+    <section id="hero-zh" class="content reveal lang-zh" style="display:none" role="region" aria-label="Hero Chinese">
+      <h1 class="hero-title">SunBull — SunPump 的吉祥物</h1>
+      <p class="hero-lead">
+        由 TRON 传说中的公牛与 SunPump 爆发性的 Meme 能量锻造而成 —— SunBull 是 SUN 家族（SunPump · SunSwap · SunPerp）的文化象征。
+        由社区为社区打造 —— 我们的目标：成为首个达到 <strong>10 亿美元市值</strong> 的 TRON Meme 币。
+      </p>
+
+      <div class="hero-ctas">
+        <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener">购买 $SUNBULL</a>
+        <a class="btn btn-ghost" href="#tokenomics">代币经济</a>
+        <a class="btn btn-ghost" href="#roadmap">路线图</a>
+      </div>
+
+      <p class="muted small" style="margin-top:12px">合约（测试）：<code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
     </section>
 
     <!-- ABOUT -->
-    <section id="about" class="content reveal">
-      <h2>The Legend of the Sun Bull</h2>
-      <p>
-        In the heart of TRON, where each block burns with energy, a new legend rose — the Bull reborn in golden flames from SunPump,  
-        merging ancient power with meme culture to create <strong>SunBull</strong>, the Solar Emperor of the TRON community.
-      </p>
+    <section id="about" class="content reveal" role="region" aria-label="About the legend">
+      <div class="lang-en">
+        <h2>The Legend of the Sun Bull</h2>
+        <p>
+          In the heart of the TRON blockchain, where blocks pulse like a living sun, a new legend rose.
+          The Bull — TRON’s ancestral mascot of strength, resilience and prosperity — reappeared, reborn in golden flames.
+        </p>
+        <p>
+          Those flames came from <strong>SunPump</strong>, the community furnace that reignited meme culture across the SUN ecosystem.
+          Amid creators, memes and on-chain rituals, the Bull fused with solar power: a cinematic metamorphosis that created <strong>SunBull ($SUNBULL)</strong>.
+        </p>
 
-      <h3>The Solar Mission</h3>
-      <p>
-        SunBull is the mascot of the SunPump community and the meme spirit of TRON’s SUN family — SunPump, SunSwap and SunPerp.
-      </p>
+        <h3>The Solar Mission</h3>
+        <p>
+          SunBull is designed to be the <strong>mascot of the SunPump community</strong>, the emblem of TRON’s meme culture and a new pillar of the SUN family — SunPump, SunSwap, SunPerp.
+          Built by the community, for the community: our success depends on creators, memers and builders across TRON.
+        </p>
 
-      <h3>Justin Sun — The Spark</h3>
-      <p>
-        Inspired by Justin Sun’s vision, SunBull honors the light that powers the TRON ecosystem.  
-        A meme, a culture, a movement — by the people, for the people.
-      </p>
+        <h3>Justin Sun — The Spark</h3>
+        <p>
+          The TRON ecosystem was ignited by the vision of <strong>Justin Sun</strong>. SunBull pays homage to that spark while remaining independent —
+          a cultural tribute that channels on-chain momentum, transparency, and community celebration.
+        </p>
+
+        <blockquote class="gold-quote">“We do not go to the moon. We go to the SUN.”</blockquote>
+      </div>
+
+      <div class="lang-zh" style="display:none">
+        <h2>SunBull 的传奇</h2>
+        <p>
+          在 TRON 区块链的核心，每个区块如同一颗跳动的太阳，一个新的传奇崛起。
+          公牛——波场的古老吉祥物，象征力量、韧性与繁荣——在金色烈焰中重生。
+        </p>
+        <p>
+          这些火焰来自 <strong>SunPump</strong>，它在 SUN 生态中重燃了 Meme 文化。
+          在创作者、表情包与链上仪式的风暴中，公牛与太阳能量融合：诞生了 <strong>SunBull ($SUNBULL)</strong>。
+        </p>
+
+        <h3>太阳使命</h3>
+        <p>
+          SunBull 的目标是成为 <strong>SunPump 社区的吉祥物</strong>、TRON Meme 文化的象征以及 SUN 家族的新支柱 — SunPump、SunSwap、SunPerp。
+          由社区打造，为社区而生：我们的成功依赖于 TRON 上的创作者、表情包作者与建设者。
+        </p>
+
+        <h3>Justin Sun — 点燃之人</h3>
+        <p>
+          波场生态由 <strong>Justin Sun</strong> 的愿景点燃。SunBull 向这道火花致敬，同时保持独立——
+          作为文化致敬，我们将链上透明与社区庆典结合。
+        </p>
+
+        <blockquote class="gold-quote">“我们不是去月球，我们直达太阳。”</blockquote>
+      </div>
     </section>
 
     <!-- TOKENOMICS -->
-    <section id="tokenomics" class="content reveal">
-      <h2>Tokenomics — The Solar Empire</h2>
+    <section id="tokenomics" class="content reveal" role="region" aria-label="Tokenomics">
+      <div class="lang-en">
+        <h2>Tokenomics — The Solar Empire</h2>
 
-      <table class="table">
-        <thead><tr><th>Category</th><th>Allocation</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Community & Liquidity</strong></td><td>990,000,000 (99%)</td><td>Distributed via SunPump and listings.</td></tr>
-          <tr><td><strong>Team Reserve</strong></td><td>10,000,000 (1%)</td><td>Reserved for ceremonial burns by milestones.</td></tr>
-        </tbody>
-      </table>
+        <table class="table token-table" aria-label="Token distribution">
+          <thead><tr><th>Category</th><th>Allocation</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Community & Liquidity</strong></td><td>990,000,000 $SUNBULL (99%)</td><td>Distributed via SunPump and public listings — community liquidity & airdrops.</td></tr>
+            <tr><td><strong>Team / Burn Reserve</strong></td><td>10,000,000 $SUNBULL (1%)</td><td>Reserved strictly for ceremonial burns (on-chain) as milestones are reached.</td></tr>
+          </tbody>
+        </table>
 
-      <h3>🔥 Burn Schedule</h3>
-      <table class="table">
-        <thead><tr><th>Market Cap</th><th>Burn Amount</th><th>Event</th></tr></thead>
-        <tbody>
-          <tr><td>$10M</td><td>2M</td><td>First Solar Flame</td></tr>
-          <tr><td>$20M</td><td>1M</td><td>Community Growth</td></tr>
-          <tr><td>$50M</td><td>1M</td><td>Expansion</td></tr>
-          <tr><td>$100M</td><td>1M</td><td>Enduring Flame</td></tr>
-          <tr><td>$250M</td><td>1M</td><td>Unity of SUN</td></tr>
-          <tr><td>$500M</td><td>1M</td><td>Illumination</td></tr>
-          <tr><td>$750M</td><td>1M</td><td>Empire Consolidates</td></tr>
-          <tr><td>$1B</td><td>2M</td><td>Coronation of Meme Emperor</td></tr>
-        </tbody>
-      </table>
+        <h3 style="margin-top:18px">🔥 Ceremonial Burn Schedule</h3>
+        <table class="table burn-table" aria-label="Burn schedule">
+          <thead><tr><th>Market Cap (USD)</th><th>Tokens Burned</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>$10,000,000</td><td>2,000,000</td><td>First Solar Flame — Awakening.</td></tr>
+            <tr><td>$20,000,000</td><td>1,000,000</td><td>Community growth.</td></tr>
+            <tr><td>$50,000,000</td><td>1,000,000</td><td>Expansion.</td></tr>
+            <tr><td>$100,000,000</td><td>1,000,000</td><td>Enduring flame.</td></tr>
+            <tr><td>$250,000,000</td><td>1,000,000</td><td>Family unites.</td></tr>
+            <tr><td>$500,000,000</td><td>1,000,000</td><td>Network illumination.</td></tr>
+            <tr><td>$750,000,000</td><td>1,000,000</td><td>Empire consolidates.</td></tr>
+            <tr><td>$1,000,000,000</td><td><strong>2,000,000</strong></td><td>Coronation — Meme Emperor is born.</td></tr>
+          </tbody>
+        </table>
+
+        <p class="muted small">All burns are public and verifiable on TRON chain. Remaining supply is destined for public listings, liquidity and community growth initiatives.</p>
+      </div>
+
+      <div class="lang-zh" style="display:none">
+        <h2>代币经济 — 太阳帝国</h2>
+
+        <table class="table token-table" aria-label="Token distribution">
+          <thead><tr><th>类别</th><th>分配</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td><strong>社区与流动性</strong></td><td>990,000,000 $SUNBULL (99%)</td><td>通过 SunPump 与公开上架分发 — 社区流动性与空投。</td></tr>
+            <tr><td><strong>团队 / 销毁储备</strong></td><td>10,000,000 $SUNBULL (1%)</td><td>仅用于里程碑仪式性销毁（链上公开）。</td></tr>
+          </tbody>
+        </table>
+
+        <h3 style="margin-top:18px">🔥 仪式性销毁计划</h3>
+        <table class="table burn-table" aria-label="Burn schedule">
+          <thead><tr><th>市值（美元）</th><th>销毁数量</th><th>目的</th></tr></thead>
+          <tbody>
+            <tr><td>$10,000,000</td><td>2,000,000</td><td>首次太阳之焰 — 觉醒。</td></tr>
+            <tr><td>$20,000,000</td><td>1,000,000</td><td>社区增长。</td></tr>
+            <tr><td>$50,000,000</td><td>1,000,000</td><td>扩张。</td></tr>
+            <tr><td>$100,000,000</td><td>1,000,000</td><td>永恒之焰。</td></tr>
+            <tr><td>$250,000,000</td><td>1,000,000</td><td>SUN 家族团结。</td></tr>
+            <tr><td>$500,000,000</td><td>1,000,000</td><td>网络闪耀。</td></tr>
+            <tr><td>$750,000,000</td><td>1,000,000</td><td>帝国巩固。</td></tr>
+            <tr><td>$1,000,000,000</td><td><strong>2,000,000</strong></td><td>加冕 — Meme 帝王诞生。</td></tr>
+          </tbody>
+        </table>
+
+        <p class="muted small">所有销毁均公开且链上可验证；剩余代币用于公开上架、流动性与社区成长。</p>
+      </div>
     </section>
 
     <!-- ROADMAP -->
-    <section id="roadmap" class="content reveal">
-      <h2>Roadmap — Story as Journey</h2>
-      <div class="phase"><img src="phase1.png"><div><h3>Phase 1 — Birth</h3><p>Launch $SUNBULL on SunPump and ignite the community.</p></div></div>
-      <div class="phase"><img src="phase2.png"><div><h3>Phase 2 — Rise</h3><p>Grow #SUNBULLARMY through memes, art, and burns.</p></div></div>
-      <div class="phase"><img src="phase3.png"><div><h3>Phase 3 — Unity</h3><p>Unite SunPump, SunSwap, SunPerp — The Sun Family.</p></div></div>
-      <div class="phase"><img src="phase4.png"><div><h3>Phase 4 — Fire</h3><p>Perform on-chain burns and community celebrations.</p></div></div>
-      <div class="phase"><img src="phase5.png"><div><h3>Phase 5 — Immortality</h3><p>Reach $1B market cap — become the Meme Sun of TRON.</p></div></div>
+    <section id="roadmap" class="content reveal" role="region" aria-label="Roadmap">
+      <div class="lang-en">
+        <h2>Roadmap — Story as Journey</h2>
+
+        <div class="phase">
+          <img src="phase1.png" alt="Phase 1">
+          <div class="phase-text">
+            <h3>Phase 1 — The Birth of the Sun Bull</h3>
+            <p>Create $SUNBULL on SunPump, launch website & community hub, publish manifesto and tokenomics, and start airdrops & meme campaigns.</p>
+          </div>
+        </div>
+
+        <div class="phase">
+          <img src="phase2.png" alt="Phase 2">
+          <div class="phase-text">
+            <h3>Phase 2 — The Rise of the Meme</h3>
+            <p>Grow #SUNBULLARMY, schedule milestone burns and push creator collaborations and campaigns.</p>
+          </div>
+        </div>
+
+        <div class="phase">
+          <img src="phase3.png" alt="Phase 3">
+          <div class="phase-text">
+            <h3>Phase 3 — Unity of the TRON Community</h3>
+            <p>Limited NFTs, international awareness, and organic TRON dApp integrations.</p>
+          </div>
+        </div>
+
+        <div class="phase">
+          <img src="phase4.png" alt="Phase 4">
+          <div class="phase-text">
+            <h3>Phase 4 — The Fire of the Bull (Burns)</h3>
+            <p>Execute team burns at milestones — transparent, on-chain and celebrated with cultural drops.</p>
+          </div>
+        </div>
+
+        <div class="phase">
+          <img src="phase5.png" alt="Phase 5">
+          <div class="phase-text">
+            <h3>Phase 5 — Meme Immortality</h3>
+            <p>Reach $1B market cap, final ceremonial burn, and immortalize SunBull as TRON’s mascot.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lang-zh" style="display:none">
+        <h2>路线图 — 传奇之旅</h2>
+
+        <div class="phase">
+          <img src="phase1.png" alt="Phase 1">
+          <div class="phase-text">
+            <h3>阶段 1 — Sun Bull 的诞生</h3>
+            <p>在 SunPump 上创建 $SUNBULL，启动网站与社区中心，发布宣言与代币经济，并开启空投与表情包活动。</p>
+          </div>
+        </div>
+
+        <div class="phase">
+          <img src="phase2.png" alt="Phase 2">
+          <div class="phase-text">
+            <h3>阶段 2 — Meme 的崛起</h3>
+            <p>壮大 #SUNBULLARMY，按里程碑进行销毁，并推动创作者合作与传播活动。</p>
+          </div>
+        </div>
+
+        <div class="phase">
+          <img src="phase3.png" alt="Phase 3">
+          <div class="phase-text">
+            <h3>阶段 3 — 波场社区的团结</h3>
+            <p>限量 NFT、国际传播，以及与 TRON dApp 的有机整合。</p>
+          </div>
+        </div>
+
+        <div class="phase">
+          <img src="phase4.png" alt="Phase 4">
+          <div class="phase-text">
+            <h3>阶段 4 — 公牛之火（销毁）</h3>
+            <p>在里程碑执行团队销毁 —— 链上公开透明，并伴随文化空投庆祝。</p>
+          </div>
+        </div>
+
+        <div class="phase">
+          <img src="phase5.png" alt="Phase 5">
+          <div class="phase-text">
+            <h3>阶段 5 — Meme 的不朽</h3>
+            <p>达到 10 亿美金市值，最终仪式性销毁，SunBull 成为波场的永久吉祥物。</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- LISTINGS -->
-    <section id="listings" class="content reveal">
-      <h2>Upcoming Listings</h2>
-      <div class="listings-grid">
-        <div class="listing-card"><img src="listing1.png"></div>
-        <div class="listing-card blur"><img src="listing2.png"><div class="protect-overlay"></div></div>
-        <div class="listing-card blur"><img src="listing3.png"><div class="protect-overlay"></div></div>
-        <div class="listing-card blur"><img src="listing4.png"><div class="protect-overlay"></div></div>
-        <div class="listing-card blur"><img src="listing5.png"><div class="protect-overlay"></div></div>
+    <section id="listings" class="content reveal" role="region" aria-label="Listings">
+      <div class="lang-en">
+        <h2>Upcoming Listings</h2>
+        <p class="muted small">Official integrations and listings will be announced on X.</p>
+
+        <div class="listings-grid" aria-hidden="false">
+          <div class="listing-card"><img src="listing1.png" alt="Listing 1"></div>
+
+          <div class="listing-card blur">
+            <img src="listing2.png" alt="Listing 2">
+            <div class="protect-overlay" aria-hidden="true"></div>
+          </div>
+
+          <div class="listing-card blur">
+            <img src="listing3.png" alt="Listing 3">
+            <div class="protect-overlay" aria-hidden="true"></div>
+          </div>
+
+          <div class="listing-card blur">
+            <img src="listing4.png" alt="Listing 4">
+            <div class="protect-overlay" aria-hidden="true"></div>
+          </div>
+
+          <div class="listing-card blur">
+            <img src="listing5.png" alt="Listing 5">
+            <div class="protect-overlay" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lang-zh" style="display:none">
+        <h2>即将上线</h2>
+        <p class="muted small">官方整合与上架将在 X 上公布。</p>
+
+        <div class="listings-grid">
+          <div class="listing-card"><img src="listing1.png" alt="Listing 1"></div>
+          <div class="listing-card blur"><img src="listing2.png" alt="Listing 2"><div class="protect-overlay" aria-hidden="true"></div></div>
+          <div class="listing-card blur"><img src="listing3.png" alt="Listing 3"><div class="protect-overlay" aria-hidden="true"></div></div>
+          <div class="listing-card blur"><img src="listing4.png" alt="Listing 4"><div class="protect-overlay" aria-hidden="true"></div></div>
+          <div class="listing-card blur"><img src="listing5.png" alt="Listing 5"><div class="protect-overlay" aria-hidden="true"></div></div>
+        </div>
       </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-      <div class="footer-track-wrap">
-        <div class="footer-track">
-          <img src="tron.png">
-          <img src="sunpump.png">
-          <img src="sunswap.png">
-          <img src="sunperp.png">
-          <img src="tron.png">
-          <img src="sunpump.png">
-          <img src="sunswap.png">
-          <img src="sunperp.png">
+    <!-- JOIN CTA -->
+    <section class="content cta reveal" role="region" aria-label="Join">
+      <div class="lang-en">
+        <h2>Join the #SUNBULLARMY</h2>
+        <p class="muted">We are the memetic soul of TRON. Follow official X for burns, drops and community calls.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener">BUY $SUNBULL</a>
+          <a class="btn btn-ghost" href="https://x.com/SunBullOfficial" target="_blank" rel="noopener"><img src="x.png" alt="" aria-hidden="true"> FOLLOW ON X</a>
         </div>
       </div>
-      <div class="muted small">© 2025 SunBull · Community-driven meme. No financial advice. $SUNBULL unites TRON through light and humor.</div>
-    </footer>
+
+      <div class="lang-zh" style="display:none">
+        <h2>加入 #SUNBULLARMY</h2>
+        <p class="muted">我们代表 TRON 的 Meme 灵魂。关注官方 X 获取销毁、空投和社区活动信息。</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">购买 $SUNBULL</a>
+          <a class="btn btn-ghost" href="https://x.com/SunBullOfficial" target="_blank"><img src="x.png" alt="" aria-hidden="true"> 关注 X</a>
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo" aria-label="Footer">
+    <div class="footer-track-wrap" aria-hidden="false">
+      <div class="footer-track" aria-hidden="true">
+        <img src="tron.png" alt="TRON logo">
+        <img src="sunpump.png" alt="SunPump logo">
+        <img src="sunswap.png" alt="SunSwap logo">
+        <img src="sunperp.png" alt="SunPerp logo">
+        <!-- duplicate for smooth infinite loop -->
+        <img src="tron.png" alt="">
+        <img src="sunpump.png" alt="">
+        <img src="sunswap.png" alt="">
+        <img src="sunperp.png" alt="">
+      </div>
+    </div>
+
+    <div class="muted small footer-note lang-en">
+      © 2025 SunBull · Community project. Not financial advice. At launch: 990,000,000 $SUNBULL for the community; 10,000,000 (1%) reserved for ceremonial burns as milestones are reached. No official partnership with SunPump, SunSwap or SunPerp. SunBull is the fire that unites the TRON community.
+    </div>
+
+    <div class="muted small footer-note lang-zh" style="display:none">
+      © 2025 SunBull · 社区项目。非投资建议。发行时：990,000,000 $SUNBULL 分配给社区；10,000,000（1%）保留用于里程碑仪式性销毁。与 SunPump、SunSwap 或 SunPerp 无官方合作。SunBull 是团结波场社区的火焰。
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
