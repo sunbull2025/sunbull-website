@@ -56,8 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // If element is <a href="..."> then default navigation will handle it.
       const tag = btn.tagName.toLowerCase();
       if(tag === 'a'){
-        // anchor with href -> let it open
-        // but also show coin rain
+        // anchor with href -> let it open and show fx
         coinRain();
         return;
       }
@@ -73,15 +72,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const el = document.createElement('div');
       el.className = 'coin-fx';
       el.textContent = '☀️';
-      el.style.position = 'fixed';
       el.style.left = (10 + Math.random()*80) + '%';
       el.style.top = '-20px';
-      el.style.zIndex = 9999;
       el.style.fontSize = (12 + Math.random()*26) + 'px';
       el.style.opacity = '0.95';
-      el.style.transition = 'transform 1.6s cubic-bezier(.2,.8,.2,1), opacity 1.6s linear';
+      el.style.transform = 'translateY(0) rotate(0deg)';
       document.body.appendChild(el);
       requestAnimationFrame(()=> {
+        el.style.transition = 'transform 1.6s cubic-bezier(.2,.8,.2,1), opacity 1.6s linear';
         el.style.transform = `translateY(${110 + Math.random()*40}vh) rotate(${Math.random()*720}deg)`;
         el.style.opacity = '0';
       });
@@ -89,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // footer track pause for touch devices
+  // footer track pause for touch & hover devices
   const footerTrack = document.querySelector('.footer-track');
   if(footerTrack){
     footerTrack.addEventListener('touchstart', ()=> footerTrack.style.animationPlayState = 'paused');
