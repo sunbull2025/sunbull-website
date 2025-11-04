@@ -1,8 +1,8 @@
-// script.js — i18n, reveal on scroll, smooth anchors, protections, buy FX, footer behavior
+// script.js — final: i18n, reveal on scroll, smooth anchors, protections, footer loop, buy FX
 document.addEventListener('DOMContentLoaded', () => {
   const buyUrl = 'https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM';
 
-  // Language toggle
+  // LANG toggle
   const btnEn = document.getElementById('btn-en');
   const btnZh = document.getElementById('btn-zh');
   const enBlocks = document.querySelectorAll('.lang-en');
@@ -11,17 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
   function showEN(){
     enBlocks.forEach(e=> e.style.display = '');
     zhBlocks.forEach(e=> e.style.display = 'none');
-    if(btnEn){ btnEn.classList.add('active'); btnEn.setAttribute('aria-pressed','true'); }
-    if(btnZh){ btnZh.classList.remove('active'); btnZh.setAttribute('aria-pressed','false'); }
+    btnEn && btnEn.classList.add('active');
+    btnZh && btnZh.classList.remove('active');
   }
   function showZH(){
     enBlocks.forEach(e=> e.style.display = 'none');
     zhBlocks.forEach(e=> e.style.display = '');
-    if(btnZh){ btnZh.classList.add('active'); btnZh.setAttribute('aria-pressed','true'); }
-    if(btnEn){ btnEn.classList.remove('active'); btnEn.setAttribute('aria-pressed','false'); }
+    btnZh && btnZh.classList.add('active');
+    btnEn && btnEn.classList.remove('active');
   }
-  if(btnEn) btnEn.addEventListener('click', showEN);
-  if(btnZh) btnZh.addEventListener('click', showZH);
+  btnEn && btnEn.addEventListener('click', showEN);
+  btnZh && btnZh.addEventListener('click', showZH);
   showEN();
 
   // Reveal on scroll
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.forEach(e=> io.observe(e));
   })();
 
-  // Smooth anchors (header offset)
+  // Smooth anchors with header offset
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.addEventListener('click', (e)=>{
       const href = a.getAttribute('href');
@@ -47,17 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if(!el) return;
       e.preventDefault();
       const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 92;
-      const top = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
+      const top = el.getBoundingClientRect().top + window.scrollY - headerH - 10;
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });
 
-  // Buy buttons: open buyUrl in new tab if anchor has href (anchors already do), plus coin FX
+  // Buy buttons: coin FX (visual) + allow anchor default open
   document.querySelectorAll('.btn-buy').forEach(btn => {
-    btn.addEventListener('click', (ev) => {
-      coinRain();
-      // allow default anchor behaviour (opening link), so do not call preventDefault.
-    });
+    btn.addEventListener('click', () => { coinRain(); });
   });
 
   function coinRain(){
@@ -79,16 +76,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Footer track pause/resume on hover/touch
+  // Footer track pause/resume on hover & touch
   const footerTrack = document.querySelector('.footer-track');
-  if (footerTrack) {
+  if(footerTrack){
     footerTrack.addEventListener('mouseenter', () => footerTrack.style.animationPlayState = 'paused');
     footerTrack.addEventListener('mouseleave', () => footerTrack.style.animationPlayState = 'running');
     footerTrack.addEventListener('touchstart', () => footerTrack.style.animationPlayState = 'paused');
     footerTrack.addEventListener('touchend', () => footerTrack.style.animationPlayState = 'running');
   }
 
-  // Protect listing images & overlays (best-effort)
+  // Protect listing images (best-effort)
   (function protectImages(){
     const imgs = document.querySelectorAll('.listing-card img');
     imgs.forEach(img => {
@@ -106,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // Console check: list missing images (helps debug if sunperp.png missing)
+  // check missing images (logs)
   (function checkAssets(){
     const imgs = Array.from(document.images);
     imgs.forEach(img=>{
@@ -116,8 +113,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // prevent right-click on images (best-effort)
+  // disable right click on images (best-effort)
   document.addEventListener('contextmenu', (e) => {
     if(e.target && e.target.tagName === 'IMG') e.preventDefault();
   });
+
+  // Mobile background fallback: browsers where fixed is ignored
+  function mobileBgFallback(){
+    if(window.innerWidth <= 980){
+      document.body.style.backgroundAttachment = 'scroll';
+      document.querySelector('.bg') && (document.querySelector('.bg').style.backgroundAttachment = 'scroll');
+    } else {
+      document.body.style.backgroundAttachment = 'fixed';
+      document.querySelector('.bg') && (document.querySelector('.bg').style.backgroundAttachment = 'fixed');
+    }
+  }
+  addEventListener('resize', mobileBgFallback);
+  mobileBgFallback();
 });
