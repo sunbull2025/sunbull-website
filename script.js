@@ -52,10 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Buy buttons: play coin fx (visual)
+  // Buy buttons: visual coin rain
   document.querySelectorAll('.btn-buy').forEach(btn => {
     btn.addEventListener('click', () => {
       coinRain();
+      // button will still follow anchor/href: open in new tab if specified by HTML
     });
   });
 

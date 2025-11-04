@@ -1,11 +1,12 @@
-/* SunBull — final style with fundo.png fullcover, footer loop, listings protected */
+/* SunBull — final, corrected: fundo.png fixed, footer loop, listings balanced */
+
 /* Variables */
 :root{
   --gold:#ffd24a;
   --accent:#f6b03a;
   --header-h:92px;
-  --overlay: rgba(0,0,0,0.56);
-  --footer-speed:12s; /* faster loop if you want reduce to 8s */
+  --overlay: rgba(0,0,0,0.54);
+  --footer-speed:12s;
   --maxw:1100px;
 }
 
@@ -15,13 +16,16 @@ html,body{height:100%;font-family:"Poppins",system-ui,Arial,sans-serif;backgroun
 a{color:var(--gold);text-decoration:none}
 img{display:block;max-width:100%;user-select:none;-webkit-user-drag:none}
 
-/* Background - ensure fixed cover across devices */
-body{background-color:#000}
+/* Background - apply to body AND .bg to be robust on mobile */
+body{
+  background: url('fundo.png') center center / cover no-repeat fixed;
+  background-color:#000;
+}
+/* .bg overlay (keeps bg visible even on devices where fixed may be ignored) */
 .bg{
   position:fixed;inset:0;z-index:-100;background-image:url('fundo.png');
   background-position:center center;background-repeat:no-repeat;background-size:cover;
-  -webkit-background-size:cover;background-attachment:fixed; /* best-effort for desktop */
-  will-change:transform;
+  -webkit-background-size:cover;background-attachment:fixed;
 }
 .bg::after{content:"";position:absolute;inset:0;background:var(--overlay);pointer-events:none}
 
@@ -73,18 +77,18 @@ p,td,th{color:#fff;line-height:1.6}
 .phase img{width:220px;height:120px;object-fit:contain;border-radius:8px;box-shadow:0 12px 40px rgba(0,0,0,0.25)}
 .phase .phase-text{flex:1;padding:6px}
 
-/* listings */
+/* listings - adjusted to avoid giant/cropped items */
 .listings-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:14px}
-.listing-card{width:180px;height:110px;border-radius:12px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;padding:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04))}
-.listing-card img{width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none;border-radius:8px}
+.listing-card{width:220px;max-width:32vw;height:140px;border-radius:12px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;padding:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04))}
+.listing-card img{width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none;border-radius:8px}
 .listing-card.blur img{filter:blur(14px) saturate(1.02) brightness(0.98);transform:scale(1.02)}
 .protect-overlay{position:absolute;inset:0;border-radius:12px;pointer-events:auto;background:transparent}
 
-/* footer */
+/* footer - continuous loop, all logos same height */
 footer{margin-top:36px;padding:18px 8px;text-align:center;position:relative;overflow:hidden}
 .footer-track-wrap{width:100%;overflow:hidden;display:block}
 .footer-track{display:flex;gap:28px;align-items:center;white-space:nowrap;animation:scroll var(--footer-speed) linear infinite;will-change:transform}
-.footer-track img{height:44px;object-fit:contain;filter:brightness(1.15);vertical-align:middle;padding:0 8px}
+.footer-track img{height:44px;object-fit:contain;filter:brightness(1.15);vertical-align:middle;padding:0 12px}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .footer-track:hover{animation-play-state:paused}
 .footer-note{color:rgba(255,255,255,0.82);font-size:13px;margin-top:12px}
@@ -94,7 +98,7 @@ footer{margin-top:36px;padding:18px 8px;text-align:center;position:relative;over
 .small{font-size:0.94rem}
 .gold-quote{color:var(--gold);font-weight:700;margin:12px 0;padding-left:8px;border-left:4px solid rgba(255,210,80,0.12)}
 
-/* responsive */
+/* responsive adjustments */
 @media(max-width:980px){
   :root{--header-h:86px}
   .nav-links{display:none}
