@@ -1,8 +1,8 @@
-// Final script.js — i18n, reveal on scroll, smooth anchors, protections, buy fx, footer pause
+// script.js — final: i18n, reveal on scroll, smooth anchors, protections, buy FX, footer behavior
 document.addEventListener('DOMContentLoaded', () => {
   const buyUrl = 'https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM';
 
-  // language toggle
+  // Language toggle (EN / ZH)
   const btnEn = document.getElementById('btn-en');
   const btnZh = document.getElementById('btn-zh');
   const enBlocks = document.querySelectorAll('.lang-en');
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if(btnZh) btnZh.addEventListener('click', showZH);
   showEN();
 
-  // Reveal on scroll
+  // Reveal on scroll (IntersectionObserver)
   (function(){
     const els = document.querySelectorAll('.reveal, .phase, .listing-card');
     const io = new IntersectionObserver((entries, obs) => {
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.forEach(e=> io.observe(e));
   })();
 
-  // Smooth anchor offset
+  // Smooth anchor offset (account for header height)
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.addEventListener('click', (e)=>{
       const href = a.getAttribute('href');
@@ -52,22 +52,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Buy buttons: anchor links already open; play coin fx
+  // Buy buttons: anchor opens page; play coin fx
   document.querySelectorAll('.btn-buy').forEach(btn => {
     btn.addEventListener('click', () => {
       coinRain();
     });
   });
 
-  // coin rain effect (visual)
+  // coin rain (visual only)
   function coinRain(){
-    for(let i=0;i<12;i++){
+    for(let i=0;i<14;i++){
       const el = document.createElement('div');
       el.className = 'coin-fx';
       el.textContent = '☀️';
-      el.style.left = (8 + Math.random()*84) + '%';
+      el.style.left = (6 + Math.random()*88) + '%';
       el.style.top = '-20px';
-      el.style.fontSize = (12 + Math.random()*28) + 'px';
+      el.style.fontSize = (12 + Math.random()*30) + 'px';
       el.style.opacity = '0.95';
       el.style.transition = 'transform 1.6s cubic-bezier(.2,.8,.2,1), opacity 1.6s linear';
       document.body.appendChild(el);
@@ -81,11 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Footer track pause on hover/touch
   const footerTrack = document.querySelector('.footer-track');
-  if(footerTrack){
-    footerTrack.addEventListener('mouseenter', ()=> footerTrack.style.animationPlayState = 'paused');
-    footerTrack.addEventListener('mouseleave', ()=> footerTrack.style.animationPlayState = 'running');
-    footerTrack.addEventListener('touchstart', ()=> footerTrack.style.animationPlayState = 'paused');
-    footerTrack.addEventListener('touchend', ()=> footerTrack.style.animationPlayState = 'running');
+  if (footerTrack) {
+    footerTrack.addEventListener('mouseenter', () => footerTrack.style.animationPlayState = 'paused');
+    footerTrack.addEventListener('mouseleave', () => footerTrack.style.animationPlayState = 'running');
+    footerTrack.addEventListener('touchstart', () => footerTrack.style.animationPlayState = 'paused');
+    footerTrack.addEventListener('touchend', () => footerTrack.style.animationPlayState = 'running');
   }
 
   // Protect listing images (best-effort)
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // Basic image load check (log missing assets)
+  // Basic image load check — logs missing assets to console
   (function checkAssets(){
     const imgs = Array.from(document.images);
     imgs.forEach(img=>{
@@ -116,9 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // Prevent general right-click on images
+  // Prevent general right-click on images (best-effort)
   document.addEventListener('contextmenu', (e) => {
     if(e.target && e.target.tagName === 'IMG') e.preventDefault();
   });
-
 });

@@ -1,8 +1,8 @@
-/* Final optimized style.css for SunBull site */
+/* SunBull — final style (full narrative version) */
 /* Variables */
 :root{
   --gold:#ffd24a;
-  --gold-2:#f6b03a;
+  --accent:#f6b03a;
   --header-h:92px;
   --overlay: rgba(0,0,0,0.56);
   --footer-speed:8.0s;
@@ -15,34 +15,42 @@ html,body{height:100%;font-family:"Poppins",system-ui,Arial,sans-serif;backgroun
 a{color:var(--gold);text-decoration:none}
 img{display:block;max-width:100%;user-select:none;-webkit-user-drag:none}
 
-/* Fullscreen fixed bg */
-.bg{position:fixed;inset:0;z-index:-100;background-image:url('fundo.png');background-size:cover;background-position:center center;background-repeat:no-repeat}
+/* Background fixed via body fallback & .bg element to be safe (mobile friendly) */
+body{
+  background-color:#000;
+}
+/* The .bg div covers everything and stays fixed */
+.bg{
+  position:fixed;inset:0;z-index:-100;background-image:url('fundo.png');
+  background-position:center center;background-repeat:no-repeat;background-size:cover;
+  will-change:transform;
+}
 .bg::after{content:"";position:absolute;inset:0;background:var(--overlay);pointer-events:none}
 
 /* Header */
-.site-header, header{position:fixed;top:0;left:0;right:0;height:var(--header-h);display:flex;align-items:center;justify-content:center;z-index:1200;background:transparent;backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.02)}
+.site-header, header{position:fixed;top:0;left:0;right:0;height:var(--header-h);display:flex;align-items:center;justify-content:center;z-index:1200;background:transparent;backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.03)}
 .nav-inner{max-width:var(--maxw);width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;gap:12px}
 .left{display:flex;align-items:center;gap:12px}
 .logo-round{width:86px;height:86px;border-radius:50%;overflow:hidden;border:4px solid rgba(255,210,80,0.95);flex-shrink:0;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04))}
 .logo-round img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .brand-title{font-family:'Orbitron',sans-serif;font-weight:800;font-size:18px;color:var(--gold)}
-.brand-sub{font-size:12px;color:rgba(255,255,255,0.9)}
+.brand-sub{font-size:12px;color:rgba(255,255,255,0.92)}
 
 /* nav */
-.nav-links{display:flex;gap:10px;align-items:center}
-.nav-btn{color:#fff;padding:8px 12px;border-radius:8px;font-weight:700}
+.nav-links{display:flex;gap:12px;align-items:center}
+.nav-btn{color:#fff;padding:8px 10px;border-radius:8px;font-weight:700}
 .nav-btn:hover{background:rgba(255,255,255,0.03);color:var(--gold)}
 
 /* actions */
 .nav-actions{display:flex;gap:8px;align-items:center}
-.lang-btn{background:transparent;border:0;color:#fff;font-weight:800;cursor:pointer;padding:6px 10px;border-radius:999px}
+.lang-btn{background:transparent;border:0;color:#fff;font-weight:800;cursor:pointer;padding:6px 8px;border-radius:999px}
 .lang-btn.active{color:var(--gold)}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:0;font-weight:800;cursor:pointer}
-.btn-primary{background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#07101a;box-shadow:0 18px 40px rgba(246,176,58,0.12)}
+.btn-primary{background:linear-gradient(90deg,var(--gold),var(--accent));color:#07101a;box-shadow:0 18px 40px rgba(246,176,58,0.12)}
 .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff}
 .btn-x img{height:18px;width:auto;display:inline-block;filter:brightness(1.05)}
 
-/* main content container */
+/* main */
 main{padding-top:calc(var(--header-h) + 18px)}
 .content{max-width:var(--maxw);margin:36px auto;padding:24px;border-radius:12px;background:linear-gradient(180deg, rgba(0,0,0,0.46), rgba(0,0,0,0.28));box-shadow:0 30px 80px rgba(0,0,0,0.45)}
 .reveal{opacity:0;transform:translateY(8px);transition:all .6s cubic-bezier(.2,.9,.2,1)}
@@ -53,7 +61,7 @@ main{padding-top:calc(var(--header-h) + 18px)}
 .hero-lead{color:rgba(255,255,255,0.95);max-width:920px;margin:8px auto;line-height:1.55}
 .hero-ctas{display:flex;gap:12px;justify-content:center;margin-top:12px;flex-wrap:wrap}
 
-/* headings */
+/* text */
 h2,h3{font-family:'Orbitron',sans-serif;color:var(--gold);margin-bottom:8px}
 p,td,th{color:#fff;line-height:1.6}
 
@@ -62,19 +70,19 @@ p,td,th{color:#fff;line-height:1.6}
 .table th,.table td{padding:12px;border-top:1px solid rgba(255,255,255,0.04);text-align:left}
 .table thead th{color:var(--gold)}
 
-/* roadmap phases */
+/* roadmap */
 .phase{display:flex;gap:18px;align-items:center;padding:12px;border-radius:12px;margin:12px 0;position:relative;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02))}
 .phase img{width:220px;height:120px;object-fit:contain;border-radius:8px;box-shadow:0 12px 40px rgba(0,0,0,0.25)}
 .phase .phase-text{flex:1;padding:6px}
 
-/* listings grid */
+/* listings */
 .listings-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:14px}
 .listing-card{width:180px;height:110px;border-radius:12px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;padding:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04))}
 .listing-card img{width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none;border-radius:8px}
 .listing-card.blur img{filter:blur(14px) saturate(1.02) brightness(0.98);transform:scale(1.02)}
 .protect-overlay{position:absolute;inset:0;border-radius:12px;pointer-events:auto;background:transparent}
 
-/* footer track */
+/* footer */
 footer{margin-top:36px;padding:18px 8px;text-align:center;position:relative;overflow:hidden}
 .footer-track-wrap{width:100%;overflow:hidden;display:block}
 .footer-track{display:flex;gap:28px;align-items:center;white-space:nowrap;animation:scroll var(--footer-speed) linear infinite;will-change:transform}
@@ -83,7 +91,7 @@ footer{margin-top:36px;padding:18px 8px;text-align:center;position:relative;over
 .footer-track:hover{animation-play-state:paused}
 .footer-note{color:rgba(255,255,255,0.82);font-size:13px;margin-top:12px}
 
-/* small helpers */
+/* helpers */
 .muted{color:rgba(255,255,255,0.88)}
 .small{font-size:0.94rem}
 .gold-quote{color:var(--gold);font-weight:700;margin:12px 0;padding-left:8px;border-left:4px solid rgba(255,210,80,0.12)}
