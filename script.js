@@ -1,8 +1,8 @@
-// script.js — final: i18n, reveal on scroll, smooth anchors, protections, buy FX, footer behavior
+// script.js — i18n, reveal on scroll, smooth anchors, protections, buy FX, footer behavior
 document.addEventListener('DOMContentLoaded', () => {
   const buyUrl = 'https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM';
 
-  // Language toggle (EN / ZH)
+  // Language toggle
   const btnEn = document.getElementById('btn-en');
   const btnZh = document.getElementById('btn-zh');
   const enBlocks = document.querySelectorAll('.lang-en');
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.forEach(e=> io.observe(e));
   })();
 
-  // Smooth anchor offset for fixed header
+  // Smooth anchors (header offset)
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.addEventListener('click', (e)=>{
       const href = a.getAttribute('href');
@@ -52,23 +52,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Buy buttons: visual coin rain
+  // Buy buttons: open buyUrl in new tab if anchor has href (anchors already do), plus coin FX
   document.querySelectorAll('.btn-buy').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (ev) => {
       coinRain();
-      // button will still follow anchor/href: open in new tab if specified by HTML
+      // allow default anchor behaviour (opening link), so do not call preventDefault.
     });
   });
 
-  // coin rain (visual only)
   function coinRain(){
-    for(let i=0;i<14;i++){
+    for(let i=0;i<12;i++){
       const el = document.createElement('div');
       el.className = 'coin-fx';
       el.textContent = '☀️';
       el.style.left = (6 + Math.random()*88) + '%';
       el.style.top = '-20px';
-      el.style.fontSize = (12 + Math.random()*30) + 'px';
+      el.style.fontSize = (12 + Math.random()*28) + 'px';
       el.style.opacity = '0.95';
       el.style.transition = 'transform 1.6s cubic-bezier(.2,.8,.2,1), opacity 1.6s linear';
       document.body.appendChild(el);
@@ -80,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Footer track pause on hover/touch
+  // Footer track pause/resume on hover/touch
   const footerTrack = document.querySelector('.footer-track');
   if (footerTrack) {
     footerTrack.addEventListener('mouseenter', () => footerTrack.style.animationPlayState = 'paused');
@@ -107,17 +106,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // Basic image load check — logs missing assets to console
+  // Console check: list missing images (helps debug if sunperp.png missing)
   (function checkAssets(){
     const imgs = Array.from(document.images);
     imgs.forEach(img=>{
       if(!img.complete || (img.complete && img.naturalWidth === 0)){
-        console.warn('Image not loaded or missing:', img.getAttribute('src') || img.src);
+        console.warn('Image missing or failed to load:', img.getAttribute('src') || img.src);
       }
     });
   })();
 
-  // Prevent general right-click on images (best-effort)
+  // prevent right-click on images (best-effort)
   document.addEventListener('contextmenu', (e) => {
     if(e.target && e.target.tagName === 'IMG') e.preventDefault();
   });
