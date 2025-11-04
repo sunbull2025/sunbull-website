@@ -11,20 +11,20 @@ document.addEventListener('DOMContentLoaded', () => {
   function showEN(){
     enBlocks.forEach(e=> e.style.display = '');
     zhBlocks.forEach(e=> e.style.display = 'none');
-    btnEn.classList.add('active'); btnEn.setAttribute('aria-pressed','true');
-    btnZh.classList.remove('active'); btnZh.setAttribute('aria-pressed','false');
+    if(btnEn){ btnEn.classList.add('active'); btnEn.setAttribute('aria-pressed','true'); }
+    if(btnZh){ btnZh.classList.remove('active'); btnZh.setAttribute('aria-pressed','false'); }
   }
   function showZH(){
     enBlocks.forEach(e=> e.style.display = 'none');
     zhBlocks.forEach(e=> e.style.display = '');
-    btnZh.classList.add('active'); btnZh.setAttribute('aria-pressed','true');
-    btnEn.classList.remove('active'); btnEn.setAttribute('aria-pressed','false');
+    if(btnZh){ btnZh.classList.add('active'); btnZh.setAttribute('aria-pressed','true'); }
+    if(btnEn){ btnEn.classList.remove('active'); btnEn.setAttribute('aria-pressed','false'); }
   }
   if(btnEn) btnEn.addEventListener('click', showEN);
   if(btnZh) btnZh.addEventListener('click', showZH);
   showEN();
 
-  // Reveal on scroll (IntersectionObserver)
+  // Reveal on scroll
   (function(){
     const els = document.querySelectorAll('.reveal, .phase, .listing-card');
     const io = new IntersectionObserver((entries, obs) => {
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.forEach(e=> io.observe(e));
   })();
 
-  // Smooth anchor offset (account for header height)
+  // Smooth anchor offset for fixed header
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.addEventListener('click', (e)=>{
       const href = a.getAttribute('href');
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Buy buttons: anchor opens page; play coin fx
+  // Buy buttons: play coin fx (visual)
   document.querySelectorAll('.btn-buy').forEach(btn => {
     btn.addEventListener('click', () => {
       coinRain();
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     footerTrack.addEventListener('touchend', () => footerTrack.style.animationPlayState = 'running');
   }
 
-  // Protect listing images (best-effort)
+  // Protect listing images & overlays (best-effort)
   (function protectImages(){
     const imgs = document.querySelectorAll('.listing-card img');
     imgs.forEach(img => {

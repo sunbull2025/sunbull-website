@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,10 +11,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- fixed background (fundo.png) -->
+  <!-- Fixed fullscreen background -->
   <div class="bg" aria-hidden="true"></div>
 
-  <!-- header -->
+  <!-- Header -->
   <header class="site-header" role="banner" aria-label="SunBull header">
     <div class="nav-inner">
       <div class="left">
@@ -34,11 +35,12 @@
       </nav>
 
       <div class="nav-actions">
-        <button id="btn-en" class="lang-btn active" aria-pressed="true">EN</button>
-        <button id="btn-zh" class="lang-btn" aria-pressed="false">中文</button>
+        <button id="btn-en" class="lang-btn active" aria-pressed="true" aria-label="English">EN</button>
+        <button id="btn-zh" class="lang-btn" aria-pressed="false" aria-label="中文">中文</button>
 
         <a class="btn btn-ghost btn-x" href="https://x.com/SunBullOfficial" target="_blank" rel="noopener" aria-label="Follow on X">
-          <img src="x.png" alt="X"> Follow
+          <img src="x.png" alt="X icon">
+          <span class="visually-hidden">Follow on X</span>
         </a>
 
         <a class="btn btn-primary btn-buy" id="buyTop" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener" aria-label="Buy on SunPump">BUY</a>
@@ -46,6 +48,7 @@
     </div>
   </header>
 
+  <!-- Main -->
   <main id="main">
     <!-- HERO (EN) -->
     <section id="hero" class="content reveal lang-en" role="region" aria-label="Hero">
@@ -54,13 +57,11 @@
         Forged from TRON’s legendary Bull and the explosive memetic energy of SunPump — <strong>SunBull ($SUNBULL)</strong> stands as the cultural emblem of the SUN family: SunPump · SunSwap · SunPerp.
         Built by the community, for the community — our audacious objective is to make <strong>$SUNBULL</strong> the first TRON memecoin to reach <strong>$1B market cap</strong>.
       </p>
-
       <div class="hero-ctas">
         <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">BUY $SUNBULL</a>
         <a class="btn btn-ghost" href="#tokenomics">TOKENOMICS</a>
         <a class="btn btn-ghost" href="#roadmap">ROADMAP</a>
       </div>
-
       <p class="muted small" style="margin-top:12px">Contract (test): <code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
     </section>
 
@@ -71,17 +72,15 @@
         由 TRON 传说中的公牛与 SunPump 爆发性的 Meme 能量锻造而成 —— <strong>SunBull ($SUNBULL)</strong> 是 SUN 家族的文化象征：SunPump · SunSwap · SunPerp。
         由社区为社区打造 —— 我们的目标：成为首个达到 <strong>10 亿美元市值</strong> 的 TRON Meme 币。
       </p>
-
       <div class="hero-ctas">
         <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">购买 $SUNBULL</a>
         <a class="btn btn-ghost" href="#tokenomics">代币经济</a>
         <a class="btn btn-ghost" href="#roadmap">路线图</a>
       </div>
-
       <p class="muted small" style="margin-top:12px">合约（测试）：<code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
     </section>
 
-    <!-- ABOUT (full narrative) -->
+    <!-- ABOUT (full narrative EN + ZH) -->
     <section id="about" class="content reveal" role="region" aria-label="About the legend">
       <div class="lang-en">
         <h2>The Legend of the Sun Bull</h2>
@@ -104,7 +103,8 @@
 
         <h3>Justin Sun — The Spark</h3>
         <p>
-          The TRON ecosystem was ignited by the vision of <strong>Justin Sun</strong>. SunBull is a tribute to that spark — independent in operation but reverent of the energy that powers the network. This project honors the innovation, the ecosystem and the community that make TRON a living platform.
+          The TRON ecosystem was ignited by the vision of <strong>Justin Sun</strong>. SunBull is a tribute to that spark — independent in operation but reverent of the energy that powers the network.
+          This project honors innovation, the ecosystem and the community that keep TRON alive.
         </p>
 
         <h3>Philosophy & Promise</h3>
@@ -120,8 +120,8 @@
         <h2>SunBull 的传奇</h2>
 
         <p>
-          在 TRON 区块链的中心，代码如活太阳般脉动，社区如潮水般咆哮，一个新的传奇被锻造。
-          公牛——TRON 的古老吉祥物，象征着力量、韧性与繁荣——再次升起，在金色烈焰中重生。
+          在 TRON 链的核心，代码如活太阳般脉动，社区如潮水般咆哮，一个新的传奇被锻造。
+          公牛——TRON 的古老吉祥物，象征着力量、韧性与繁荣——在金色烈焰中重生。
         </p>
 
         <p>
@@ -136,7 +136,7 @@
 
         <h3>Justin Sun — 点燃之人</h3>
         <p>
-          波场生态由 <strong>Justin Sun</strong> 的愿景点燃。SunBull 向这道火花致敬 —— 在行动上保持独立，但对推动网络的能量心怀敬意。本项目致敬创新、生态与维系 TRON 的社区。
+          波场生态由 <strong>Justin Sun</strong> 的愿景点燃。SunBull 向这道火花致敬 —— 在行动上保持独立，但对推动网络的能量心怀敬意。
         </p>
 
         <h3>哲学与承诺</h3>
@@ -257,7 +257,7 @@
 
       <div class="lang-zh" style="display:none">
         <h2>路线图 — 传奇之旅</h2>
-        <!-- Chinese phases (mirror content above) -->
+        <!-- Chinese phases mirrored -->
         <div class="phase">
           <img src="phase1.png" alt="Phase 1">
           <div class="phase-text">
@@ -330,7 +330,6 @@
       <div class="lang-zh" style="display:none">
         <h2>即将上线</h2>
         <p class="muted small">官方整合与上架将在 X 上公布。</p>
-        <!-- mirrored listing grid in Chinese block -->
         <div class="listings-grid">
           <div class="listing-card"><img src="listing1.png" alt=""></div>
           <div class="listing-card blur"><img src="listing2.png" alt=""><div class="protect-overlay"></div></div>
