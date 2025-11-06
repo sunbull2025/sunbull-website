@@ -1,26 +1,27 @@
-/* style.css — SunBull vFinal (Solar Edition) */
+/* style.css — Final SunBull (full, responsive, mobile-first) */
+
 :root{
   --gold:#ffd24a;
   --accent:#f6b03a;
+  --ink:#07101a;
   --header-h:92px;
-  --overlay: rgba(0,0,0,0.22);
-  --footer-speed:10s;
-  --maxw:1200px;
-  --listing-blur:16px;
+  --listing-blur:14px; /* adjusted for hype but readable */
   --listing-h:150px;
-  --logo-footer-h:46px;
+  --footer-speed:14s; /* smoother loop */
+  --logo-footer-h:48px;
+  --maxw:1200px;
   --ease:cubic-bezier(.2,.9,.2,1);
 }
 
 /* reset */
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;font-family:"Poppins",system-ui,Arial,sans-serif;background:#000;color:#fff;overflow-x:hidden;scroll-behavior:smooth}
+html,body{height:100%;font-family:'Poppins',system-ui,Arial,sans-serif;background:#000;color:#fff;overflow-x:hidden;scroll-behavior:smooth}
 a{color:var(--gold);text-decoration:none}
 img{display:block;max-width:100%;-webkit-user-drag:none;user-select:none}
 
 /* background */
-.bg{position:fixed;inset:0;z-index:-100;background-image:url('fundo.png');background-position:center center;background-repeat:no-repeat;background-size:cover;background-attachment:fixed;filter:brightness(0.46)}
-.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.34));pointer-events:none}
+.bg{position:fixed;inset:0;z-index:-200;background-image:url('fundo.png');background-position:center center;background-repeat:no-repeat;background-size:cover;background-attachment:fixed;filter:brightness(0.46)}
+.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.34));pointer-events:none}
 
 /* header */
 .site-header{position:fixed;top:0;left:0;right:0;height:var(--header-h);display:flex;align-items:center;justify-content:center;z-index:1400;

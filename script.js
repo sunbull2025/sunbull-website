@@ -11,14 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function showEN(){
     enBlocks.forEach(e=> e.style.display = '');
     zhBlocks.forEach(e=> e.style.display = 'none');
-    btnEn && btnEn.classList.add('active'); btnEn && btnEn.setAttribute('aria-pressed','true');
-    btnZh && btnZh.classList.remove('active'); btnZh && btnZh.setAttribute('aria-pressed','false');
+    if(btnEn){ btnEn.classList.add('active'); btnEn.setAttribute('aria-pressed','true'); }
+    if(btnZh){ btnZh.classList.remove('active'); btnZh.setAttribute('aria-pressed','false'); }
   }
   function showZH(){
     enBlocks.forEach(e=> e.style.display = 'none');
     zhBlocks.forEach(e=> e.style.display = '');
-    btnZh && btnZh.classList.add('active'); btnZh && btnZh.setAttribute('aria-pressed','true');
-    btnEn && btnEn.classList.remove('active'); btnEn && btnEn.setAttribute('aria-pressed','false');
+    if(btnZh){ btnZh.classList.add('active'); btnZh.setAttribute('aria-pressed','true'); }
+    if(btnEn){ btnEn.classList.remove('active'); btnEn.setAttribute('aria-pressed','false'); }
   }
   btnEn && btnEn.addEventListener('click', showEN);
   btnZh && btnZh.addEventListener('click', showZH);
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.forEach(e => io.observe(e));
   })();
 
-  // Universal anchor handler using delegation
+  // Universal anchor handler using delegation (compensate header offset)
   function scrollToWithOffset(selector){
     const el = document.querySelector(selector);
     if(!el) return;
@@ -74,8 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Buy button visual coins effect (non-blocking)
   document.querySelectorAll('.btn-buy').forEach(btn => {
     btn.addEventListener('click', (ev) => {
-      // allow default navigation to buyUrl; just also show coins
-      for(let i=0;i<12;i++){
+      // Visual-only coin rain
+      for(let i=0;i<10;i++){
         const el = document.createElement('div');
         el.className = 'coin-fx';
         el.textContent = '☀️';
@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         setTimeout(()=> el.remove(), 1600);
       }
+      // allow default navigation to work (link target _blank)
     });
   });
 
@@ -99,8 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrap = document.querySelector('.footer-track-wrap');
     const track = document.querySelector('.footer-track');
     if(!wrap || !track) return;
-    const initial = track.querySelector('.footer-set');
-    if(!initial) return;
+    const initial = track.querySelector('.footer-set') || (() => {
+      // fallback: build set from images
+      const set = document.createElement('div'); set.className='footer-set';
+      Array.from(track.children).forEach(el=> set.appendChild(el.cloneNode(true)));
+      return set;
+    })();
 
     function fill(){
       track.innerHTML = '';
@@ -113,11 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
         attempts++;
       }
       if(track.children.length < 2) track.appendChild(initial.cloneNode(true));
-      // ensure animation applied (CSS handles it via keyframes)
       track.style.animation = `scroll var(--footer-speed) linear infinite`;
     }
 
-    // Wait for images to load
+    // Wait for images to load then fill
     const imgs = Array.from(initial.querySelectorAll('img'));
     let loaded = 0;
     if(imgs.length === 0) fill();
@@ -127,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
       img.addEventListener('error', ()=> { loaded++; if(loaded === imgs.length) fill(); });
     });
     setTimeout(fill, 700);
-
     let to; window.addEventListener('resize', ()=> { clearTimeout(to); to = setTimeout(fill, 260); });
 
     // pause on hover/touch
@@ -146,11 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, {capture:false});
 
-    const imgs = document.querySelectorAll('.listing-card');
-    imgs.forEach(img=>{
-      img.setAttribute('draggable','false');
-      // block pointer events handled by CSS (pointer-events:none on blur), also protect overlay interactions
-      const overlay = img.querySelector('.protect-overlay');
+    const cards = document.querySelectorAll('.listing-card');
+    cards.forEach(card=>{
+      card.setAttribute('draggable','false');
+      const overlay = card.querySelector('.protect-overlay');
       if(overlay){
         overlay.addEventListener('contextmenu', e=> e.preventDefault());
         overlay.addEventListener('mousedown', e=> e.preventDefault());
@@ -158,7 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // block copy if selection inside listing (best-effort)
     document.addEventListener('copy', function(e){
       const sel = window.getSelection();
       if(!sel) return;
@@ -185,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // Mobile background fallback: some mobile browsers ignore background-attachment:fixed
+  // Mobile background fallback: some mobile browsers ignore fixed
   function bgFallback(){
     const bg = document.querySelector('.bg');
     if(window.innerWidth <= 980){
