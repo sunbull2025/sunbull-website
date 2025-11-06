@@ -10,10 +10,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Fixed fullscreen background -->
+
+  <!-- Background cover (body fallback + fixed .bg for browsers supporting fixed) -->
   <div class="bg" aria-hidden="true"></div>
 
-  <!-- Header -->
   <header class="site-header" role="banner" aria-label="SunBull header">
     <div class="nav-inner">
       <div class="left">
@@ -35,8 +35,8 @@
       </nav>
 
       <div class="nav-actions">
-        <button id="btn-en" class="lang-btn active" aria-pressed="true" aria-label="English">EN</button>
-        <button id="btn-zh" class="lang-btn" aria-pressed="false" aria-label="中文">中文</button>
+        <button id="btn-en" class="lang-btn active" aria-pressed="true">EN</button>
+        <button id="btn-zh" class="lang-btn" aria-pressed="false">中文</button>
 
         <a class="btn btn-ghost btn-x" href="https://x.com/SunBullOfficial" target="_blank" rel="noopener" aria-label="Follow on X">
           <img src="x.png" alt="X icon" id="xIcon">
@@ -56,7 +56,7 @@
 
   <main id="main">
 
-    <!-- HERO (EN) -->
+    <!-- HERO EN -->
     <section id="hero" class="content reveal lang-en" role="region" aria-label="Hero">
       <h1 class="hero-title">SunBull — The SunPump Mascot</h1>
       <p class="hero-lead">
@@ -73,7 +73,7 @@
       <p class="muted small" style="margin-top:12px">Contract (test): <code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
     </section>
 
-    <!-- HERO (ZH) -->
+    <!-- HERO ZH -->
     <section id="hero-zh" class="content reveal lang-zh" style="display:none" role="region" aria-label="Hero Chinese">
       <h1 class="hero-title">SunBull — SunPump 的吉祥物</h1>
       <p class="hero-lead">
@@ -89,7 +89,7 @@
       <p class="muted small" style="margin-top:12px">合约（测试）：<code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
     </section>
 
-    <!-- ABOUT / FULL NARRATIVE (EN + ZH) -->
+    <!-- ABOUT (full narrative EN + ZH) -->
     <section id="about" class="content reveal" role="region" aria-label="About the legend">
       <div class="lang-en">
         <h2>The Legend of the Sun Bull</h2>
@@ -104,7 +104,7 @@
 
         <h3>The Solar Mission</h3>
         <p>
-          SunBull’s mission is to be the <strong>official mascot of the SunPump community</strong>, representing the meme side of TRON and joining the SUN family — SunPump, SunSwap, SunPerp — as a cultural pillar. Through creators, airdrops, events and on-chain burns, SunBull will rally the #SUNBULLARMY and grow an authentic movement across the TRON ecosystem.
+          SunBull’s mission is to be the <strong>official mascot of the SunPump community</strong>, representing the meme side of TRON and joining the SUN family — SunPump, SunSwap, SunPerp — as a cultural pillar.
         </p>
 
         <h3>Justin Sun — The Spark</h3>
@@ -123,10 +123,9 @@
 
         <blockquote class="gold-quote">“We do not go to the moon. We go to the SUN.”</blockquote>
 
-        <!-- Long Portuguese-style hype paragraph (converted to English to preserve the energy) -->
         <h3>Imperial Hype</h3>
         <p>
-          The Legend of the Sun Bull is cinematic: a saga of resurrection and fire. It is the Bull reborn with solar ambition — a memetic emperor to rally creators, meme-artists and degens across TRON. This is not a token with hidden corners; it is an open cultural experiment — stark, audacious, and community-driven.
+          The Legend of the Sun Bull is cinematic: a saga of resurrection and fire. It is the Bull reborn with solar ambition — a memetic emperor to rally creators, meme-artists and degens across TRON.
         </p>
       </div>
 
@@ -138,15 +137,6 @@
 
         <p>
           源于 Justin Sun 的愿景，SunBull 以社区为先，是 TRON Meme 运动的文化旗帜。我们独立存在，以链上透明和社区庆典为驱动。
-        </p>
-
-        <h3>太阳使命</h3>
-        <p>
-          SunBull 的使命是成为 <strong>SunPump 社区的官方吉祥物</strong>，代表 TRON 的 Meme 一面，并作为 SUN 家族（SunPump、SunSwap、SunPerp）中的文化支柱。通过创作者、空投、活动与链上销毁，SunBull 将团结 #SUNBULLARMY 并在 TRON 生态中发展真实运动。
-        </p>
-        <h3>Justin Sun — 点燃之人</h3>
-        <p>
-          波场生态由 <strong>Justin Sun</strong> 的愿景点燃。SunBull 向这道火花致敬，同时保持独立——这是注重链上透明与社区庆典的文化致敬。
         </p>
       </div>
     </section>
@@ -184,7 +174,7 @@
 
       <div class="lang-zh" style="display:none">
         <h2>代币经济 — 太阳帝国</h2>
-        <p>（见上文中文翻译表）</p>
+        <p>（中文翻译见上文）</p>
       </div>
     </section>
 
@@ -236,7 +226,6 @@
 
       <div class="lang-zh" style="display:none">
         <h2>路线图 — 传奇之旅</h2>
-        <!-- Chinese translations included inline above (kept short here) -->
       </div>
     </section>
 
@@ -269,7 +258,6 @@
 
       <div class="lang-zh" style="display:none">
         <h2>即将上线</h2>
-        <p class="muted small">官方整合与上架将在 X 上公布。</p>
       </div>
     </section>
 
@@ -283,7 +271,6 @@
           <li><strong>Open SunPump</strong> and connect your wallet to the token page.</li>
           <li><strong>Add the contract (optional)</strong>: <code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code>.</li>
           <li><strong>Swap TRX → $SUNBULL</strong> — choose amount, approve and confirm the transaction. Save tx hash.</li>
-          <li><strong>Share</strong> — post memes, engage the community and help the #SUNBULLARMY grow.</li>
         </ol>
         <div style="margin-top:12px"><a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">Open on SunPump</a></div>
       </div>
@@ -296,7 +283,6 @@
           <li><strong>打开 SunPump</strong> 并连接钱包至代币页面。</li>
           <li><strong>添加合约（可选）</strong>: <code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code>。</li>
           <li><strong>兑换 TRX → $SUNBULL</strong> — 选择数量、批准并确认交易，保存交易哈希。</li>
-          <li><strong>分享</strong> — 发布表情包、参与社区并壮大 #SUNBULLARMY。</li>
         </ol>
       </div>
     </section>
@@ -314,7 +300,6 @@
 
       <div class="lang-zh" style="display:none">
         <h2>加入 #SUNBULLARMY</h2>
-        <p class="muted">我们代表 TRON 的 Meme 灵魂。关注官方 X 获取销毁、空投及社区活动信息。</p>
       </div>
     </section>
 
@@ -324,7 +309,7 @@
   <footer role="contentinfo" aria-label="Footer">
     <div class="footer-track-wrap" aria-hidden="false">
       <div class="footer-track" aria-hidden="true" role="presentation">
-        <div class="footer-set" data-set="1">
+        <div class="footer-set">
           <img src="tron.png" alt="TRON logo">
           <img src="sunpump.png" alt="SunPump logo">
           <img src="sunswap.png" alt="SunSwap logo">

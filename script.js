@@ -1,38 +1,38 @@
-// script.js — SunBull final (i18n, scroll, protections, footer loop, effects)
+// script.js — final corrections (i18n, smooth scroll, footer loop, protections, effects)
 document.addEventListener('DOMContentLoaded', () => {
   const buyUrl = 'https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM';
 
-  // i18n buttons
+  // i18n
   const btnEn = document.getElementById('btn-en');
   const btnZh = document.getElementById('btn-zh');
   const enBlocks = document.querySelectorAll('.lang-en');
   const zhBlocks = document.querySelectorAll('.lang-zh');
 
   function showEN(){
-    enBlocks.forEach(e=> e.style.display = '');
-    zhBlocks.forEach(e=> e.style.display = 'none');
-    if(btnEn){ btnEn.classList.add('active'); btnEn.setAttribute('aria-pressed','true'); }
-    if(btnZh){ btnZh.classList.remove('active'); btnZh.setAttribute('aria-pressed','false'); }
+    enBlocks.forEach(e=>e.style.display='');
+    zhBlocks.forEach(e=>e.style.display='none');
+    btnEn && btnEn.classList.add('active'); btnEn && btnEn.setAttribute('aria-pressed','true');
+    btnZh && btnZh.classList.remove('active'); btnZh && btnZh.setAttribute('aria-pressed','false');
   }
   function showZH(){
-    enBlocks.forEach(e=> e.style.display = 'none');
-    zhBlocks.forEach(e=> e.style.display = '');
-    if(btnZh){ btnZh.classList.add('active'); btnZh.setAttribute('aria-pressed','true'); }
-    if(btnEn){ btnEn.classList.remove('active'); btnEn.setAttribute('aria-pressed','false'); }
+    enBlocks.forEach(e=>e.style.display='none');
+    zhBlocks.forEach(e=>e.style.display='');
+    btnZh && btnZh.classList.add('active'); btnZh && btnZh.setAttribute('aria-pressed','true');
+    btnEn && btnEn.classList.remove('active'); btnEn && btnEn.setAttribute('aria-pressed','false');
   }
   btnEn && btnEn.addEventListener('click', showEN);
   btnZh && btnZh.addEventListener('click', showZH);
   showEN();
 
-  // Logo pulse
-  (function logoPulse(){
+  // Logo pulse subtle
+  (function(){
     const logo = document.querySelector('.logo-circle');
     if(!logo) return;
-    setInterval(()=> logo.classList.toggle('glow'), 2800);
+    setInterval(()=> logo.classList.toggle('glow'), 3000);
   })();
 
   // Reveal on scroll
-  (function revealOnScroll(){
+  (function(){
     const els = document.querySelectorAll('.reveal, .phase, .listing-card');
     const io = new IntersectionObserver((entries, obs) => {
       entries.forEach(en => {
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.forEach(e => io.observe(e));
   })();
 
-  // Universal anchor handler using delegation (compensate header offset)
+  // Smooth scroll with header offset
   function scrollToWithOffset(selector){
     const el = document.querySelector(selector);
     if(!el) return;
@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top, behavior: 'smooth' });
   }
 
+  // Delegated anchor handler (works for nav buttons and mobile bar)
   document.body.addEventListener('click', (ev) => {
     const btn = ev.target.closest('[data-anchor]');
     if(btn){
@@ -62,20 +63,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const sel = btn.getAttribute('data-anchor');
       if(sel) scrollToWithOffset(sel);
     }
+    // ensure native anchor links with href="#..." also work
+    const a = ev.target.closest('a[href^="#"]');
+    if(a){ ev.preventDefault(); const href=a.getAttribute('href'); if(href) scrollToWithOffset(href); }
   }, {passive:false});
 
-  // Mobile bar anchors
+  // Mobile bar anchors (ensure they exist)
   document.querySelectorAll('.mobile-bar .btn').forEach(b=>{
     b.addEventListener('click', (e)=>{
       const sel = b.getAttribute('data-anchor'); if(sel) scrollToWithOffset(sel);
     });
   });
 
-  // Buy button visual coins effect (non-blocking)
+  // Buy button effect (visual) — non-blocking
   document.querySelectorAll('.btn-buy').forEach(btn => {
-    btn.addEventListener('click', (ev) => {
-      // Visual-only coin rain
-      for(let i=0;i<10;i++){
+    btn.addEventListener('click', () => {
+      for(let i=0;i<9;i++){
         const el = document.createElement('div');
         el.className = 'coin-fx';
         el.textContent = '☀️';
@@ -91,48 +94,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         setTimeout(()=> el.remove(), 1600);
       }
-      // allow default navigation to work (link target _blank)
     });
   });
 
-  // Footer track: clone until width sufficient for a smooth loop
+  // Footer loop: ensure duplication until wider than viewport for smooth loop
   (function footerLoop(){
     const wrap = document.querySelector('.footer-track-wrap');
     const track = document.querySelector('.footer-track');
     if(!wrap || !track) return;
-    const initial = track.querySelector('.footer-set') || (() => {
-      // fallback: build set from images
-      const set = document.createElement('div'); set.className='footer-set';
-      Array.from(track.children).forEach(el=> set.appendChild(el.cloneNode(true)));
-      return set;
-    })();
+    const baseSet = track.querySelector('.footer-set');
+    if(!baseSet) return;
 
-    function fill(){
+    function build(){
       track.innerHTML = '';
       let totalW = 0;
-      let attempts = 0;
-      while(totalW < wrap.clientWidth * 2.2 && attempts < 12){
-        const clone = initial.cloneNode(true);
+      let tries = 0;
+      // append clones until scrollWidth > 2x viewport (smooth)
+      while(totalW < wrap.clientWidth * 2 && tries < 12){
+        const clone = baseSet.cloneNode(true);
         track.appendChild(clone);
         totalW = track.scrollWidth;
-        attempts++;
+        tries++;
       }
-      if(track.children.length < 2) track.appendChild(initial.cloneNode(true));
+      // always ensure at least two sets
+      if(track.children.length < 2) track.appendChild(baseSet.cloneNode(true));
       track.style.animation = `scroll var(--footer-speed) linear infinite`;
     }
 
-    // Wait for images to load then fill
-    const imgs = Array.from(initial.querySelectorAll('img'));
+    // Wait images to load
+    const imgs = Array.from(baseSet.querySelectorAll('img'));
     let loaded = 0;
-    if(imgs.length === 0) fill();
+    if(imgs.length === 0) build();
     imgs.forEach(img=>{
       if(img.complete) loaded++;
-      else img.addEventListener('load', ()=> { loaded++; if(loaded === imgs.length) fill(); });
-      img.addEventListener('error', ()=> { loaded++; if(loaded === imgs.length) fill(); });
+      else img.addEventListener('load', ()=>{ loaded++; if(loaded===imgs.length) build(); });
+      img.addEventListener('error', ()=>{ loaded++; if(loaded===imgs.length) build(); });
     });
-    setTimeout(fill, 700);
-    let to; window.addEventListener('resize', ()=> { clearTimeout(to); to = setTimeout(fill, 260); });
-
+    setTimeout(build, 700);
+    window.addEventListener('resize', ()=> setTimeout(build, 220));
     // pause on hover/touch
     track.addEventListener('mouseenter', ()=> track.style.animationPlayState = 'paused');
     track.addEventListener('mouseleave', ()=> track.style.animationPlayState = 'running');
@@ -140,53 +139,45 @@ document.addEventListener('DOMContentLoaded', () => {
     track.addEventListener('touchend', ()=> track.style.animationPlayState = 'running');
   })();
 
-  // Protect listings: block contextmenu/drag and prevent click open (best effort)
-  (function protectListings(){
+  // Protect listings & images (best-effort)
+  (function protect(){
+    // block right-click on images
     document.addEventListener('contextmenu', (e) => {
-      const target = e.target;
-      if(target && (target.classList && (target.classList.contains('listing-card') || target.closest && target.closest('.listing-card')))){
-        e.preventDefault();
-      }
+      const el = e.target;
+      if(el && el.tagName === 'IMG' && el.closest('.listing-card')) e.preventDefault();
     }, {capture:false});
 
-    const cards = document.querySelectorAll('.listing-card');
-    cards.forEach(card=>{
+    // block drag and click on listing cards
+    document.querySelectorAll('.listing-card').forEach(card => {
       card.setAttribute('draggable','false');
+      card.addEventListener('dragstart', e => e.preventDefault());
       const overlay = card.querySelector('.protect-overlay');
       if(overlay){
-        overlay.addEventListener('contextmenu', e=> e.preventDefault());
         overlay.addEventListener('mousedown', e=> e.preventDefault());
         overlay.addEventListener('touchstart', e=> e.preventDefault(), {passive:false});
+        overlay.addEventListener('contextmenu', e=> e.preventDefault());
       }
     });
 
+    // intercept copy if selection inside listing
     document.addEventListener('copy', function(e){
       const sel = window.getSelection();
       if(!sel) return;
       const anchorNode = sel.anchorNode && (sel.anchorNode.nodeType === 3 ? sel.anchorNode.parentElement : sel.anchorNode);
-      if(anchorNode && anchorNode.closest && anchorNode.closest('.listing-card')){
-        e.preventDefault();
-      }
+      if(anchorNode && anchorNode.closest && anchorNode.closest('.listing-card')) e.preventDefault();
     });
   })();
 
-  // Disable right click on images globally (best-effort)
-  document.addEventListener('contextmenu', (e) => {
-    const el = e.target;
-    if(el && el.tagName === 'IMG') e.preventDefault();
-  });
-
-  // Asset check (console warnings)
-  (function checkAssets(){
-    const imgs = Array.from(document.images);
-    imgs.forEach(img=>{
+  // Image load check (console warnings)
+  (function assetCheck(){
+    Array.from(document.images).forEach(img => {
       if(!img.complete || (img.complete && img.naturalWidth === 0)){
         console.warn('Image missing or failed to load:', img.getAttribute('src') || img.src);
       }
     });
   })();
 
-  // Mobile background fallback: some mobile browsers ignore fixed
+  // Mobile background fallback for browsers that ignore fixed
   function bgFallback(){
     const bg = document.querySelector('.bg');
     if(window.innerWidth <= 980){
@@ -197,4 +188,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   addEventListener('resize', bgFallback);
   bgFallback();
+
 });
