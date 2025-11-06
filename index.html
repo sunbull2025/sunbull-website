@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Fullscreen background (fundo.png) -->
+  <!-- Background -->
   <div class="bg" aria-hidden="true"></div>
 
   <!-- Header -->
@@ -18,7 +18,7 @@
     <div class="nav-inner">
       <div class="left">
         <div class="logo-round" title="SunBull">
-          <img src="logo.png" alt="SunBull logo">
+          <img src="logo.png" alt="SunBull logo" id="mainLogo">
         </div>
         <div class="brand">
           <div class="brand-title">SunBull <span class="muted">$SUNBULL</span></div>
@@ -47,7 +47,7 @@
     </div>
   </header>
 
-  <!-- Mobile sticky bar for quick navigation -->
+  <!-- Mobile sticky bar -->
   <div class="mobile-bar" aria-hidden="true">
     <button class="btn btn-primary" data-anchor="#howto">Buy</button>
     <button class="btn btn-ghost" data-anchor="#roadmap">Roadmap</button>
@@ -85,8 +85,8 @@
       <p class="muted small">合约（测试）：<code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
     </section>
 
-    <!-- ABOUT (complete narrative EN + ZH) -->
-    <section id="about" class="content reveal" role="region" aria-label="About the legend">
+    <!-- ABOUT -->
+    <section id="about" class="content reveal" role="region" aria-label="About">
       <div class="lang-en">
         <h2>The Legend of the Sun Bull</h2>
 
@@ -127,17 +127,21 @@
           在 TRON 的核心，代码如同活生生的太阳跳动，社区在区块里咆哮，一个新的传奇被锻造。
           公牛——TRON 的古老吉祥物——再次重生，被金色烈焰包裹。
         </p>
+
         <p>
           这些烈焰源于社区的熔炉：<strong>SunPump</strong>。创作者、表情包作者和建设者聚集，公牛的意志与 SunPump 的病毒能量融合，形成了 <strong>SunBull ($SUNBULL)</strong> —— 不仅是代币，而是 TRON Meme Season 的文化旗帜。
         </p>
+
         <h3>太阳使命</h3>
         <p>
           SunBull 的目标是成为 <strong>SunPump 社区的吉祥物</strong>，代表 TRON 的 Meme 文化，成为 SUN 家族（SunPump、SunSwap、SunPerp）内的新文化支柱。
         </p>
+
         <h3>Justin Sun — 点燃之人</h3>
         <p>
           波场生态由 <strong>Justin Sun</strong> 的愿景点燃；SunBull 向那道火花致敬，同时保持独立并由社区驱动。
         </p>
+
         <blockquote class="gold-quote">“我们不是去月球，我们直达太阳。”</blockquote>
       </div>
     </section>
@@ -175,26 +179,12 @@
 
       <div class="lang-zh" style="display:none">
         <h2>代币经济 — 太阳帝国</h2>
-        <!-- Chinese tokenomics mirrored -->
+        <!-- mirrored Chinese tokenomics (as before) -->
         <table class="table token-table" aria-label="Token distribution">
           <thead><tr><th>类别</th><th>分配</th><th>说明</th></tr></thead>
           <tbody>
             <tr><td><strong>社区与流动性</strong></td><td>990,000,000 $SUNBULL (99%)</td><td>通过 SunPump 与公开上架分发 — 社区流动性与空投。</td></tr>
             <tr><td><strong>团队 / 销毁储备</strong></td><td>10,000,000 $SUNBULL (1%)</td><td>仅用于里程碑仪式性销毁（链上公开）。</td></tr>
-          </tbody>
-        </table>
-        <h3>🔥 仪式性销毁计划</h3>
-        <table class="table burn-table" aria-label="Burn schedule">
-          <thead><tr><th>市值（美元）</th><th>销毁数量</th><th>目的</th></tr></thead>
-          <tbody>
-            <tr><td>$10,000,000</td><td>2,000,000</td><td>首次太阳之焰 — 觉醒。</td></tr>
-            <tr><td>$20,000,000</td><td>1,000,000</td><td>社区增长。</td></tr>
-            <tr><td>$50,000,000</td><td>1,000,000</td><td>扩张。</td></tr>
-            <tr><td>$100,000,000</td><td>1,000,000</td><td>永恒之焰。</td></tr>
-            <tr><td>$250,000,000</td><td>1,000,000</td><td>SUN 家族团结。</td></tr>
-            <tr><td>$500,000,000</td><td>1,000,000</td><td>网络闪耀。</td></tr>
-            <tr><td>$750,000,000</td><td>1,000,000</td><td>帝国巩固。</td></tr>
-            <tr><td>$1,000,000,000</td><td><strong>2,000,000</strong></td><td>加冕 — Meme 帝王诞生。</td></tr>
           </tbody>
         </table>
       </div>
@@ -204,19 +194,41 @@
     <section id="roadmap" class="content reveal" role="region" aria-label="Roadmap">
       <div class="lang-en">
         <h2>Roadmap — Story as Journey</h2>
-        <div class="phase"><img src="phase1.png" alt="Phase 1"><div class="phase-text"><h3>Phase 1 — The Birth of the Sun Bull</h3><p>Create $SUNBULL on SunPump, publish manifesto and tokenomics, launch site & hub, begin airdrops & meme campaigns.</p></div></div>
-        <div class="phase"><img src="phase2.png" alt="Phase 2"><div class="phase-text"><h3>Phase 2 — The Rise of the Meme</h3><p>Grow #SUNBULLARMY and commence scheduled burns per milestones.</p></div></div>
-        <div class="phase"><img src="phase3.png" alt="Phase 3"><div class="phase-text"><h3>Phase 3 — Unity of the TRON Community</h3><p>Limited NFTs, TRON dApp integrations and international awareness.</p></div></div>
-        <div class="phase"><img src="phase4.png" alt="Phase 4"><div class="phase-text"><h3>Phase 4 — The Fire of the Bull (Burns)</h3><p>Execute team burns on-chain; celebrate with cultural drops.</p></div></div>
-        <div class="phase"><img src="phase5.png" alt="Phase 5"><div class="phase-text"><h3>Phase 5 — Meme Immortality</h3><p>Reach $1B market cap and finalize ceremonial burn; SunBull immortalized.</p></div></div>
+
+        <div class="phase">
+          <div class="phase-thumb" style="background-image:url('phase1.png')" role="img" aria-label="Phase 1"></div>
+          <div class="phase-text"><h3>Phase 1 — The Birth of the Sun Bull</h3><p>Create $SUNBULL on SunPump, publish manifesto and tokenomics, launch site & hub, begin airdrops & meme campaigns.</p></div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-thumb" style="background-image:url('phase2.png')"></div>
+          <div class="phase-text"><h3>Phase 2 — The Rise of the Meme</h3><p>Grow #SUNBULLARMY and commence scheduled burns per milestones.</p></div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-thumb" style="background-image:url('phase3.png')"></div>
+          <div class="phase-text"><h3>Phase 3 — Unity of the TRON Community</h3><p>Limited NFTs, TRON dApp integrations and international awareness.</p></div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-thumb" style="background-image:url('phase4.png')"></div>
+          <div class="phase-text"><h3>Phase 4 — The Fire of the Bull (Burns)</h3><p>Execute team burns on-chain; celebrate with cultural drops.</p></div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-thumb" style="background-image:url('phase5.png')"></div>
+          <div class="phase-text"><h3>Phase 5 — Meme Immortality</h3><p>Reach $1B market cap and finalize ceremonial burn; SunBull immortalized.</p></div>
+        </div>
       </div>
+
       <div class="lang-zh" style="display:none">
         <h2>路线图 — 传奇之旅</h2>
-        <div class="phase"><img src="phase1.png" alt="Phase 1"><div class="phase-text"><h3>阶段 1 — Sun Bull 的诞生</h3><p>在 SunPump 上创建 $SUNBULL，发布宣言与代币经济，启动网站与社区中心。</p></div></div>
-        <div class="phase"><img src="phase2.png" alt="Phase 2"><div class="phase-text"><h3>阶段 2 — Meme 的崛起</h3><p>壮大 #SUNBULLARMY 并进行里程碑销毁。</p></div></div>
-        <div class="phase"><img src="phase3.png" alt="Phase 3"><div class="phase-text"><h3>阶段 3 — 社区团结</h3><p>发行限量 NFT 并推动整合。</p></div></div>
-        <div class="phase"><img src="phase4.png" alt="Phase 4"><div class="phase-text"><h3>阶段 4 — 公牛之火（销毁）</h3><p>在里程碑执行团队销毁 —— 链上公开透明，并伴随文化空投庆祝。</p></div></div>
-        <div class="phase"><img src="phase5.png" alt="Phase 5"><div class="phase-text"><h3>阶段 5 — Meme 的不朽</h3><p>达到 10 亿美金市值，最终仪式性销毁，SunBull 成为波场的永久吉祥物。</p></div></div>
+        <!-- same phases in Chinese -->
+        <div class="phase"><div class="phase-thumb" style="background-image:url('phase1.png')"></div><div class="phase-text"><h3>阶段 1 — Sun Bull 的诞生</h3><p>在 SunPump 上创建 $SUNBULL，发布宣言与代币经济，启动网站与社区中心。</p></div></div>
+        <div class="phase"><div class="phase-thumb" style="background-image:url('phase2.png')"></div><div class="phase-text"><h3>阶段 2 — Meme 的崛起</h3><p>壮大 #SUNBULLARMY 并进行里程碑销毁。</p></div></div>
+        <div class="phase"><div class="phase-thumb" style="background-image:url('phase3.png')"></div><div class="phase-text"><h3>阶段 3 — 社区团结</h3><p>发行限量 NFT 并推动整合。</p></div></div>
+        <div class="phase"><div class="phase-thumb" style="background-image:url('phase4.png')"></div><div class="phase-text"><h3>阶段 4 — 公牛之火（销毁）</h3><p>在里程碑执行团队销毁 —— 链上公开透明，并伴随文化空投庆祝。</p></div></div>
+        <div class="phase"><div class="phase-thumb" style="background-image:url('phase5.png')"></div><div class="phase-text"><h3>阶段 5 — Meme 的不朽</h3><p>达到 10 亿美金市值，最终仪式性销毁，SunBull 成为波场的永久吉祥物。</p></div></div>
       </div>
     </section>
 
@@ -225,28 +237,30 @@
       <div class="lang-en">
         <h2>Upcoming Listings</h2>
         <p class="muted small">Official integrations and listings will be announced on X.</p>
+
         <div class="listings-grid" aria-hidden="false">
-          <div class="listing-card"><img src="listing1.png" alt="listing1"></div>
-          <div class="listing-card blur"><img src="listing2.png" alt="listing2"><div class="protect-overlay" aria-hidden="true"></div></div>
-          <div class="listing-card blur"><img src="listing3.png" alt="listing3"><div class="protect-overlay" aria-hidden="true"></div></div>
-          <div class="listing-card blur"><img src="listing4.png" alt="listing4"><div class="protect-overlay" aria-hidden="true"></div></div>
-          <div class="listing-card blur"><img src="listing5.png" alt="listing5"><div class="protect-overlay" aria-hidden="true"></div></div>
+          <div class="listing-card listing-visible" style="background-image:url('listing1.png');" aria-label="Listing 1"></div>
+          <div class="listing-card blur" style="background-image:url('listing2.png');" aria-hidden="true"></div>
+          <div class="listing-card blur" style="background-image:url('listing3.png');" aria-hidden="true"></div>
+          <div class="listing-card blur" style="background-image:url('listing4.png');" aria-hidden="true"></div>
+          <div class="listing-card blur" style="background-image:url('listing5.png');" aria-hidden="true"></div>
         </div>
       </div>
+
       <div class="lang-zh" style="display:none">
         <h2>即将上线</h2>
         <p class="muted small">官方整合与上架将在 X 上公布。</p>
         <div class="listings-grid">
-          <div class="listing-card"><img src="listing1.png" alt=""></div>
-          <div class="listing-card blur"><img src="listing2.png" alt=""><div class="protect-overlay"></div></div>
-          <div class="listing-card blur"><img src="listing3.png" alt=""><div class="protect-overlay"></div></div>
-          <div class="listing-card blur"><img src="listing4.png" alt=""><div class="protect-overlay"></div></div>
-          <div class="listing-card blur"><img src="listing5.png" alt=""><div class="protect-overlay"></div></div>
+          <div class="listing-card listing-visible" style="background-image:url('listing1.png');"></div>
+          <div class="listing-card blur" style="background-image:url('listing2.png');"></div>
+          <div class="listing-card blur" style="background-image:url('listing3.png');"></div>
+          <div class="listing-card blur" style="background-image:url('listing4.png');"></div>
+          <div class="listing-card blur" style="background-image:url('listing5.png');"></div>
         </div>
       </div>
     </section>
 
-    <!-- HOW TO BUY (before footer for conversion) -->
+    <!-- HOW TO BUY -->
     <section id="howto" class="content reveal" role="region" aria-label="How to buy">
       <div class="lang-en">
         <h2>How to Buy $SUNBULL</h2>
@@ -260,6 +274,7 @@
         </ol>
         <div style="margin-top:12px"><a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">Open on SunPump</a></div>
       </div>
+
       <div class="lang-zh" style="display:none">
         <h2>如何购买 $SUNBULL</h2>
         <ol class="how-list">
