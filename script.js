@@ -63,12 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const sel = btn.getAttribute('data-anchor');
       if(sel) scrollToWithOffset(sel);
     }
-    // ensure native anchor links with href="#..." also work
     const a = ev.target.closest('a[href^="#"]');
     if(a){ ev.preventDefault(); const href=a.getAttribute('href'); if(href) scrollToWithOffset(href); }
   }, {passive:false});
 
-  // Mobile bar anchors (ensure they exist)
+  // Mobile bar anchors
   document.querySelectorAll('.mobile-bar .btn').forEach(b=>{
     b.addEventListener('click', (e)=>{
       const sel = b.getAttribute('data-anchor'); if(sel) scrollToWithOffset(sel);
@@ -109,19 +108,16 @@ document.addEventListener('DOMContentLoaded', () => {
       track.innerHTML = '';
       let totalW = 0;
       let tries = 0;
-      // append clones until scrollWidth > 2x viewport (smooth)
       while(totalW < wrap.clientWidth * 2 && tries < 12){
         const clone = baseSet.cloneNode(true);
         track.appendChild(clone);
         totalW = track.scrollWidth;
         tries++;
       }
-      // always ensure at least two sets
       if(track.children.length < 2) track.appendChild(baseSet.cloneNode(true));
       track.style.animation = `scroll var(--footer-speed) linear infinite`;
     }
 
-    // Wait images to load
     const imgs = Array.from(baseSet.querySelectorAll('img'));
     let loaded = 0;
     if(imgs.length === 0) build();
@@ -132,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     setTimeout(build, 700);
     window.addEventListener('resize', ()=> setTimeout(build, 220));
-    // pause on hover/touch
     track.addEventListener('mouseenter', ()=> track.style.animationPlayState = 'paused');
     track.addEventListener('mouseleave', ()=> track.style.animationPlayState = 'running');
     track.addEventListener('touchstart', ()=> track.style.animationPlayState = 'paused');
@@ -141,13 +136,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Protect listings & images (best-effort)
   (function protect(){
-    // block right-click on images
     document.addEventListener('contextmenu', (e) => {
       const el = e.target;
       if(el && el.tagName === 'IMG' && el.closest('.listing-card')) e.preventDefault();
     }, {capture:false});
 
-    // block drag and click on listing cards
     document.querySelectorAll('.listing-card').forEach(card => {
       card.setAttribute('draggable','false');
       card.addEventListener('dragstart', e => e.preventDefault());
@@ -159,7 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // intercept copy if selection inside listing
     document.addEventListener('copy', function(e){
       const sel = window.getSelection();
       if(!sel) return;
@@ -168,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // Image load check (console warnings)
+  // Asset console check
   (function assetCheck(){
     Array.from(document.images).forEach(img => {
       if(!img.complete || (img.complete && img.naturalWidth === 0)){
