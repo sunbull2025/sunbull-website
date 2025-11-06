@@ -1,12 +1,12 @@
-/* style.css — SunBull v6.5 final */
+/* style.css — SunBull v6.6 final (Android fixes + footer loop + blur touch) */
 :root{
   --gold:#ffd24a;
   --accent:#f6b03a;
   --header-h:92px;
   --overlay: rgba(0,0,0,0.30);
-  --footer-speed:10s; /* fast loop as requested */
+  --footer-speed:8s; /* faster loop requested */
   --maxw:1150px;
-  --listing-blur:6px;
+  --listing-blur:5px; /* reduced blur for visibility */
 }
 
 /* reset */
@@ -24,17 +24,17 @@ body{
 .bg::after{content:"";position:absolute;inset:0;background:var(--overlay);pointer-events:none}
 
 /* header */
-.site-header{position:fixed;top:0;left:0;right:0;height:var(--header-h);display:flex;align-items:center;justify-content:center;z-index:1200;background:transparent;backdrop-filter:blur(4px)}
+.site-header{position:fixed;top:0;left:0;right:0;height:var(--header-h);display:flex;align-items:center;justify-content:center;z-index:1400;background:transparent;backdrop-filter:blur(4px);pointer-events:auto}
 .nav-inner{max-width:var(--maxw);width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 18px;gap:12px}
 .left{display:flex;align-items:center;gap:12px}
 .logo-round{width:88px;height:88px;border-radius:50%;overflow:hidden;border:4px solid rgba(255,210,80,0.95);flex-shrink:0;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03))}
 .logo-round img{width:100%;height:100%;object-fit:cover;border-radius:50%;aspect-ratio:1/1;display:block;filter:drop-shadow(0 10px 30px rgba(246,176,58,0.12))}
 .brand-title{font-family:'Orbitron',sans-serif;font-weight:800;font-size:18px;color:var(--gold)}
-.brand-sub{font-size:12px;color:rgba(255,255,255,0.9)}
+.brand-sub{font-size:12px;color:rgba(255,255,255,0.92)}
 
 /* nav */
 .nav-links{display:flex;gap:10px;align-items:center}
-.nav-btn{color:#fff;padding:8px 10px;border-radius:8px;font-weight:700}
+.nav-btn{color:#fff;padding:8px 10px;border-radius:8px;font-weight:700;cursor:pointer}
 .nav-btn:hover{background:rgba(255,255,255,0.03);color:var(--gold)}
 
 /* actions */
@@ -44,7 +44,7 @@ body{
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:0;font-weight:800;cursor:pointer}
 .btn-primary{background:linear-gradient(90deg,var(--gold),var(--accent));color:#07101a;box-shadow:0 18px 40px rgba(246,176,58,0.12)}
 .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff}
-.btn-x img{height:28px;width:28px;object-fit:contain;border-radius:50%;display:inline-block;vertical-align:middle}
+.btn-x img{height:28px;width:auto;object-fit:contain;border-radius:6px;display:block}
 
 /* main */
 main{padding-top:calc(var(--header-h) + 18px)}
@@ -81,13 +81,19 @@ p,td,th,li{color:#fff;line-height:1.6}
 /* pulse for hype */
 @keyframes pulseBlur { 0%{filter: blur(var(--listing-blur)) saturate(1.06)} 50%{filter: blur(calc(var(--listing-blur) - 2px)) saturate(1.10)} 100%{filter: blur(var(--listing-blur)) saturate(1.06)} }
 .listing-card.blur img { animation: pulseBlur 3.2s ease-in-out infinite; }
+/* clear class on touch/hover to temporarily remove blur */
+.listing-card.blur.clear img{filter:none;animation:none;transform:scale(1);}
 
 /* protect overlay */
 .protect-overlay{position:absolute;inset:0;border-radius:12px;pointer-events:auto;background:transparent}
 
-/* how to buy */
-.how-list{margin-top:12px;padding-left:18px;color:#fff}
-.how-list li{margin-bottom:10px}
+/* mobile bar */
+.mobile-bar{display:none}
+@media(max-width:980px){
+  .mobile-bar{display:flex;position:fixed;left:12px;right:12px;bottom:18px;z-index:1600;gap:10px;align-items:center;justify-content:center;padding:10px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));box-shadow:0 20px 60px rgba(10,10,10,0.08)}
+  .mobile-bar .btn{flex:1}
+  body{padding-bottom:92px}
+}
 
 /* footer - seamless loop */
 footer{margin-top:36px;padding:18px 8px;text-align:center;position:relative;overflow:hidden}
@@ -104,7 +110,7 @@ footer{margin-top:36px;padding:18px 8px;text-align:center;position:relative;over
 .small{font-size:0.94rem}
 .gold-quote{color:var(--gold);font-weight:700;margin:12px 0;padding-left:8px;border-left:4px solid rgba(255,210,80,0.12)}
 
-/* responsive */
+/* responsive tweaks */
 @media(max-width:980px){
   :root{--header-h:86px}
   .nav-links{display:none}

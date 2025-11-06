@@ -27,11 +27,11 @@
       </div>
 
       <nav class="nav-links" aria-label="Main navigation">
-        <a class="nav-btn" href="#about">About</a>
-        <a class="nav-btn" href="#tokenomics">Tokenomics</a>
-        <a class="nav-btn" href="#roadmap">Roadmap</a>
-        <a class="nav-btn" href="#listings">Listings</a>
-        <a class="nav-btn" href="#howto">How to Buy</a>
+        <a class="nav-btn" data-anchor="#about">About</a>
+        <a class="nav-btn" data-anchor="#tokenomics">Tokenomics</a>
+        <a class="nav-btn" data-anchor="#roadmap">Roadmap</a>
+        <a class="nav-btn" data-anchor="#listings">Listings</a>
+        <a class="nav-btn" data-anchor="#howto">How to Buy</a>
       </nav>
 
       <div class="nav-actions">
@@ -47,6 +47,13 @@
     </div>
   </header>
 
+  <!-- Mobile sticky bar for quick navigation (visible on small screens) -->
+  <div class="mobile-bar" aria-hidden="true">
+    <button class="btn btn-primary" data-anchor="#buy">Buy</button>
+    <button class="btn btn-ghost" data-anchor="#roadmap">Roadmap</button>
+    <button class="btn btn-ghost" data-anchor="#listings">Listings</button>
+  </div>
+
   <main id="main">
     <!-- HERO EN -->
     <section id="hero" class="content reveal lang-en" role="region" aria-label="Hero">
@@ -57,8 +64,8 @@
       </p>
       <div class="hero-ctas">
         <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">BUY $SUNBULL</a>
-        <a class="btn btn-ghost" href="#tokenomics">TOKENOMICS</a>
-        <a class="btn btn-ghost" href="#roadmap">ROADMAP</a>
+        <a class="btn btn-ghost" data-anchor="#tokenomics">TOKENOMICS</a>
+        <a class="btn btn-ghost" data-anchor="#roadmap">ROADMAP</a>
       </div>
       <p class="muted small">Contract (test): <code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
     </section>
@@ -72,8 +79,8 @@
       </p>
       <div class="hero-ctas">
         <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">购买 $SUNBULL</a>
-        <a class="btn btn-ghost" href="#tokenomics">代币经济</a>
-        <a class="btn btn-ghost" href="#roadmap">路线图</a>
+        <a class="btn btn-ghost" data-anchor="#tokenomics">代币经济</a>
+        <a class="btn btn-ghost" data-anchor="#roadmap">路线图</a>
       </div>
       <p class="muted small">合约（测试）：<code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
     </section>
