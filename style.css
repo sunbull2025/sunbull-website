@@ -1,16 +1,15 @@
-/* style.css — final v5 (fundo fixed desktop, overlay 25%, footer loop seamless, X icon fixed, listings hype) */
-
+/* style.css — SunBull v6.5 final */
 :root{
   --gold:#ffd24a;
   --accent:#f6b03a;
   --header-h:92px;
-  --overlay: rgba(0,0,0,0.25);
-  --footer-speed:15s;
+  --overlay: rgba(0,0,0,0.30);
+  --footer-speed:10s; /* fast loop as requested */
   --maxw:1150px;
   --listing-blur:6px;
 }
 
-/* basic reset */
+/* reset */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:"Poppins",system-ui,Arial,sans-serif;background:#000;color:#fff;overflow-x:hidden;scroll-behavior:smooth}
 a{color:var(--gold);text-decoration:none}
@@ -49,7 +48,7 @@ body{
 
 /* main */
 main{padding-top:calc(var(--header-h) + 18px)}
-.content{max-width:var(--maxw);margin:36px auto;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(0,0,0,0.56), rgba(0,0,0,0.32));box-shadow:0 28px 80px rgba(0,0,0,0.5)}
+.content{max-width:var(--maxw);margin:36px auto;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(0,0,0,0.60), rgba(0,0,0,0.34));box-shadow:0 28px 80px rgba(0,0,0,0.5)}
 .reveal{opacity:0;transform:translateY(8px);transition:all .64s cubic-bezier(.2,.9,.2,1)}
 .reveal.visible{opacity:1;transform:none}
 
@@ -77,8 +76,13 @@ p,td,th,li{color:#fff;line-height:1.6}
 .listing-card{width:220px;max-width:32vw;height:auto;border-radius:12px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;padding:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));transition:transform .28s ease}
 .listing-card:hover{transform:translateY(-6px)}
 .listing-card img{width:100%;height:150px;object-fit:contain;pointer-events:none;user-select:none;border-radius:8px}
-.listing-card.blur img{filter: blur(var(--listing-blur)) saturate(1.08) brightness(0.98); transform:scale(1.02)}
-.listing-card.blur:hover img{filter: blur(calc(var(--listing-blur) - 2px)) saturate(1.12) brightness(1.02)}
+.listing-card.blur img{filter: blur(var(--listing-blur)) saturate(1.08) brightness(0.96); transform:scale(1.02); transition:filter .36s ease, transform .36s ease}
+.listing-card.blur:hover img{filter: blur(calc(var(--listing-blur) - 3px)) saturate(1.12) brightness(1.02); transform:scale(1.0)}
+/* pulse for hype */
+@keyframes pulseBlur { 0%{filter: blur(var(--listing-blur)) saturate(1.06)} 50%{filter: blur(calc(var(--listing-blur) - 2px)) saturate(1.10)} 100%{filter: blur(var(--listing-blur)) saturate(1.06)} }
+.listing-card.blur img { animation: pulseBlur 3.2s ease-in-out infinite; }
+
+/* protect overlay */
 .protect-overlay{position:absolute;inset:0;border-radius:12px;pointer-events:auto;background:transparent}
 
 /* how to buy */
@@ -111,7 +115,7 @@ footer{margin-top:36px;padding:18px 8px;text-align:center;position:relative;over
   .listing-card{width:48%}
   .footer-track img{height:40px;padding:0 8px}
   .content{margin:22px 12px;padding:18px}
-  body{background-attachment:scroll} /* disable fixed on mobile browsers */
+  body{background-attachment:scroll} /* disable fixed on many mobile browsers */
 }
 @media(max-width:480px){
   .logo-round{width:56px;height:56px}
@@ -122,7 +126,7 @@ footer{margin-top:36px;padding:18px 8px;text-align:center;position:relative;over
 
 /* reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .footer-track, .logo-round, .bg { animation: none !important; transition: none !important; }
+  .reveal, .footer-track, .logo-round, .bg, .listing-card img { animation: none !important; transition: none !important; }
 }
 
 /* coin-fx */

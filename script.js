@@ -1,8 +1,8 @@
-// script.js — final v5
+// script.js — SunBull v6.5 final
 document.addEventListener('DOMContentLoaded', () => {
   const buyUrl = 'https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM';
 
-  // i18n toggle
+  // --- i18n toggle (default EN) ---
   const btnEn = document.getElementById('btn-en');
   const btnZh = document.getElementById('btn-zh');
   const enBlocks = document.querySelectorAll('.lang-en');
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   btnZh && btnZh.addEventListener('click', showZH);
   showEN();
 
-  // Reveal on scroll (IntersectionObserver)
+  // --- Reveal on scroll ---
   (function(){
     const els = document.querySelectorAll('.reveal, .phase, .listing-card');
     const io = new IntersectionObserver((entries, obs) => {
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.forEach(e=> io.observe(e));
   })();
 
-  // smooth anchor scroll with header offset (use actual header height)
+  // --- Smooth anchors with header offset ---
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.addEventListener('click', (e)=>{
       const href = a.getAttribute('href');
@@ -48,12 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const header = document.querySelector('.site-header');
       const headerH = header ? header.getBoundingClientRect().height : 92;
-      const top = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
+      // offset a bit more to account for header and spacing
+      const top = el.getBoundingClientRect().top + window.scrollY - headerH - 12;
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });
 
-  // buy buttons: produce coin fx visual
+  // --- Buy buttons: coin FX visual ---
   document.querySelectorAll('.btn-buy').forEach(btn => {
     btn.addEventListener('click', () => coinRain());
   });
@@ -76,44 +77,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Footer: ensure seamless loop & no overlap by duplicating sets until width >= 2x container
+  // --- Footer: seamless loop (duplicate sets to avoid jump) ---
   (function ensureFooterLoop(){
     const track = document.querySelector('.footer-track');
     const wrap = document.querySelector('.footer-track-wrap');
     if(!track || !wrap) return;
-    // duplicate initial set until track width >= 2 * wrap width
     const initialSet = track.querySelector('.footer-set');
     if(!initialSet) return;
-    // create copies
+
     function fill(){
-      // clear others (keep only one)
       track.innerHTML = '';
-      const sets = [];
-      sets.push(initialSet.cloneNode(true));
-      // append until total width exceeds 2x container width
-      track.appendChild(sets[0]);
-      let totalW = track.scrollWidth;
+      // append clones until width >= 2x container width
+      let totalW = 0;
       let attempts = 0;
-      while(totalW < wrap.clientWidth * 2 && attempts < 8){
+      while(totalW < wrap.clientWidth * 2 && attempts < 12){
         const clone = initialSet.cloneNode(true);
         track.appendChild(clone);
         totalW = track.scrollWidth;
         attempts++;
       }
-      // set CSS variable for keyframe percent if needed (we use -50% in CSS already)
+      // ensure animation is running
+      track.style.animation = `scroll var(--footer-speed) linear infinite`;
     }
     fill();
-    // on resize re-fill
     let to;
     window.addEventListener('resize', ()=> { clearTimeout(to); to = setTimeout(fill, 220); });
-    // pause on hover/touch
+    // pause/resume
     track.addEventListener('mouseenter', ()=> track.style.animationPlayState = 'paused');
     track.addEventListener('mouseleave', ()=> track.style.animationPlayState = 'running');
     track.addEventListener('touchstart', ()=> track.style.animationPlayState = 'paused');
     track.addEventListener('touchend', ()=> track.style.animationPlayState = 'running');
   })();
 
-  // Protect listing images (best-effort)
+  // --- Protect listing images (best-effort) ---
   (function protectImages(){
     const imgs = document.querySelectorAll('.listing-card img');
     imgs.forEach(img => {
@@ -131,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // Console: report missing images to help debug
+  // --- Image load check (logs missing assets) ---
   (function checkAssets(){
     const imgs = Array.from(document.images);
     imgs.forEach(img=>{
@@ -146,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(e.target && e.target.tagName === 'IMG') e.preventDefault();
   });
 
-  // mobile background fallback (disable fixed on small screens)
+  // mobile background fallback
   function mobileBgFallback(){
     if(window.innerWidth <= 980){
       document.body.style.backgroundAttachment = 'scroll';
