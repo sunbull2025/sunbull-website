@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Fullscreen background -->
+  <!-- Fullscreen background (fundo.png) -->
   <div class="bg" aria-hidden="true"></div>
 
   <!-- Header -->
@@ -27,11 +27,11 @@
       </div>
 
       <nav class="nav-links" aria-label="Main navigation">
-        <a class="nav-btn" data-anchor="#about">About</a>
-        <a class="nav-btn" data-anchor="#tokenomics">Tokenomics</a>
-        <a class="nav-btn" data-anchor="#roadmap">Roadmap</a>
-        <a class="nav-btn" data-anchor="#listings">Listings</a>
-        <a class="nav-btn" data-anchor="#howto">How to Buy</a>
+        <button class="nav-btn" data-anchor="#about">About</button>
+        <button class="nav-btn" data-anchor="#tokenomics">Tokenomics</button>
+        <button class="nav-btn" data-anchor="#roadmap">Roadmap</button>
+        <button class="nav-btn" data-anchor="#listings">Listings</button>
+        <button class="nav-btn" data-anchor="#howto">How to Buy</button>
       </nav>
 
       <div class="nav-actions">
@@ -47,9 +47,9 @@
     </div>
   </header>
 
-  <!-- Mobile sticky bar for quick navigation (visible on small screens) -->
+  <!-- Mobile sticky bar for quick navigation -->
   <div class="mobile-bar" aria-hidden="true">
-    <button class="btn btn-primary" data-anchor="#buy">Buy</button>
+    <button class="btn btn-primary" data-anchor="#howto">Buy</button>
     <button class="btn btn-ghost" data-anchor="#roadmap">Roadmap</button>
     <button class="btn btn-ghost" data-anchor="#listings">Listings</button>
   </div>
@@ -64,8 +64,8 @@
       </p>
       <div class="hero-ctas">
         <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">BUY $SUNBULL</a>
-        <a class="btn btn-ghost" data-anchor="#tokenomics">TOKENOMICS</a>
-        <a class="btn btn-ghost" data-anchor="#roadmap">ROADMAP</a>
+        <button class="btn btn-ghost" data-anchor="#tokenomics">TOKENOMICS</button>
+        <button class="btn btn-ghost" data-anchor="#roadmap">ROADMAP</button>
       </div>
       <p class="muted small">Contract (test): <code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
     </section>
@@ -79,8 +79,8 @@
       </p>
       <div class="hero-ctas">
         <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">购买 $SUNBULL</a>
-        <a class="btn btn-ghost" data-anchor="#tokenomics">代币经济</a>
-        <a class="btn btn-ghost" data-anchor="#roadmap">路线图</a>
+        <button class="btn btn-ghost" data-anchor="#tokenomics">代币经济</button>
+        <button class="btn btn-ghost" data-anchor="#roadmap">路线图</button>
       </div>
       <p class="muted small">合约（测试）：<code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
     </section>
@@ -294,7 +294,6 @@
   <footer role="contentinfo" aria-label="Footer">
     <div class="footer-track-wrap" aria-hidden="false">
       <div class="footer-track" aria-hidden="true" role="presentation">
-        <!-- initial set: duplicated by JS for seamless loop -->
         <div class="footer-set" data-set="1">
           <img src="tron.png" alt="TRON logo">
           <img src="sunpump.png" alt="SunPump logo">

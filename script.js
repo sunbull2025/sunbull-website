@@ -1,4 +1,4 @@
-// script.js — SunBull v6.6 final (Android fixes + footer improvements + blur touch)
+// script.js — SunBull v6.7 final
 document.addEventListener('DOMContentLoaded', () => {
   const buyUrl = 'https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM';
 
@@ -38,48 +38,46 @@ document.addEventListener('DOMContentLoaded', () => {
     els.forEach(e=> io.observe(e));
   })();
 
-  // --- Smooth anchors with header offset (robust for Android) ---
+  // --- Robust smooth anchor with header offset (Android-friendly) ---
   function scrollToWithOffset(selector){
     const el = document.querySelector(selector);
     if(!el) return;
-    // use scrollIntoView then offset by header height (works well on Android)
     el.scrollIntoView({behavior:'smooth', block:'start'});
     const header = document.querySelector('.site-header');
     const headerH = header ? header.getBoundingClientRect().height : 92;
-    // after a short delay, adjust for header (Android sometimes needs more time)
+    // adjust after short delay
     setTimeout(()=> {
       window.scrollBy({ top: -headerH - 12, left: 0, behavior: 'smooth' });
     }, 260);
   }
 
-  // attach to header nav buttons (use data-anchor attribute)
+  // attach to header nav buttons (data-anchor)
   document.querySelectorAll('.nav-btn').forEach(btn=>{
     btn.addEventListener('click', (e)=>{
       const sel = btn.getAttribute('data-anchor');
-      if(sel) {
+      if(sel){
         e.preventDefault();
         scrollToWithOffset(sel);
       }
     });
   });
 
-  // attach mobile bar buttons
+  // attach mobile bar anchors
   document.querySelectorAll('.mobile-bar .btn').forEach(b=>{
-    b.addEventListener('click', ()=> {
+    b.addEventListener('click', (e)=>{
       const sel = b.getAttribute('data-anchor');
       if(sel) scrollToWithOffset(sel);
     });
   });
 
-  // attach CTA ghost buttons that used data-anchor (hero)
+  // hero ghost buttons also use data-anchor (already handled by nav-btn selector when present)
   document.querySelectorAll('[data-anchor]').forEach(el=>{
-    // already handled above; this ensures any additional element works
+    // they are handled above (nav-btn / mobile bar). This ensures consistency.
   });
 
-  // --- Buy buttons: coin FX visual + open in new tab (safe) ---
+  // --- Buy buttons: coin FX visual (non-blocking) ---
   document.querySelectorAll('.btn-buy').forEach(btn => {
     btn.addEventListener('click', (ev) => {
-      // create coin fx
       for(let i=0;i<10;i++){
         const el = document.createElement('div');
         el.className = 'coin-fx';
@@ -96,11 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         setTimeout(()=> el.remove(), 1600);
       }
-      // let link open normally (anchor/href). do not block default if anchor exists
+      // allow default link behavior to open the href in a new tab
     });
   });
 
-  // --- Footer: seamless loop improvement (duplicate until track >= 3x wrap width) ---
+  // --- Footer: seamless loop improvement (3x fill) ---
   (function ensureFooterLoop(){
     const track = document.querySelector('.footer-track');
     const wrap = document.querySelector('.footer-track-wrap');
@@ -112,23 +110,21 @@ document.addEventListener('DOMContentLoaded', () => {
       track.innerHTML = '';
       let totalW = 0;
       let attempts = 0;
-      // append clones until track width >= 3x container width (gives smoother loop)
+      // append clones until track width >= 3x container width
       while(totalW < wrap.clientWidth * 3 && attempts < 12){
         const clone = initialSet.cloneNode(true);
         track.appendChild(clone);
         totalW = track.scrollWidth;
         attempts++;
       }
-      // safety: if still small, append one more
+      // safety
       if(track.children.length < 2) track.appendChild(initialSet.cloneNode(true));
-      // begin animation
       track.style.animation = `scroll var(--footer-speed) linear infinite`;
     }
 
-    // initial fill & update on resize
     fill();
     let to;
-    window.addEventListener('resize', ()=> { clearTimeout(to); to = setTimeout(fill, 220); });
+    window.addEventListener('resize', ()=> { clearTimeout(to); to = setTimeout(fill, 260); });
 
     // pause/resume on hover/touch
     track.addEventListener('mouseenter', ()=> track.style.animationPlayState = 'paused');
@@ -142,27 +138,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.listing-card.blur');
     cards.forEach(card=>{
       let clearTimeoutId = null;
-      // on touchstart remove blur class 'clear' for 1500ms
       card.addEventListener('touchstart', (e)=>{
         e.stopPropagation();
         card.classList.add('clear');
         if(clearTimeoutId) clearTimeout(clearTimeoutId);
         clearTimeoutId = setTimeout(()=> card.classList.remove('clear'), 1500);
       }, {passive:false});
-      // on mouseenter remove on desktop hover (already handled by CSS hover)
-      card.addEventListener('click', (e)=> { e.preventDefault(); e.stopPropagation(); }); // protect from clicks
+      // protect from clicks
+      card.addEventListener('click', (e)=> { e.preventDefault(); e.stopPropagation(); });
     });
   })();
 
-  // --- Protect listing images (best-effort) but don't block nav gestures ---
+  // --- Protect listing images (best-effort, without blocking gestures) ---
   (function protectImages(){
     const imgs = document.querySelectorAll('.listing-card img');
     imgs.forEach(img => {
       img.setAttribute('draggable','false');
       img.addEventListener('contextmenu', e => e.preventDefault());
       img.addEventListener('dragstart', e => e.preventDefault());
-      img.addEventListener('mousedown', e => { if(e.target && e.target.tagName === 'IMG') e.preventDefault(); });
-      // touchstart handled above for blur clear; keep passive:false where we prevent default
+      // avoid preventing touch gestures; keep passive where possible
       img.addEventListener('touchstart', e => { /* no-op to avoid interfering */ }, {passive:true});
       img.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); });
     });
@@ -188,14 +182,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if(e.target && e.target.tagName === 'IMG') e.preventDefault();
   });
 
-  // mobile background fallback
+  // mobile background fallback (disable fixed on many mobile browsers)
   function mobileBgFallback(){
     if(window.innerWidth <= 980){
       document.body.style.backgroundAttachment = 'scroll';
-      document.querySelector('.bg') && (document.querySelector('.bg').style.backgroundAttachment = 'scroll');
+      const bg = document.querySelector('.bg');
+      if(bg) bg.style.backgroundAttachment = 'scroll';
     } else {
       document.body.style.backgroundAttachment = 'fixed';
-      document.querySelector('.bg') && (document.querySelector('.bg').style.backgroundAttachment = 'fixed');
+      const bg = document.querySelector('.bg');
+      if(bg) bg.style.backgroundAttachment = 'fixed';
     }
   }
   addEventListener('resize', mobileBgFallback);

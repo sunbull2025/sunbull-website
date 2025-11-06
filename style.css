@@ -1,12 +1,12 @@
-/* style.css — SunBull v6.6 final (Android fixes + footer loop + blur touch) */
+/* style.css — SunBull v6.7 final */
 :root{
   --gold:#ffd24a;
   --accent:#f6b03a;
   --header-h:92px;
-  --overlay: rgba(0,0,0,0.30);
-  --footer-speed:8s; /* faster loop requested */
+  --overlay: rgba(0,0,0,0.18);
+  --footer-speed:18s; /* smooth but fast loop */
   --maxw:1150px;
-  --listing-blur:5px; /* reduced blur for visibility */
+  --listing-blur:10px; /* stronger mystery */
 }
 
 /* reset */
@@ -34,7 +34,7 @@ body{
 
 /* nav */
 .nav-links{display:flex;gap:10px;align-items:center}
-.nav-btn{color:#fff;padding:8px 10px;border-radius:8px;font-weight:700;cursor:pointer}
+.nav-btn{color:#fff;padding:8px 10px;border-radius:8px;font-weight:700;cursor:pointer;background:transparent;border:0}
 .nav-btn:hover{background:rgba(255,255,255,0.03);color:var(--gold)}
 
 /* actions */
@@ -44,7 +44,7 @@ body{
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:0;font-weight:800;cursor:pointer}
 .btn-primary{background:linear-gradient(90deg,var(--gold),var(--accent));color:#07101a;box-shadow:0 18px 40px rgba(246,176,58,0.12)}
 .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff}
-.btn-x img{height:28px;width:auto;object-fit:contain;border-radius:6px;display:block}
+.btn-x img{height:24px;width:auto;object-fit:contain;border-radius:6px;display:block}
 
 /* main */
 main{padding-top:calc(var(--header-h) + 18px)}
@@ -64,7 +64,7 @@ p,td,th,li{color:#fff;line-height:1.6}
 /* tables */
 .table{width:100%;border-collapse:collapse;margin-top:12px}
 .table th,.table td{padding:12px;border-top:1px solid rgba(255,255,255,0.04);text-align:left}
-.table thead th{color:var(--gold)}
+.table thead th{color:var(--gold);font-weight:800}
 
 /* roadmap */
 .phase{display:flex;gap:18px;align-items:center;padding:12px;border-radius:12px;margin:12px 0;position:relative;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02))}
@@ -76,12 +76,16 @@ p,td,th,li{color:#fff;line-height:1.6}
 .listing-card{width:220px;max-width:32vw;height:auto;border-radius:12px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;padding:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));transition:transform .28s ease}
 .listing-card:hover{transform:translateY(-6px)}
 .listing-card img{width:100%;height:150px;object-fit:contain;pointer-events:none;user-select:none;border-radius:8px}
-.listing-card.blur img{filter: blur(var(--listing-blur)) saturate(1.08) brightness(0.96); transform:scale(1.02); transition:filter .36s ease, transform .36s ease}
-.listing-card.blur:hover img{filter: blur(calc(var(--listing-blur) - 3px)) saturate(1.12) brightness(1.02); transform:scale(1.0)}
+.listing-card.blur img{filter: blur(var(--listing-blur)) saturate(0.96) brightness(0.78); transform:scale(1.02); transition:filter .36s ease, transform .36s ease}
+.listing-card.blur:hover img{filter: blur(calc(var(--listing-blur) - 3px)) saturate(1.02) brightness(0.98); transform:scale(1.0)}
 /* pulse for hype */
-@keyframes pulseBlur { 0%{filter: blur(var(--listing-blur)) saturate(1.06)} 50%{filter: blur(calc(var(--listing-blur) - 2px)) saturate(1.10)} 100%{filter: blur(var(--listing-blur)) saturate(1.06)} }
-.listing-card.blur img { animation: pulseBlur 3.2s ease-in-out infinite; }
-/* clear class on touch/hover to temporarily remove blur */
+@keyframes pulseBlur {
+  0%{filter: blur(var(--listing-blur)) brightness(0.78)}
+  50%{filter: blur(calc(var(--listing-blur) - 3px)) brightness(0.95)}
+  100%{filter: blur(var(--listing-blur)) brightness(0.78)}
+}
+.listing-card.blur img { animation: pulseBlur 3.6s ease-in-out infinite; }
+/* clear class on touch to temporarily remove blur */
 .listing-card.blur.clear img{filter:none;animation:none;transform:scale(1);}
 
 /* protect overlay */
@@ -90,7 +94,7 @@ p,td,th,li{color:#fff;line-height:1.6}
 /* mobile bar */
 .mobile-bar{display:none}
 @media(max-width:980px){
-  .mobile-bar{display:flex;position:fixed;left:12px;right:12px;bottom:18px;z-index:1600;gap:10px;align-items:center;justify-content:center;padding:10px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));box-shadow:0 20px 60px rgba(10,10,10,0.08)}
+  .mobile-bar{display:flex;position:fixed;left:12px;right:12px;bottom:18px;z-index:1600;gap:10px;align-items:center;justify-content:center;padding:10px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.92), rgba(255,255,255,0.86));box-shadow:0 20px 60px rgba(10,10,10,0.08)}
   .mobile-bar .btn{flex:1}
   body{padding-bottom:92px}
 }
@@ -98,9 +102,9 @@ p,td,th,li{color:#fff;line-height:1.6}
 /* footer - seamless loop */
 footer{margin-top:36px;padding:18px 8px;text-align:center;position:relative;overflow:hidden}
 .footer-track-wrap{width:100%;overflow:hidden;display:block}
-.footer-track{display:flex;gap:28px;align-items:center;white-space:nowrap;animation:scroll var(--footer-speed) linear infinite;will-change:transform;padding:8px 0}
-.footer-set{display:flex;gap:28px;align-items:center;padding-right:40px}
-.footer-track img{height:48px;width:auto;object-fit:contain;filter:brightness(1.15);vertical-align:middle;padding:0 10px}
+.footer-track{display:flex;gap:40px;align-items:center;white-space:nowrap;animation:scroll var(--footer-speed) linear infinite;will-change:transform;padding:8px 0}
+.footer-set{display:flex;gap:40px;align-items:center;padding-right:80px}
+.footer-track img{height:40px;width:auto;object-fit:contain;filter:brightness(1.15);vertical-align:middle;padding:0 12px}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .footer-track:hover{animation-play-state:paused}
 .footer-note{color:rgba(255,255,255,0.86);font-size:13px;margin-top:12px}
@@ -119,9 +123,10 @@ footer{margin-top:36px;padding:18px 8px;text-align:center;position:relative;over
   .phase{flex-direction:column;min-height:100px}
   .phase img{width:92%;height:auto}
   .listing-card{width:48%}
-  .footer-track img{height:40px;padding:0 8px}
+  .footer-track img{height:28px;padding:0 8px}
   .content{margin:22px 12px;padding:18px}
   body{background-attachment:scroll} /* disable fixed on many mobile browsers */
+  .table th,.table td{font-size:14px}
 }
 @media(max-width:480px){
   .logo-round{width:56px;height:56px}
