@@ -1,8 +1,8 @@
-// script.js — final corrections (i18n, smooth scroll, footer loop, protections, effects)
+// script.js — final (i18n, smooth scroll, footer loop, protections, bg fallback, reveal)
 document.addEventListener('DOMContentLoaded', () => {
   const buyUrl = 'https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM';
 
-  // i18n
+  // ---------- i18n (EN <-> ZH)
   const btnEn = document.getElementById('btn-en');
   const btnZh = document.getElementById('btn-zh');
   const enBlocks = document.querySelectorAll('.lang-en');
@@ -11,28 +11,28 @@ document.addEventListener('DOMContentLoaded', () => {
   function showEN(){
     enBlocks.forEach(e=>e.style.display='');
     zhBlocks.forEach(e=>e.style.display='none');
-    btnEn && btnEn.classList.add('active'); btnEn && btnEn.setAttribute('aria-pressed','true');
-    btnZh && btnZh.classList.remove('active'); btnZh && btnZh.setAttribute('aria-pressed','false');
+    if(btnEn) btnEn.classList.add('active'), btnEn.setAttribute('aria-pressed','true');
+    if(btnZh) btnZh.classList.remove('active'), btnZh.setAttribute('aria-pressed','false');
   }
   function showZH(){
     enBlocks.forEach(e=>e.style.display='none');
     zhBlocks.forEach(e=>e.style.display='');
-    btnZh && btnZh.classList.add('active'); btnZh && btnZh.setAttribute('aria-pressed','true');
-    btnEn && btnEn.classList.remove('active'); btnEn && btnEn.setAttribute('aria-pressed','false');
+    if(btnZh) btnZh.classList.add('active'), btnZh.setAttribute('aria-pressed','true');
+    if(btnEn) btnEn.classList.remove('active'), btnEn.setAttribute('aria-pressed','false');
   }
   btnEn && btnEn.addEventListener('click', showEN);
   btnZh && btnZh.addEventListener('click', showZH);
   showEN();
 
-  // Logo pulse subtle
-  (function(){
+  // ---------- subtle logo pulse
+  (function logoPulse(){
     const logo = document.querySelector('.logo-circle');
     if(!logo) return;
     setInterval(()=> logo.classList.toggle('glow'), 3000);
   })();
 
-  // Reveal on scroll
-  (function(){
+  // ---------- reveal on scroll
+  (function revealOnScroll(){
     const els = document.querySelectorAll('.reveal, .phase, .listing-card');
     const io = new IntersectionObserver((entries, obs) => {
       entries.forEach(en => {
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.forEach(e => io.observe(e));
   })();
 
-  // Smooth scroll with header offset
+  // ---------- smooth scroll with header offset
   function scrollToWithOffset(selector){
     const el = document.querySelector(selector);
     if(!el) return;
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top, behavior: 'smooth' });
   }
 
-  // Delegated anchor handler (works for nav buttons and mobile bar)
+  // Delegated anchor handler for nav buttons and mobile bar
   document.body.addEventListener('click', (ev) => {
     const btn = ev.target.closest('[data-anchor]');
     if(btn){
@@ -67,16 +67,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if(a){ ev.preventDefault(); const href=a.getAttribute('href'); if(href) scrollToWithOffset(href); }
   }, {passive:false});
 
-  // Mobile bar anchors
+  // mobile bar anchors
   document.querySelectorAll('.mobile-bar .btn').forEach(b=>{
     b.addEventListener('click', (e)=>{
       const sel = b.getAttribute('data-anchor'); if(sel) scrollToWithOffset(sel);
     });
   });
 
-  // Buy button effect (visual) — non-blocking
+  // ---------- Buy coin FX (visual only) — do not block native anchor navigation
   document.querySelectorAll('.btn-buy').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      // visual effect only; allow navigation (anchor) to proceed
       for(let i=0;i<9;i++){
         const el = document.createElement('div');
         el.className = 'coin-fx';
@@ -93,10 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         setTimeout(()=> el.remove(), 1600);
       }
-    });
+    }, {passive:true});
   });
 
-  // Footer loop: ensure duplication until wider than viewport for smooth loop
+  // ---------- Footer loop builder (duplicates base set until wide enough)
   (function footerLoop(){
     const wrap = document.querySelector('.footer-track-wrap');
     const track = document.querySelector('.footer-track');
@@ -108,7 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
       track.innerHTML = '';
       let totalW = 0;
       let tries = 0;
-      while(totalW < wrap.clientWidth * 2 && tries < 12){
+      // append clones until scrollWidth > 2x viewport for smooth loop
+      while(totalW < wrap.clientWidth * 2 && tries < 14){
         const clone = baseSet.cloneNode(true);
         track.appendChild(clone);
         totalW = track.scrollWidth;
@@ -118,30 +120,34 @@ document.addEventListener('DOMContentLoaded', () => {
       track.style.animation = `scroll var(--footer-speed) linear infinite`;
     }
 
+    // wait for images loaded or timeout
     const imgs = Array.from(baseSet.querySelectorAll('img'));
     let loaded = 0;
     if(imgs.length === 0) build();
     imgs.forEach(img=>{
       if(img.complete) loaded++;
-      else img.addEventListener('load', ()=>{ loaded++; if(loaded===imgs.length) build(); });
-      img.addEventListener('error', ()=>{ loaded++; if(loaded===imgs.length) build(); });
+      else img.addEventListener('load', ()=>{ loaded++; if(loaded===imgs.length) build(); }, {once:true});
+      img.addEventListener('error', ()=>{ loaded++; if(loaded===imgs.length) build(); }, {once:true});
     });
-    setTimeout(build, 700);
+    setTimeout(build, 600);
     window.addEventListener('resize', ()=> setTimeout(build, 220));
+    // pause on hover/touch
     track.addEventListener('mouseenter', ()=> track.style.animationPlayState = 'paused');
     track.addEventListener('mouseleave', ()=> track.style.animationPlayState = 'running');
     track.addEventListener('touchstart', ()=> track.style.animationPlayState = 'paused');
     track.addEventListener('touchend', ()=> track.style.animationPlayState = 'running');
   })();
 
-  // Protect listings & images (best-effort)
+  // ---------- Protect listings & images (best-effort)
   (function protect(){
+    // block right-click on listing area images
     document.addEventListener('contextmenu', (e) => {
       const el = e.target;
-      if(el && el.tagName === 'IMG' && el.closest('.listing-card')) e.preventDefault();
+      if(el && el.closest && el.closest('.listing-card')) e.preventDefault();
     }, {capture:false});
 
-    document.querySelectorAll('.listing-card').forEach(card => {
+    // prevent drag & long-press and block interactions on protect-overlay
+    document.querySelectorAll('.protected').forEach(card => {
       card.setAttribute('draggable','false');
       card.addEventListener('dragstart', e => e.preventDefault());
       const overlay = card.querySelector('.protect-overlay');
@@ -152,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    // intercept copy if selection inside listing
     document.addEventListener('copy', function(e){
       const sel = window.getSelection();
       if(!sel) return;
@@ -160,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // Asset console check
+  // ---------- Asset console check (warn missing images)
   (function assetCheck(){
     Array.from(document.images).forEach(img => {
       if(!img.complete || (img.complete && img.naturalWidth === 0)){
@@ -169,16 +176,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // Mobile background fallback for browsers that ignore fixed
+  // ---------- Background fallback for mobile browsers that ignore fixed
   function bgFallback(){
     const bg = document.querySelector('.bg');
+    if(!bg) return;
     if(window.innerWidth <= 980){
-      if(bg) bg.style.backgroundAttachment = 'scroll';
+      bg.style.backgroundAttachment = 'scroll';
     } else {
-      if(bg) bg.style.backgroundAttachment = 'fixed';
+      bg.style.backgroundAttachment = 'fixed';
     }
   }
   addEventListener('resize', bgFallback);
   bgFallback();
 
-});
+}); // DOMContentLoaded

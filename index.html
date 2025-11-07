@@ -11,14 +11,14 @@
 </head>
 <body>
 
-  <!-- Fixed fullscreen background (body fallback + .bg for fixed support) -->
+  <!-- Fullscreen fixed background (BG element + body fallback handled in CSS & script) -->
   <div class="bg" aria-hidden="true"></div>
 
   <!-- Header -->
   <header class="site-header" role="banner" aria-label="SunBull header">
     <div class="nav-inner">
       <div class="left">
-        <div class="logo-circle" title="SunBull">
+        <div class="logo-circle" title="SunBull" aria-hidden="false">
           <img src="logo.png" alt="SunBull logo" id="mainLogo">
         </div>
         <div class="brand">
@@ -66,7 +66,7 @@
       </p>
 
       <div class="hero-ctas">
-        <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">BUY $SUNBULL</a>
+        <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener">BUY $SUNBULL</a>
         <button class="btn btn-ghost" data-anchor="#tokenomics">TOKENOMICS</button>
         <button class="btn btn-ghost" data-anchor="#roadmap">ROADMAP</button>
       </div>
@@ -237,22 +237,24 @@
         <p class="muted small">Hype mode on — official integrations and listings will be announced on X.</p>
 
         <div class="listings-grid" aria-hidden="false">
+          <!-- visible teaser -->
           <div class="listing-card listing-visible" style="background-image:url('listing1.png');" aria-label="Listing 1"></div>
 
-          <div class="listing-card blur" style="background-image:url('listing2.png');" aria-hidden="true">
-            <div class="protect-overlay" aria-hidden="true"></div>
+          <!-- protected, heavy blur — not selectable/copiable -->
+          <div class="listing-card blur protected" style="background-image:url('listing2.png');" aria-hidden="true">
+            <div class="protect-overlay" aria-hidden="true" role="presentation"></div>
           </div>
 
-          <div class="listing-card blur" style="background-image:url('listing3.png');" aria-hidden="true">
-            <div class="protect-overlay" aria-hidden="true"></div>
+          <div class="listing-card blur protected" style="background-image:url('listing3.png');" aria-hidden="true">
+            <div class="protect-overlay" aria-hidden="true" role="presentation"></div>
           </div>
 
-          <div class="listing-card blur" style="background-image:url('listing4.png');" aria-hidden="true">
-            <div class="protect-overlay" aria-hidden="true"></div>
+          <div class="listing-card blur protected" style="background-image:url('listing4.png');" aria-hidden="true">
+            <div class="protect-overlay" aria-hidden="true" role="presentation"></div>
           </div>
 
-          <div class="listing-card blur" style="background-image:url('listing5.png');" aria-hidden="true">
-            <div class="protect-overlay" aria-hidden="true"></div>
+          <div class="listing-card blur protected" style="background-image:url('listing5.png');" aria-hidden="true">
+            <div class="protect-overlay" aria-hidden="true" role="presentation"></div>
           </div>
         </div>
       </div>
@@ -310,6 +312,7 @@
   <footer role="contentinfo" aria-label="Footer">
     <div class="footer-track-wrap" aria-hidden="false">
       <div class="footer-track" aria-hidden="true" role="presentation">
+        <!-- base set (JS will clone to build smooth loop) -->
         <div class="footer-set">
           <img src="tron.png" alt="TRON logo">
           <img src="sunpump.png" alt="SunPump logo">

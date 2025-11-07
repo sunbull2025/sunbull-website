@@ -3,9 +3,9 @@
   --accent:#f6b03a;
   --ink:#07101a;
   --header-h:92px;
-  --listing-blur:18px;
+  --listing-blur:28px;       /* heavy blur so listing imagery is unreadable */
   --listing-h:150px;
-  --footer-speed:16s;
+  --footer-speed:20s;        /* smooth loop */
   --logo-footer-h:48px;
   --maxw:1200px;
   --ease:cubic-bezier(.2,.9,.2,1);
@@ -17,26 +17,38 @@ html,body{height:100%;font-family:'Poppins',system-ui,Arial,sans-serif;backgroun
 a{color:var(--gold);text-decoration:none}
 img{display:block;max-width:100%;-webkit-user-drag:none;user-select:none}
 
-/* body fallback background (covers when fixed is ignored by mobile browsers) */
+/* body fallback background (covers when fixed unsupported) */
 body{
-  background-image: url('fundo.png');
+  background-image:url('fundo.png');
   background-position:center center;
   background-repeat:no-repeat;
   background-size:cover;
   min-height:100vh;
 }
 
-/* fixed background overlay for supporting browsers */
-.bg{position:fixed;inset:0;z-index:-200;background-image:url('fundo.png');background-position:center center;background-repeat:no-repeat;background-size:cover;background-attachment:fixed;filter:brightness(0.48)}
+/* fixed bg layer for browsers that support background-attachment: fixed */
+.bg{
+  position:fixed;
+  inset:0;
+  z-index:-200;
+  background-image:url('fundo.png');
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-attachment:fixed;
+  filter:brightness(0.46) saturate(1.02);
+}
 .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.36));pointer-events:none}
 
 /* header */
 .site-header{position:fixed;top:0;left:0;right:0;height:var(--header-h);display:flex;align-items:center;justify-content:center;z-index:1400;background:linear-gradient(180deg, rgba(6,6,6,0.72), rgba(6,6,6,0.48));border-bottom:1px solid rgba(255,255,255,0.04);backdrop-filter: blur(6px) saturate(1.05);box-shadow:0 8px 36px rgba(0,0,0,0.6)}
 .nav-inner{max-width:var(--maxw);width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 18px;gap:12px}
 .left{display:flex;align-items:center;gap:12px}
+
+/* logo circle */
 .logo-circle{width:86px;height:86px;border-radius:50%;overflow:hidden;border:6px solid rgba(255,210,80,0.95);display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));transition:box-shadow .9s var(--ease), transform .9s var(--ease)}
 .logo-circle.glow{box-shadow:0 28px 120px rgba(246,176,58,0.18), 0 0 48px rgba(255,220,120,0.06)}
-.logo-circle img{width:86%;height:86%;object-fit:contain;border-radius:50%}
+.logo-circle img{width:88%;height:88%;object-fit:contain;border-radius:50%}
 .brand-title{font-family:'Orbitron',sans-serif;font-weight:800;font-size:18px;color:var(--gold)}
 .brand-sub{font-size:12px;color:rgba(255,255,255,0.92)}
 
@@ -84,10 +96,38 @@ p,td,th,li{color:#fff;line-height:1.6}
 
 /* listings grid */
 .listings-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:14px}
-.listing-card{width:220px;max-width:32vw;height:var(--listing-h);border-radius:12px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.04);background-position:center;background-size:cover;box-shadow:0 18px 60px rgba(0,0,0,0.5)}
+.listing-card{
+  width:200px;
+  max-width:30vw;
+  height:var(--listing-h);
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
+  border:1px solid rgba(255,255,255,0.04);
+  background-position:center;
+  background-size:cover;
+  box-shadow:0 18px 60px rgba(0,0,0,0.5);
+  user-select:none;
+}
+/* visible teaser gets subtle overlay */
 .listing-card.listing-visible::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.18));border-radius:12px;pointer-events:none}
-.listing-card.blur{filter:blur(var(--listing-blur)) saturate(0.9) brightness(0.68);transform:scale(1.02);pointer-events:none;user-select:none}
-.listing-card.blur::after{content:"";position:absolute;inset:0;border-radius:12px;background:linear-gradient(180deg, rgba(255,215,110,0.02), rgba(255,200,80,0.01));mix-blend-mode:screen;pointer-events:none}
+/* heavy blur for protected listings */
+.listing-card.blur{
+  filter: blur(var(--listing-blur)) saturate(0.86) brightness(0.62);
+  transform:scale(1.02);
+  pointer-events:none;           /* prevent clicks on blurred card */
+}
+/* additional layer to hide detail + golden sheen */
+.listing-card.blur::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:12px;
+  background:linear-gradient(180deg, rgba(255,215,110,0.02), rgba(255,200,80,0.01));
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+/* protect overlay: blocks right-click / taps / long-press (pointer-events:auto) */
 .protect-overlay{position:absolute;inset:0;z-index:3;background:transparent;pointer-events:auto;cursor:default}
 
 /* mobile bar */
@@ -127,7 +167,7 @@ footer{margin-top:36px;padding:18px 8px;text-align:center;position:relative;over
   main{padding-top:calc(var(--header-h) + 8px)}
 }
 
-/* reduced motion */
+/* prefers reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .reveal, .footer-track, .logo-circle, .bg { animation: none !important; transition: none !important; }
 }
