@@ -1,8 +1,8 @@
-// script.js — final (i18n, smooth scroll, protections, reveal)
+// FINAL script.js — i18n, smooth scroll, protections, reveal
 document.addEventListener('DOMContentLoaded', () => {
   const buyUrl = 'https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM';
 
-  // i18n toggles (EN <-> ZH) : full content blocks are duplicated in HTML
+  // i18n toggles
   const btnEn = document.getElementById('btn-en');
   const btnZh = document.getElementById('btn-zh');
   const enBlocks = document.querySelectorAll('.lang-en');
@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Buy FX (visual) - non-blocking
   document.querySelectorAll('.btn-buy').forEach(btn => {
     btn.addEventListener('click', (e) => {
+      // let link open normally (btn is an <a>)
       for(let i=0;i<8;i++){
         const el = document.createElement('div');
         el.className = 'coin-fx';
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, {passive:true});
   });
 
-  // Protect listings & images (best-effort)
+  // Protect listings & interactions (best-effort)
   (function protect(){
     // disable right-click on listing area
     document.addEventListener('contextmenu', (e) => {
@@ -125,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // asset load warning
+  // asset load warning (console)
   (function assetCheck(){
     Array.from(document.images).forEach(img => {
       if(!img.complete || (img.complete && img.naturalWidth === 0)){
@@ -140,8 +141,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if(!bg) return;
     if(window.innerWidth <= 980){
       bg.style.backgroundAttachment = 'scroll';
+      document.body.style.backgroundAttachment = 'scroll';
     } else {
       bg.style.backgroundAttachment = 'fixed';
+      document.body.style.backgroundAttachment = 'fixed';
     }
   }
   addEventListener('resize', bgFallback);

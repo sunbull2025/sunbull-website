@@ -12,14 +12,16 @@
 
 /* reset */
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;font-family:'Poppins',system-ui,Arial,sans-serif;background:#000;color:#fff;overflow-x:hidden}
+html,body{height:100%;font-family:'Poppins',system-ui,Arial,sans-serif;color:#fff;overflow-x:hidden}
 a{color:var(--gold);text-decoration:none}
 img{display:block;max-width:100%;-webkit-user-drag:none;user-select:none}
 
-/* background (fundo.png) */
+/* background (fundo.png) applied to both body and bg fallback */
 body{
-  background:#000;
+  background: url('fundo.png') center center fixed no-repeat;
+  background-size: cover;
   min-height:100vh;
+  background-color:#000;
 }
 .bg{
   position:fixed;inset:0;z-index:-200;background-image:url('fundo.png');
@@ -35,7 +37,7 @@ body{
 
 /* logo circle */
 .logo-circle{width:86px;height:86px;border-radius:50%;overflow:hidden;border:6px solid rgba(255,210,80,0.95);display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));transition:box-shadow .9s var(--ease), transform .9s var(--ease)}
-.logo-circle img{width:88%;height:88%;object-fit:contain;border-radius:50%}
+.logo-circle img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .logo-circle.glow{box-shadow:0 28px 120px rgba(246,176,58,0.18), 0 0 48px rgba(255,220,120,0.06)}
 
 /* brand */
@@ -84,7 +86,7 @@ p,td,th,li{color:#fff;line-height:1.6}
 
 /* roadmap */
 .phase{display:flex;gap:18px;align-items:center;padding:12px;border-radius:12px;margin:12px 0;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02))}
-.phase-thumb{width:320px;height:200px;border-radius:12px;background-size:cover;background-position:center;background-repeat:no-repeat;box-shadow:0 22px 68px rgba(0,0,0,0.45)}
+.phase-thumb{width:360px;height:220px;border-radius:12px;background-size:cover;background-position:center;background-repeat:no-repeat;box-shadow:0 22px 68px rgba(0,0,0,0.45)}
 .phase .phase-text{flex:1;padding:6px}
 
 /* listings grid */
@@ -104,9 +106,9 @@ p,td,th,li{color:#fff;line-height:1.6}
 }
 /* visible teaser overlay */
 .listing-card.listing-visible::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.18));border-radius:12px;pointer-events:none}
-/* heavy blur for protected listings */
+/* heavy blur for protected listings (visible but not perceptible) */
 .listing-card.blur{
-  filter: blur(var(--listing-blur)) saturate(0.7) brightness(0.5);
+  filter: blur(18px) saturate(0.6) brightness(0.45);
   transform:scale(1.02);
   pointer-events:none;
 }
