@@ -1,4 +1,4 @@
-// Final script.js — anchors, i18n, reveal, protections, buy fx+delay, footer robust
+// Final script.js — anchors, i18n, reveal on scroll, protections, buy fx+delay, footer loop robust
 document.addEventListener('DOMContentLoaded', () => {
   const BUY_URL = 'https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM';
 
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.forEach(e => io.observe(e));
   })();
 
-  // smooth scroll with header offset (mobile-friendly)
+  // smooth scroll with header offset
   function scrollToWithOffset(selector){
     if(!selector) return;
     const el = document.querySelector(selector);
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, {passive:false});
 
-  // normalize nav-btns: ensure data-anchor present (compatibility with older markup)
+  // normalize nav-btns: ensure data-anchor present (compatibility)
   document.querySelectorAll('.nav-btn').forEach(btn => {
     if(!btn.hasAttribute('data-anchor') && btn.textContent){
       const txt = btn.textContent.trim().toLowerCase();
@@ -79,6 +79,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // footer logos duplication for robust smooth loop (if only one group present)
+  (function setupFooterLoop(){
+    const trackInner = document.querySelector('.footer-track-inner');
+    if(!trackInner) return;
+    // if logs groups already duplicated skip
+    if(trackInner.querySelectorAll('.logos-group').length >= 2) return;
+    // build groups from available images (fallback)
+    const imgs = Array.from(trackInner.querySelectorAll('img'));
+    if(imgs.length === 0){
+      // try to find .logos-group fallback
+      const groups = trackInner.querySelectorAll('.logos-group');
+      if(groups.length >= 2) return;
+    }
+    // if images exist but not duplicated, wrap them into two groups
+    const groupA = document.createElement('div'); groupA.className = 'logos-group';
+    const groupB = document.createElement('div'); groupB.className = 'logos-group';
+    imgs.forEach(img => {
+      const c1 = img.cloneNode(true);
+      const c2 = img.cloneNode(true);
+      groupA.appendChild(c1);
+      groupB.appendChild(c2);
+    });
+    // clear and append groups
+    trackInner.innerHTML = '';
+    trackInner.appendChild(groupA);
+    trackInner.appendChild(groupB);
+  })();
+
   // Protect listing cards: block contextmenu/drag/longpress
   (function protectListings(){
     document.querySelectorAll('.listing-card.blur, .listing-card.protected').forEach(card => {
@@ -89,12 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
       card.addEventListener('touchstart', e => e.preventDefault(), {passive:false});
     });
 
-    // generic prevention on listings grid
     document.addEventListener('contextmenu', function(e){
       if(e.target.closest && e.target.closest('.listings-grid')) e.preventDefault();
     }, {capture:false});
 
-    // prevent copy selection in listings
     document.addEventListener('copy', function(e){
       const sel = window.getSelection();
       if(!sel) return;
@@ -105,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Buy effect: show falling suns then open external page (delay)
   function playBuyFXAndOpen(url){
-    // small visual burst
     for(let i=0;i<10;i++){
       const el = document.createElement('div');
       el.className = 'coin-fx';
@@ -123,14 +148,12 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       setTimeout(()=> el.remove(), 1400);
     }
-    // open after 900ms so user sees it
     setTimeout(()=> { try { window.open(url, '_blank', 'noopener'); } catch(e){ location.href = url; } }, 900);
   }
 
-  // attach buy handler to all .btn-buy (handles <a> or button)
+  // attach buy handler to all .btn-buy
   document.querySelectorAll('.btn-buy').forEach(btn => {
     btn.addEventListener('click', function(e){
-      // if it's an <a>, prevent immediate navigation
       if(this.tagName.toLowerCase() === 'a'){
         e.preventDefault();
         const href = this.getAttribute('href') || BUY_URL;
@@ -141,30 +164,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }, {passive:false});
   });
 
-  // footer track: pause on hover (desktop)
-  (function footerHoverPause(){
-    const trackInner = document.querySelector('.footer-track-inner');
-    if(!trackInner) return;
-    trackInner.addEventListener('mouseenter', ()=> trackInner.style.animationPlayState = 'paused');
-    trackInner.addEventListener('mouseleave', ()=> trackInner.style.animationPlayState = 'running');
+  // mobile bar visibility
+  (function mobileBarSetup(){
+    const mb = document.querySelector('.mobile-bar');
+    if(!mb) return;
+    function update(){
+      if(window.innerWidth <= 1000){
+        mb.setAttribute('aria-hidden','false');
+        mb.style.display = 'flex';
+      } else {
+        mb.setAttribute('aria-hidden','true');
+        mb.style.display = 'none';
+      }
+    }
+    window.addEventListener('resize', update);
+    update();
   })();
 
-  // phase images responsive fallback: ensure appear larger if space
-  function adjustPhaseThumbs(){
-    document.querySelectorAll('.phase-thumb').forEach(th => {
-      th.style.backgroundSize = 'cover';
-      th.style.backgroundPosition = 'center';
+  // ensure reveal triggers for pre-visible content
+  setTimeout(()=> {
+    document.querySelectorAll('.reveal').forEach(el => {
+      if(el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
     });
-  }
-  adjustPhaseThumbs();
-  window.addEventListener('resize', adjustPhaseThumbs);
+  }, 600);
 
-  // asset load warning for debugging
+  // debug missing images
   document.querySelectorAll('img').forEach(img=>{
     img.addEventListener('error', ()=> console.warn('Missing image:', img.getAttribute('src')||img.src));
   });
 
-  // bg fallback for small screens
+  // bg fallback mobile
   (function bgFallback(){
     const bg = document.querySelector('.bg');
     if(!bg) return;
