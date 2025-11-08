@@ -11,10 +11,9 @@
 </head>
 <body>
 
-  <!-- Fixed background (fundo.png) -->
+  <!-- Fullscreen fixed background -->
   <div class="bg" aria-hidden="true"></div>
 
-  <!-- Header -->
   <header class="site-header" role="banner" aria-label="SunBull header">
     <div class="nav-inner">
       <div class="left">
@@ -291,7 +290,6 @@
       <!-- ZH -->
       <div class="lang-zh" style="display:none">
         <h2>路线图 — 传奇之旅</h2>
-        <!-- mirrored Chinese phase blocks -->
         <div class="phase">
           <div class="phase-thumb" style="background-image:url('phase1.png')"></div>
           <div class="phase-text">
@@ -337,29 +335,15 @@
         <p class="muted small">Hype mode on — official integrations and listings will be announced on X.</p>
 
         <div class="listings-grid" aria-hidden="false">
-          <!-- visible teaser -->
           <div class="listing-card listing-visible" style="background-image:url('listing1.png');" aria-label="Listing 1"></div>
-
-          <!-- blurred, protected (visible but not perceptible/copiable) -->
-          <div class="listing-card blur protected" style="background-image:url('listing2.png');" role="presentation">
-            <div class="protect-overlay" aria-hidden="true"></div>
-          </div>
-
-          <div class="listing-card blur protected" style="background-image:url('listing3.png');" role="presentation">
-            <div class="protect-overlay" aria-hidden="true"></div>
-          </div>
-
-          <div class="listing-card blur protected" style="background-image:url('listing4.png');" role="presentation">
-            <div class="protect-overlay" aria-hidden="true"></div>
-          </div>
-
-          <div class="listing-card blur protected" style="background-image:url('listing5.png');" role="presentation">
-            <div class="protect-overlay" aria-hidden="true"></div>
-          </div>
+          <div class="listing-card blur protected" style="background-image:url('listing2.png');" role="presentation"><div class="protect-overlay" aria-hidden="true"></div></div>
+          <div class="listing-card blur protected" style="background-image:url('listing3.png');" role="presentation"><div class="protect-overlay" aria-hidden="true"></div></div>
+          <div class="listing-card blur protected" style="background-image:url('listing4.png');" role="presentation"><div class="protect-overlay" aria-hidden="true"></div></div>
+          <div class="listing-card blur protected" style="background-image:url('listing5.png');" role="presentation"><div class="protect-overlay" aria-hidden="true"></div></div>
         </div>
       </div>
 
-      <!-- ZH mirrored -->
+      <!-- ZH -->
       <div class="lang-zh" style="display:none">
         <h2>即将上线</h2>
         <p class="muted small">官方整合与上架将在 X 上公布。</p>
@@ -420,11 +404,20 @@
 
   <!-- FOOTER -->
   <footer role="contentinfo" aria-label="Footer">
-    <div class="footer-logos">
-      <img src="tron.png" alt="TRON logo">
-      <img src="sunpump.png" alt="SunPump logo">
-      <img src="sunswap.png" alt="SunSwap logo">
-      <img src="sunperp.png" alt="SunPerp logo">
+    <div class="footer-track-wrap" aria-hidden="false">
+      <div class="footer-track">
+        <div class="footer-track-inner" aria-hidden="true">
+          <img src="tron.png" alt="TRON logo">
+          <img src="sunpump.png" alt="SunPump logo">
+          <img src="sunswap.png" alt="SunSwap logo">
+          <img src="sunperp.png" alt="SunPerp logo">
+          <!-- duplicated for smooth loop -->
+          <img src="tron.png" alt="">
+          <img src="sunpump.png" alt="">
+          <img src="sunswap.png" alt="">
+          <img src="sunperp.png" alt="">
+        </div>
+      </div>
     </div>
 
     <div class="muted small footer-note lang-en">
