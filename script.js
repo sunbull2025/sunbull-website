@@ -1,8 +1,8 @@
-// Final script.js — anchors, i18n, reveal on scroll, protections, buy fx+delay, footer loop robust
+// script.js — i18n, anchors, reveal, protections, buy fx + delayed open, footer robustness
 document.addEventListener('DOMContentLoaded', () => {
   const BUY_URL = 'https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM';
 
-  // i18n toggles
+  // language toggle
   const btnEn = document.getElementById('btn-en');
   const btnZh = document.getElementById('btn-zh');
   const enBlocks = document.querySelectorAll('.lang-en');
@@ -13,176 +13,117 @@ document.addEventListener('DOMContentLoaded', () => {
     zhBlocks.forEach(e => e.style.display = 'none');
     btnEn && btnEn.classList.add('active');
     btnZh && btnZh.classList.remove('active');
+    btnEn && btnEn.setAttribute('aria-pressed','true');
+    btnZh && btnZh.setAttribute('aria-pressed','false');
   }
   function showZH(){
     enBlocks.forEach(e => e.style.display = 'none');
     zhBlocks.forEach(e => e.style.display = '');
     btnZh && btnZh.classList.add('active');
     btnEn && btnEn.classList.remove('active');
+    btnZh && btnZh.setAttribute('aria-pressed','true');
+    btnEn && btnEn.setAttribute('aria-pressed','false');
   }
   btnEn && btnEn.addEventListener('click', showEN);
   btnZh && btnZh.addEventListener('click', showZH);
   showEN();
 
-  // reveal on scroll
-  (function revealOnScroll(){
-    const els = document.querySelectorAll('.reveal, .phase, .listing-card');
+  // Reveal on scroll using IntersectionObserver
+  (function reveal(){
+    const els = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach(en => {
-        if(en.isIntersecting){
-          en.target.classList.add('visible');
-          obs.unobserve(en.target);
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
         }
       });
     }, {threshold: 0.12});
     els.forEach(e => io.observe(e));
   })();
 
-  // smooth scroll with header offset
-  function scrollToWithOffset(selector){
-    if(!selector) return;
-    const el = document.querySelector(selector);
-    if(!el) return;
-    const header = document.querySelector('.site-header');
-    const headerH = header ? Math.round(header.getBoundingClientRect().height) : 92;
-    const top = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
-    window.scrollTo({ top, behavior: 'smooth' });
-  }
-
-  // delegate clicks for [data-anchor] + anchor links
-  document.body.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-anchor]');
-    if(t){
-      e.preventDefault();
-      const sel = t.getAttribute('data-anchor');
-      if(sel) scrollToWithOffset(sel);
-      return;
-    }
-    const a = e.target.closest('a[href^="#"]');
-    if(a){
-      e.preventDefault();
+  // Smooth anchors: buttons & links with hash
+  document.querySelectorAll('.nav-link, a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', (e) => {
       const href = a.getAttribute('href');
-      if(href) scrollToWithOffset(href);
-      return;
-    }
-  }, {passive:false});
-
-  // normalize nav-btns: ensure data-anchor present (compatibility)
-  document.querySelectorAll('.nav-btn').forEach(btn => {
-    if(!btn.hasAttribute('data-anchor') && btn.textContent){
-      const txt = btn.textContent.trim().toLowerCase();
-      if(txt.includes('about')) btn.setAttribute('data-anchor', '#about');
-      if(txt.includes('token')) btn.setAttribute('data-anchor', '#tokenomics');
-      if(txt.includes('roadmap')) btn.setAttribute('data-anchor', '#roadmap');
-      if(txt.includes('list')) btn.setAttribute('data-anchor', '#listings');
-      if(txt.includes('how')) btn.setAttribute('data-anchor', '#howto');
-    }
+      if(!href || !href.startsWith('#')) return;
+      const el = document.querySelector(href);
+      if(!el) return;
+      e.preventDefault();
+      const headerOffset = 16;
+      const top = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }, {passive:false});
   });
 
-  // footer logos duplication for robust smooth loop (if only one group present)
-  (function setupFooterLoop(){
-    const trackInner = document.querySelector('.footer-track-inner');
-    if(!trackInner) return;
-    // if logs groups already duplicated skip
-    if(trackInner.querySelectorAll('.logos-group').length >= 2) return;
-    // build groups from available images (fallback)
-    const imgs = Array.from(trackInner.querySelectorAll('img'));
-    if(imgs.length === 0){
-      // try to find .logos-group fallback
-      const groups = trackInner.querySelectorAll('.logos-group');
-      if(groups.length >= 2) return;
+  // Buy effect: falling suns then open external site (delayed)
+  function playBuyAndOpen(url){
+    for(let i=0;i<12;i++){
+      const el = document.createElement('div');
+      el.className = 'coin-fx';
+      el.textContent = '☀️';
+      el.style.left = (5 + Math.random()*90) + '%';
+      el.style.top = '-18px';
+      el.style.fontSize = (12 + Math.random()*28) + 'px';
+      document.body.appendChild(el);
+      requestAnimationFrame(()=> {
+        el.style.transform = `translateY(${110 + Math.random()*20}vh) rotate(${Math.random()*720}deg)`;
+        el.style.opacity = '0';
+        el.style.transition = 'transform 1.6s cubic-bezier(.2,.9,.2,1), opacity 1.6s linear';
+      });
+      setTimeout(()=> el.remove(), 1700);
     }
-    // if images exist but not duplicated, wrap them into two groups
-    const groupA = document.createElement('div'); groupA.className = 'logos-group';
-    const groupB = document.createElement('div'); groupB.className = 'logos-group';
-    imgs.forEach(img => {
-      const c1 = img.cloneNode(true);
-      const c2 = img.cloneNode(true);
-      groupA.appendChild(c1);
-      groupB.appendChild(c2);
-    });
-    // clear and append groups
-    trackInner.innerHTML = '';
-    trackInner.appendChild(groupA);
-    trackInner.appendChild(groupB);
-  })();
+    setTimeout(()=> {
+      try { window.open(url, '_blank', 'noopener'); } catch(e){ location.href = url; }
+    }, 900);
+  }
 
-  // Protect listing cards: block contextmenu/drag/longpress
-  (function protectListings(){
-    document.querySelectorAll('.listing-card.blur, .listing-card.protected').forEach(card => {
-      card.setAttribute('draggable','false');
-      card.addEventListener('contextmenu', e => e.preventDefault());
-      card.addEventListener('dragstart', e => e.preventDefault());
-      card.addEventListener('mousedown', e => e.preventDefault());
-      card.addEventListener('touchstart', e => e.preventDefault(), {passive:false});
+  document.querySelectorAll('.btn-buy').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const url = btn.getAttribute('href') || BUY_URL;
+      playBuyAndOpen(url);
+    }, {passive:false});
+  });
+
+  // Protect listing images: block contextmenu/drag/longpress & prevent copy (best-effort)
+  (function protect(){
+    document.querySelectorAll('.listing-card, .listing-card img').forEach(el => {
+      el.setAttribute('draggable','false');
+      el.addEventListener('contextmenu', (ev) => ev.preventDefault());
+      el.addEventListener('dragstart', (ev) => ev.preventDefault());
+      el.addEventListener('mousedown', (ev) => { if(ev.target.tagName === 'IMG') ev.preventDefault(); });
+      el.addEventListener('touchstart', (ev) => { ev.preventDefault(); }, {passive:false});
     });
 
+    // block contextmenu on images globally
     document.addEventListener('contextmenu', function(e){
-      if(e.target.closest && e.target.closest('.listings-grid')) e.preventDefault();
-    }, {capture:false});
+      if(e.target && e.target.tagName === 'IMG') e.preventDefault();
+    });
 
+    // try to block copy where selection includes listings
     document.addEventListener('copy', function(e){
       const sel = window.getSelection();
       if(!sel) return;
       const node = sel.anchorNode && (sel.anchorNode.nodeType === 3 ? sel.anchorNode.parentElement : sel.anchorNode);
-      if(node && node.closest && node.closest('.listings-grid')) e.preventDefault();
+      if(node && node.closest && node.closest('.listings-grid')){
+        e.preventDefault();
+      }
     });
   })();
 
-  // Buy effect: show falling suns then open external page (delay)
-  function playBuyFXAndOpen(url){
-    for(let i=0;i<10;i++){
-      const el = document.createElement('div');
-      el.className = 'coin-fx';
-      el.textContent = '☀️';
-      el.style.left = (10 + Math.random()*80) + '%';
-      el.style.top = '-18px';
-      el.style.fontSize = (12 + Math.random()*28) + 'px';
-      el.style.opacity = '0.95';
-      el.style.zIndex = 9999;
-      el.style.transition = 'transform 1.2s cubic-bezier(.2,.8,.2,1), opacity 1.2s linear';
-      document.body.appendChild(el);
-      requestAnimationFrame(()=> {
-        el.style.transform = `translateY(${110 + Math.random()*30}vh) rotate(${Math.random()*720}deg)`;
-        el.style.opacity = '0';
-      });
-      setTimeout(()=> el.remove(), 1400);
-    }
-    setTimeout(()=> { try { window.open(url, '_blank', 'noopener'); } catch(e){ location.href = url; } }, 900);
-  }
-
-  // attach buy handler to all .btn-buy
-  document.querySelectorAll('.btn-buy').forEach(btn => {
-    btn.addEventListener('click', function(e){
-      if(this.tagName.toLowerCase() === 'a'){
-        e.preventDefault();
-        const href = this.getAttribute('href') || BUY_URL;
-        playBuyFXAndOpen(href);
-      } else {
-        playBuyFXAndOpen(BUY_URL);
-      }
-    }, {passive:false});
-  });
-
-  // mobile bar visibility
-  (function mobileBarSetup(){
-    const mb = document.querySelector('.mobile-bar');
-    if(!mb) return;
-    function update(){
-      if(window.innerWidth <= 1000){
-        mb.setAttribute('aria-hidden','false');
-        mb.style.display = 'flex';
-      } else {
-        mb.setAttribute('aria-hidden','true');
-        mb.style.display = 'none';
-      }
-    }
-    window.addEventListener('resize', update);
-    update();
+  // Ensure footer logos loop is seamless: duplicate inner group if necessary
+  (function footerLoopSetup(){
+    const track = document.querySelector('.footer-track .logos');
+    if(!track) return;
+    // If not enough width to loop, duplication already in markup; keep as is.
+    // Pause on hover (desktop)
+    track.addEventListener('mouseenter', ()=> track.style.animationPlayState = 'paused');
+    track.addEventListener('mouseleave', ()=> track.style.animationPlayState = 'running');
   })();
 
-  // ensure reveal triggers for pre-visible content
-  setTimeout(()=> {
+  // ensure pre-visible reveals get shown (for clients where IO may not fire immediately)
+  setTimeout(() => {
     document.querySelectorAll('.reveal').forEach(el => {
       if(el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
     });
@@ -190,20 +131,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // debug missing images
   document.querySelectorAll('img').forEach(img=>{
-    img.addEventListener('error', ()=> console.warn('Missing image:', img.getAttribute('src')||img.src));
+    img.addEventListener('error', ()=> console.warn('Missing image:', img.getAttribute('src') || img.src));
   });
 
-  // bg fallback mobile
-  (function bgFallback(){
+  // background fallback for mobile to avoid performance issues
+  function bgFallback(){
     const bg = document.querySelector('.bg');
     if(!bg) return;
     if(window.innerWidth <= 980){
       bg.style.backgroundAttachment = 'scroll';
-      document.body.style.backgroundAttachment = 'scroll';
     } else {
       bg.style.backgroundAttachment = 'fixed';
-      document.body.style.backgroundAttachment = 'fixed';
     }
-  })();
+  }
+  bgFallback();
   window.addEventListener('resize', bgFallback);
 });
