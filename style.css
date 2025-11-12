@@ -1,17 +1,17 @@
-/* Final style.css — Solar Gold, responsive, performant */
+/* style.css — Final polished styles for SunBull (Solar Gold theme) */
 :root{
   --gold:#ffd24a; --accent:#ffb945; --maxw:1180px; --ease:cubic-bezier(.2,.9,.2,1);
   --logo-size:260px; --listing-w:150px; --listing-h:110px;
-  --footer-speed:12s; /* adjust for faster/slower loop (lower = faster) */
+  --footer-speed:10s;
 }
 
-/* Reset */
+/* reset */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:'Poppins',system-ui,Arial,sans-serif;background:#000;color:#fff;-webkit-font-smoothing:antialiased}
 a{color:var(--gold);text-decoration:none}
 img{display:block;max-width:100%;-webkit-user-drag:none;user-select:none}
 
-/* Background */
+/* background */
 .bg{
   position:fixed;inset:0;z-index:-100;background-image:url('fundo.png');
   background-size:cover;background-position:center;background-repeat:no-repeat;
@@ -20,17 +20,18 @@ img{display:block;max-width:100%;-webkit-user-drag:none;user-select:none}
 }
 .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.44));pointer-events:none}
 
-/* Container */
+/* container */
 .site-wrap{max-width:var(--maxw);margin:0 auto;padding:18px}
 
-/* HERO */
+/* hero */
 .hero{padding:28px 18px 12px;text-align:center}
 .logo-wrap{display:flex;justify-content:center;align-items:center;margin-bottom:10px}
 .logo-frame{position:relative;width:var(--logo-size);height:var(--logo-size)}
-.logo-main{width:100%;height:100%;border-radius:50%;object-fit:contain;border:6px solid rgba(255,220,120,0.12);box-shadow:0 40px 120px rgba(246,176,58,0.12)}
+.logo-main{width:100%;height:100%;border-radius:50%;object-fit:cover;border:6px solid rgba(255,220,120,0.12);box-shadow:0 40px 120px rgba(246,176,58,0.12)}
 .logo-shine{position:absolute;inset:-6%;border-radius:50%;filter:blur(36px);pointer-events:none;background:
   radial-gradient(circle at 30% 20%, rgba(255,220,120,0.22), transparent 26%),
-  radial-gradient(circle at 70% 80%, rgba(255,180,60,0.10), transparent 30%);opacity:0.9}
+  radial-gradient(circle at 70% 80%, rgba(255,180,60,0.10), transparent 30%);opacity:0.95;animation:spin 12s linear infinite}
+@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
 
 .hero-title{font-family:'Orbitron',sans-serif;color:var(--gold);font-size:32px;margin-top:10px}
 .hero-lead{color:rgba(255,255,255,0.95);max-width:960px;margin:12px auto;line-height:1.6;font-size:1rem}
@@ -41,12 +42,14 @@ img{display:block;max-width:100%;-webkit-user-drag:none;user-select:none}
 .nav-btn:hover{transform:translateY(-4px)}
 .btn-primary{display:inline-block;padding:10px 16px;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--accent));color:#07101a;font-weight:900;border:0;box-shadow:0 26px 80px rgba(246,176,58,0.12)}
 .hero-meta{margin-top:12px}
+.lang-toggle .lang{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff;padding:6px 10px;border-radius:8px;margin:0 6px;cursor:pointer}
 
 /* panels */
 .panel{background:linear-gradient(180deg, rgba(0,0,0,0.5), rgba(0,0,0,0.22));padding:20px;border-radius:12px;margin:20px auto;max-width:var(--maxw)}
 h2{font-family:'Orbitron',sans-serif;color:var(--gold);margin-bottom:12px}
 p,li{line-height:1.6;color:rgba(255,255,255,0.95);margin-top:10px}
 .muted{opacity:0.85}
+.gold-quote{color:var(--gold);font-weight:800;margin:14px 0;padding-left:12px}
 
 /* tables */
 .table{width:100%;border-collapse:collapse;margin-top:12px}
@@ -56,7 +59,7 @@ p,li{line-height:1.6;color:rgba(255,255,255,0.95);margin-top:10px}
 /* roadmap */
 .phases{display:flex;flex-direction:column;gap:18px}
 .phase{display:flex;gap:18px;align-items:center}
-.phase-thumb{width:480px;height:280px;border-radius:12px;background-size:cover;background-position:center;box-shadow:0 28px 90px rgba(0,0,0,0.6);flex:0 0 auto}
+.phase-thumb{width:520px;height:320px;border-radius:12px;background-size:cover;background-position:center;box-shadow:0 28px 90px rgba(0,0,0,0.6);flex:0 0 auto}
 .phase-text{flex:1}
 
 /* listings */
@@ -66,6 +69,9 @@ p,li{line-height:1.6;color:rgba(255,255,255,0.95);margin-top:10px}
 .blur{filter:blur(18px) brightness(0.44) saturate(0.6);transform:scale(1.02);pointer-events:none}
 .protected .protect-overlay{position:absolute;inset:0;z-index:12;background:transparent;pointer-events:auto;cursor:default}
 
+/* howto */
+.how-list{margin:12px auto;max-width:720px;text-align:left}
+
 /* footer */
 .site-footer{padding:18px 6%;margin-top:24px}
 .footer-track{overflow:hidden;white-space:nowrap}
@@ -73,26 +79,26 @@ p,li{line-height:1.6;color:rgba(255,255,255,0.95);margin-top:10px}
 .footer-track img{height:56px;object-fit:contain;display:block;filter:brightness(1.02)}
 .footer-note{text-align:center;margin-top:12px;color:rgba(255,255,255,0.88);font-size:0.92rem}
 
-/* reveal effect */
+/* reveal */
 .reveal{opacity:0;transform:translateY(18px);transition:all .7s var(--ease)}
 .reveal.visible{opacity:1;transform:none}
 
 /* coin fx */
 .coin-fx{position:fixed;pointer-events:none;z-index:9999;font-size:22px;mix-blend-mode:screen;text-shadow:0 6px 18px rgba(0,0,0,0.35)}
 
-/* responsive */
+/* responsive adjustments */
 @media(max-width:980px){
-  :root{--logo-size:200px;--listing-w:140px;--listing-h:100px;--footer-speed:10s}
+  :root{--logo-size:200px;--listing-w:140px;--listing-h:100px;--footer-speed:8s}
   .phase{flex-direction:column}
   .phase-thumb{width:92%;height:220px;background-size:cover}
 }
 @media(max-width:520px){
-  :root{--logo-size:150px;--listing-w:48%;--listing-h:120px;--footer-speed:8s}
+  :root{--logo-size:150px;--listing-w:48%;--listing-h:120px;--footer-speed:6s}
   .logo-main{width:var(--logo-size);height:var(--logo-size)}
   .footer-track img{height:40px}
 }
 
-/* logos scroll keyframes (translate -50% because group duplicated) */
+/* logos scroll */
 @keyframes logos-scroll{
   0%{transform:translateX(0)}
   100%{transform:translateX(-50%)}
