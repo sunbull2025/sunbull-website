@@ -16,8 +16,8 @@
 
   <div class="site-wrap">
 
-    <!-- HERO -->
-    <header id="hero" class="hero reveal" role="banner">
+    <!-- HERO (logo large, header area) -->
+    <header id="hero" class="hero reveal" role="banner" aria-label="SunBull hero">
       <div class="hero-inner">
         <div class="logo-wrap">
           <div class="logo-frame" aria-hidden="false">
@@ -33,7 +33,7 @@
           <em>SunPump · SunSwap · SunPerp</em>. Built by the community, for the community — our audacious goal: make <strong>$SUNBULL</strong> the first TRON memecoin to reach <strong>$1B market cap</strong>.
         </p>
 
-        <nav class="hero-nav" aria-label="Primary">
+        <nav class="hero-nav" aria-label="Primary navigation">
           <button class="nav-btn" data-target="#about">About</button>
           <button class="nav-btn" data-target="#tokenomics">Tokenomics</button>
           <button class="nav-btn" data-target="#roadmap">Roadmap</button>
@@ -43,17 +43,18 @@
         </nav>
 
         <div class="hero-meta">
-          <div class="lang-toggle">
-            <button id="btn-en" class="lang active" aria-pressed="true">EN</button>
-            <button id="btn-zh" class="lang" aria-pressed="false">中文</button>
+          <div class="lang-toggle" role="tablist" aria-label="Language toggle">
+            <button id="btn-en" class="lang active" aria-pressed="true" role="tab">EN</button>
+            <button id="btn-zh" class="lang" aria-pressed="false" role="tab">中文</button>
           </div>
           <p class="contract muted">Contract (test): <code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
         </div>
       </div>
     </header>
 
-    <!-- ABOUT -->
+    <!-- MAIN CONTENT -->
     <main>
+      <!-- ABOUT -->
       <section id="about" class="panel reveal">
         <div class="lang-en">
           <h2>The Legend of the Sun Bull</h2>
@@ -86,7 +87,6 @@
             It merged with SunPump’s feverish hype: muscle, wit and viral energy braided into a single symbol. That symbol is SunBull.
           </p>
 
-          <!-- NEW MEME-ERA PARAGRAPH (user-specified) -->
           <p class="memeco">
             SunBull is the coin the entire TRON chain was quietly waiting for — not a flash in the pan but an era-defining movement.
             We are the flame that won’t fade, the memecoin built to stay. 2026 is approaching and we’re only getting started: bigger drops, louder memes, and burns that bind our legacy on-chain.
@@ -119,11 +119,7 @@
           <h3>扩展背景</h3>
           <p>在 TRON 的 Meme 文艺复兴中，创作者点燃了创意的篝火。公牛回应了号召，与 SunPump 的热潮融合：肌力、机智与病毒式能量交织，化作 SunBull。</p>
 
-          <p class="memeco">
-            SunBull 是整个 TRON 链一直在静待的代币 —— 不是昙花一现，而是一个定义时代的运动。
-            我们是不会熄灭的火焰，是为长期而生的 Meme 币。2026 年即将到来，我们才刚刚起步：更大的空投、更强的 Meme、以及将在链上铭刻我们遗产的销毁。
-            我们不是潮流，而是 TRON 的心跳。加入 #SUNBULLARMY，成为时代的一部分。
-          </p>
+          <p class="memeco">SunBull 是整个 TRON 链一直在静待的代币 —— 不是昙花一现，而是一个定义时代的运动。我们是不会熄灭的火焰，是为长期而生的 Meme 币。2026 年即将到来，我们才刚刚起步：更大的空投、更强的 Meme、以及将在链上铭刻我们遗产的销毁。我们不是潮流，而是 TRON 的心跳。加入 #SUNBULLARMY，成为时代的一部分。</p>
 
           <blockquote class="gold-quote">“我们不是去月球，我们直达太阳。”</blockquote>
         </div>
@@ -281,12 +277,12 @@
     <!-- FOOTER -->
     <footer class="site-footer" role="contentinfo">
       <div class="footer-track" aria-hidden="true">
-        <div class="logos">
+        <div class="logos" aria-hidden="true">
           <img src="tron.png" alt="TRON">
           <img src="sunpump.png" alt="SunPump">
           <img src="sunswap.png" alt="SunSwap">
           <img src="sunperp.png" alt="SunPerp">
-          <!-- duplicate for smooth loop -->
+          <!-- duplicate for smooth loop (keeps order identical) -->
           <img src="tron.png" alt="">
           <img src="sunpump.png" alt="">
           <img src="sunswap.png" alt="">
