@@ -10,13 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if(lang === 'en'){
       document.querySelectorAll('.lang-en').forEach(e => e.style.display = '');
       document.querySelectorAll('.lang-zh').forEach(e => e.style.display = 'none');
-      btnEn && btnEn.classList.add('active'); btnZh && btnZh.classList.remove('active');
+      btnEn && btnEn.classList.add('active'); 
+      btnZh && btnZh.classList.remove('active');
     } else {
       document.querySelectorAll('.lang-en').forEach(e => e.style.display = 'none');
       document.querySelectorAll('.lang-zh').forEach(e => e.style.display = '');
-      btnZh && btnZh.classList.add('active'); btnEn && btnEn.classList.remove('active');
+      btnZh && btnZh.classList.add('active'); 
+      btnEn && btnEn.classList.remove('active');
     }
   }
+
   btnEn && btnEn.addEventListener('click', () => showLang('en'));
   btnZh && btnZh.addEventListener('click', () => showLang('zh'));
   showLang('en');
@@ -43,9 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const dest = document.querySelector(target);
       if(!dest) return;
       e.preventDefault();
-      // offset to avoid covering top of section by hero
-      const headerOffset = Math.min(90, Math.max(64, Math.round(window.innerWidth * 0.06)));
+
+      // offset to avoid covering top of section
+      const headerOffset = Math.min(96, Math.max(64, Math.round(window.innerWidth * 0.06)));
       const top = dest.getBoundingClientRect().top + window.scrollY - headerOffset;
+
       window.scrollTo({ top, behavior: 'smooth' });
     }, {passive:false});
   });
@@ -61,15 +66,19 @@ document.addEventListener('DOMContentLoaded', () => {
       el.style.fontSize = (12 + Math.random()*28) + 'px';
       el.style.opacity = '1';
       document.body.appendChild(el);
+
       requestAnimationFrame(()=> {
         el.style.transform = `translateY(${110 + Math.random()*20}vh) rotate(${Math.random()*720}deg)`;
         el.style.transition = 'transform 1.5s cubic-bezier(.2,.9,.2,1), opacity 1.5s linear';
         el.style.opacity = '0';
       });
+
       setTimeout(()=> el.remove(), 1600);
     }
+
     setTimeout(()=> {
-      try { window.open(url, '_blank', 'noopener'); } catch(e){ location.href = url; }
+      try { window.open(url, '_blank', 'noopener'); } 
+      catch(e){ location.href = url; }
     }, 700);
   }
 
@@ -81,15 +90,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }, {passive:false});
   });
 
-  // Protect listing backgrounds & images (best-effort)
-  (function protectListings(){
-    const protectedEls = document.querySelectorAll('.protected, .listing-card, .phase-thumb, .logo-main, .footer-track img');
+  // Protect images (best-effort)
+  (function protectImages(){
+    const protectedEls = document.querySelectorAll(
+      '.protected, .listing-card, .phase-img, .logo-main, .footer-track img, .listing-img, .x-icon'
+    );
+
     protectedEls.forEach(el=>{
       el.setAttribute('draggable','false');
       el.addEventListener('contextmenu', e => e.preventDefault());
       el.addEventListener('dragstart', e => e.preventDefault());
-      el.addEventListener('mousedown', e => { if(e.target.tagName === 'IMG') e.preventDefault(); });
-      el.addEventListener('touchstart', e => { /* best-effort: prevent long-press image open on some browsers */ }, {passive:true});
+      el.addEventListener('mousedown', e => { 
+        if(e.target.tagName === 'IMG') e.preventDefault(); 
+      });
+      el.addEventListener('touchstart', e => {}, {passive:true});
     });
 
     document.addEventListener('contextmenu', (e) => {
@@ -97,22 +111,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // Footer loop: pause on hover/touch (desktop) — uses duplicated logos in HTML
-  (function footerLoopControls(){
+  // Footer loop: pause on hover/touch (desktop and mobile)
+  (function footerLoop(){
     const logos = document.querySelector('.footer-track .logos');
     if(!logos) return;
+
     logos.addEventListener('mouseenter', ()=> logos.style.animationPlayState = 'paused');
     logos.addEventListener('mouseleave', ()=> logos.style.animationPlayState = 'running');
-
-    // mobile: pause on touchstart, resume on touchend
     logos.addEventListener('touchstart', ()=> logos.style.animationPlayState = 'paused', {passive:true});
     logos.addEventListener('touchend', ()=> logos.style.animationPlayState = 'running', {passive:true});
   })();
 
-  // Subtle background parallax on desktop
+  // Subtle parallax for background
   (function parallaxBg(){
     const bg = document.querySelector('.bg');
     if(!bg) return;
+
     function update(){
       if(window.innerWidth > 980){
         const y = window.scrollY * 0.035;
@@ -121,11 +135,15 @@ document.addEventListener('DOMContentLoaded', () => {
         bg.style.transform = '';
       }
     }
+
     update();
     window.addEventListener('scroll', update, {passive:true});
     window.addEventListener('resize', update);
   })();
 
-  // Quick image missing warning (dev)
-  document.querySelectorAll('img').forEach(img => img.addEventListener('error', ()=> console.warn('Missing image:', img.getAttribute('src') || img.src)));
+  // Missing images warnings (dev only)
+  document.querySelectorAll('img').forEach(img => 
+    img.addEventListener('error', ()=> console.warn('Missing image:', img.getAttribute('src') || img.src))
+  );
+
 });

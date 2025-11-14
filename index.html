@@ -21,7 +21,7 @@
       <div class="hero-inner">
         <div class="logo-wrap">
           <div class="logo-frame" aria-hidden="false">
-            <img src="logo.png" alt="SunBull logo" id="mainLogo" class="logo-main">
+            <img src="logo.png" alt="SunBull logo" id="mainLogo" class="logo-main protected-img">
             <div class="logo-shine" aria-hidden="true"></div>
           </div>
         </div>
@@ -191,7 +191,7 @@
 
         <div class="phases">
           <article class="phase">
-            <div class="phase-thumb" style="background-image:url('phase1.png')" role="img" aria-label="Phase 1"></div>
+            <div class="phase-thumb"><img src="phase1.png" alt="Phase 1" class="phase-img protected-img"></div>
             <div class="phase-text">
               <h3>Phase 1 — The Birth of the Sun Bull</h3>
               <p>Create $SUNBULL on SunPump (TRON), verify contract on-chain, launch website & social hubs, publish manifesto & tokenomics, and start airdrops & meme campaigns.</p>
@@ -199,7 +199,7 @@
           </article>
 
           <article class="phase">
-            <div class="phase-thumb" style="background-image:url('phase2.png')" role="img" aria-label="Phase 2"></div>
+            <div class="phase-thumb"><img src="phase2.png" alt="Phase 2" class="phase-img protected-img"></div>
             <div class="phase-text">
               <h3>Phase 2 — The Rise of the Meme</h3>
               <p>Grow #SUNBULLARMY, schedule milestone burns tied to marketcap, push creator collaborations and community campaigns.</p>
@@ -207,7 +207,7 @@
           </article>
 
           <article class="phase">
-            <div class="phase-thumb" style="background-image:url('phase3.png')" role="img" aria-label="Phase 3"></div>
+            <div class="phase-thumb"><img src="phase3.png" alt="Phase 3" class="phase-img protected-img"></div>
             <div class="phase-text">
               <h3>Phase 3 — Unity of the TRON Community</h3>
               <p>Release limited NFTs to celebrate milestones, increase international awareness, and create organic integrations with TRON dApps and creators.</p>
@@ -215,7 +215,7 @@
           </article>
 
           <article class="phase">
-            <div class="phase-thumb" style="background-image:url('phase4.png')" role="img" aria-label="Phase 4"></div>
+            <div class="phase-thumb"><img src="phase4.png" alt="Phase 4" class="phase-img protected-img"></div>
             <div class="phase-text">
               <h3>Phase 4 — The Fire of the Bull (Burns)</h3>
               <p>Execute team burns at marketcap milestones — fully on-chain and transparent; celebrate each step with cultural drops and events.</p>
@@ -223,7 +223,7 @@
           </article>
 
           <article class="phase">
-            <div class="phase-thumb" style="background-image:url('phase5.png')" role="img" aria-label="Phase 5"></div>
+            <div class="phase-thumb"><img src="phase5.png" alt="Phase 5" class="phase-img protected-img"></div>
             <div class="phase-text">
               <h3>Phase 5 — Meme Immortality</h3>
               <p>Reach $1B market cap — final ceremonial burn, support creators, and solidify SunBull as TRON’s mascot for memetics.</p>
@@ -238,12 +238,31 @@
         <p class="muted small">Official integrations and listings will be announced on X.</p>
 
         <div class="listings-grid" aria-hidden="false">
-          <div class="listing-card listing-visible" style="background-image:url('listing1.png')" aria-label="Listing 1" role="img"></div>
+          <!-- visible listing -->
+          <div class="listing-card listing-visible">
+            <img src="listing1.png" alt="Listing 1" class="listing-img protected-img">
+          </div>
 
-          <div class="listing-card blur protected" style="background-image:url('listing2.png')" aria-hidden="true"><div class="protect-overlay" aria-hidden="true"></div></div>
-          <div class="listing-card blur protected" style="background-image:url('listing3.png')" aria-hidden="true"><div class="protect-overlay" aria-hidden="true"></div></div>
-          <div class="listing-card blur protected" style="background-image:url('listing4.png')" aria-hidden="true"><div class="protect-overlay" aria-hidden="true"></div></div>
-          <div class="listing-card blur protected" style="background-image:url('listing5.png')" aria-hidden="true"><div class="protect-overlay" aria-hidden="true"></div></div>
+          <!-- blurred & protected -->
+          <div class="listing-card blur protected">
+            <img src="listing2.png" alt="Listing 2" class="listing-img protected-img">
+            <div class="protect-overlay" aria-hidden="true"></div>
+          </div>
+
+          <div class="listing-card blur protected">
+            <img src="listing3.png" alt="Listing 3" class="listing-img protected-img">
+            <div class="protect-overlay" aria-hidden="true"></div>
+          </div>
+
+          <div class="listing-card blur protected">
+            <img src="listing4.png" alt="Listing 4" class="listing-img protected-img">
+            <div class="protect-overlay" aria-hidden="true"></div>
+          </div>
+
+          <div class="listing-card blur protected">
+            <img src="listing5.png" alt="Listing 5" class="listing-img protected-img">
+            <div class="protect-overlay" aria-hidden="true"></div>
+          </div>
         </div>
       </section>
 
@@ -269,7 +288,7 @@
         <p class="muted">We represent the memetic soul of TRON. Follow official X for burns, drops and community calls.</p>
         <div style="margin-top:12px">
           <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">BUY $SUNBULL</a>
-          <a class="btn btn-ghost" href="https://x.com/SunBullOfficial" target="_blank" rel="noopener"><img src="x.png" alt="X" class="x-icon"> Follow on X</a>
+          <a class="btn btn-ghost" href="https://x.com/SunBullOfficial" target="_blank" rel="noopener"><img src="x.png" alt="X" class="x-icon protected-img"> Follow on X</a>
         </div>
       </section>
     </main>
@@ -278,15 +297,15 @@
     <footer class="site-footer" role="contentinfo">
       <div class="footer-track" aria-hidden="true">
         <div class="logos" aria-hidden="true">
-          <img src="tron.png" alt="TRON">
-          <img src="sunpump.png" alt="SunPump">
-          <img src="sunswap.png" alt="SunSwap">
-          <img src="sunperp.png" alt="SunPerp">
+          <img src="tron.png" alt="TRON" class="protected-img">
+          <img src="sunpump.png" alt="SunPump" class="protected-img">
+          <img src="sunswap.png" alt="SunSwap" class="protected-img">
+          <img src="sunperp.png" alt="SunPerp" class="protected-img">
           <!-- duplicate for smooth loop (keeps order identical) -->
-          <img src="tron.png" alt="">
-          <img src="sunpump.png" alt="">
-          <img src="sunswap.png" alt="">
-          <img src="sunperp.png" alt="">
+          <img src="tron.png" alt="" class="protected-img">
+          <img src="sunpump.png" alt="" class="protected-img">
+          <img src="sunswap.png" alt="" class="protected-img">
+          <img src="sunperp.png" alt="" class="protected-img">
         </div>
       </div>
 
