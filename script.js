@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.forEach(e => io.observe(e));
   })();
 
-  // Smooth scroll for nav buttons and anchor links (touch compatible)
+  // Smooth scroll for nav buttons and anchor links
   document.querySelectorAll('.nav-btn, a[href^="#"]').forEach(el=>{
     el.addEventListener('click', (e) => {
       const target = el.getAttribute('data-target') || el.getAttribute('href');
@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if(!dest) return;
       e.preventDefault();
 
-      // offset to avoid covering top of section (small header)
-      const headerOffset = Math.min(96, Math.max(56, Math.round(window.innerWidth * 0.06)));
+      // offset to avoid covering top of section
+      const headerOffset = Math.min(96, Math.max(48, Math.round(window.innerWidth * 0.06)));
       const top = dest.getBoundingClientRect().top + window.scrollY - headerOffset;
 
       window.scrollTo({ top, behavior: 'smooth' });
@@ -57,23 +57,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Buy effect + delayed open
   function playBuyAndOpen(url){
-    for(let i=0;i<14;i++){
+    for(let i=0;i<12;i++){
       const el = document.createElement('div');
       el.className = 'coin-fx';
       el.textContent = '☀️';
       el.style.left = (6 + Math.random()*88) + '%';
       el.style.top = '-18px';
-      el.style.fontSize = (12 + Math.random()*28) + 'px';
+      el.style.fontSize = (12 + Math.random()*26) + 'px';
       el.style.opacity = '1';
       document.body.appendChild(el);
 
       requestAnimationFrame(()=> {
         el.style.transform = `translateY(${110 + Math.random()*20}vh) rotate(${Math.random()*720}deg)`;
-        el.style.transition = 'transform 1.5s cubic-bezier(.2,.9,.2,1), opacity 1.5s linear';
+        el.style.transition = 'transform 1.4s cubic-bezier(.2,.9,.2,1), opacity 1.4s linear';
         el.style.opacity = '0';
       });
 
-      setTimeout(()=> el.remove(), 1600);
+      setTimeout(()=> el.remove(), 1500);
     }
 
     setTimeout(()=> {
@@ -90,20 +90,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }, {passive:false});
   });
 
-  // Protect images (best-effort)
+  // Protect images (best-effort) + ensure listing-visible also has overlay to prevent preview
   (function protectImages(){
+    // ensure every listing-card has a protect-overlay (some might be missing)
+    document.querySelectorAll('.listing-card').forEach(card => {
+      if(!card.querySelector('.protect-overlay')){
+        const ov = document.createElement('div');
+        ov.className = 'protect-overlay';
+        ov.setAttribute('aria-hidden','true');
+        card.insertBefore(ov, card.firstChild);
+      }
+    });
+
     const protectedEls = document.querySelectorAll(
-      '.protected, .listing-card, .phase-img, .logo-main, .footer-track img, .listing-img, .x-icon'
+      '.protected-img, .listing-card, .phase-img, .logo-main, .footer-track img, .listing-img, .x-icon'
     );
 
     protectedEls.forEach(el=>{
-      el.setAttribute('draggable','false');
-      el.addEventListener('contextmenu', e => e.preventDefault());
-      el.addEventListener('dragstart', e => e.preventDefault());
-      el.addEventListener('mousedown', e => { 
-        if(e.target.tagName === 'IMG') e.preventDefault(); 
+      try {
+        el.setAttribute('draggable','false');
+      } catch(e){}
+      el.addEventListener && el.addEventListener('contextmenu', e => e.preventDefault());
+      el.addEventListener && el.addEventListener('dragstart', e => e.preventDefault());
+      el.addEventListener && el.addEventListener('mousedown', e => { 
+        if(e.target && e.target.tagName === 'IMG') e.preventDefault(); 
       });
-      el.addEventListener('touchstart', e => {}, {passive:true});
+      // prevent long-press preview on touch as best-effort
+      el.addEventListener && el.addEventListener('touchstart', e => {}, {passive:true});
     });
 
     document.addEventListener('contextmenu', (e) => {
@@ -122,14 +135,14 @@ document.addEventListener('DOMContentLoaded', () => {
     logos.addEventListener('touchend', ()=> logos.style.animationPlayState = 'running', {passive:true});
   })();
 
-  // Subtle parallax for background (desktop only)
+  // Subtle parallax for background
   (function parallaxBg(){
     const bg = document.querySelector('.bg');
     if(!bg) return;
 
     function update(){
       if(window.innerWidth > 980){
-        const y = window.scrollY * 0.035;
+        const y = window.scrollY * 0.03;
         bg.style.transform = `translateY(${y}px)`;
       } else {
         bg.style.transform = '';
