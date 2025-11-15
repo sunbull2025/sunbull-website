@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.forEach(e => io.observe(e));
   })();
 
-  // Smooth scroll for nav buttons and anchor links
+  // Smooth scroll for nav buttons and anchor links (touch compatible)
   document.querySelectorAll('.nav-btn, a[href^="#"]').forEach(el=>{
     el.addEventListener('click', (e) => {
       const target = el.getAttribute('data-target') || el.getAttribute('href');
@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if(!dest) return;
       e.preventDefault();
 
-      // offset to avoid covering top of section
-      const headerOffset = Math.min(96, Math.max(64, Math.round(window.innerWidth * 0.06)));
+      // offset to avoid covering top of section (small header)
+      const headerOffset = Math.min(96, Math.max(56, Math.round(window.innerWidth * 0.06)));
       const top = dest.getBoundingClientRect().top + window.scrollY - headerOffset;
 
       window.scrollTo({ top, behavior: 'smooth' });
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     logos.addEventListener('touchend', ()=> logos.style.animationPlayState = 'running', {passive:true});
   })();
 
-  // Subtle parallax for background
+  // Subtle parallax for background (desktop only)
   (function parallaxBg(){
     const bg = document.querySelector('.bg');
     if(!bg) return;

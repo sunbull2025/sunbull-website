@@ -69,7 +69,7 @@ p,li{line-height:1.6;color:rgba(255,255,255,0.95);margin-top:10px}
 .listing-card{width:var(--listing-w);height:var(--listing-h);border-radius:12px;background:transparent;box-shadow:0 18px 40px rgba(0,0,0,0.6);position:relative;flex:0 0 auto;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .listing-img{width:100%;height:100%;object-fit:cover;display:block}
 .listing-visible img{filter:none}
-.blur img{filter:blur(8px) brightness(0.52) saturate(0.8);transform:scale(1.02);pointer-events:none}
+.blur img{filter:blur(6px) brightness(0.52) saturate(0.8);transform:scale(1.02);pointer-events:none}
 .protected .protect-overlay{position:absolute;inset:0;z-index:12;background:transparent;pointer-events:auto;cursor:default}
 
 /* howto */
@@ -79,7 +79,7 @@ p,li{line-height:1.6;color:rgba(255,255,255,0.95);margin-top:10px}
 .site-footer{padding:18px 6%;margin-top:24px;background:transparent}
 .footer-track{overflow:hidden;white-space:nowrap}
 .footer-track .logos{display:flex;gap:32px;align-items:center;animation:logos-scroll var(--footer-speed) linear infinite}
-.footer-track img{height:52px;object-fit:contain;display:block;filter:brightness(1.02)}
+.footer-track img{height:48px;object-fit:contain;display:block;filter:brightness(1.02)}
 .footer-note{text-align:center;margin-top:12px;color:rgba(255,255,255,0.88);font-size:0.92rem}
 
 /* reveal */
@@ -98,7 +98,7 @@ p,li{line-height:1.6;color:rgba(255,255,255,0.95);margin-top:10px}
 @media(max-width:520px){
   :root{--logo-size:140px;--listing-w:46%;--listing-h:120px;--footer-speed:8s}
   .logo-main{width:var(--logo-size);height:var(--logo-size)}
-  .footer-track img{height:40px}
+  .footer-track img{height:36px}
 }
 
 /* logos scroll */
