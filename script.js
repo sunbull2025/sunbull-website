@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Protect images (best-effort)
   (function protectImages(){
     const protectedEls = document.querySelectorAll(
-      '.protected, .listing-card, .phase-img, .logo-main, .footer-track img, .listing-img, .x-icon'
+      '.protected-img, .listing-card, .phase-img, .logo-main, .footer-track img, .listing-img, .x-icon'
     );
 
     protectedEls.forEach(el=>{
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     logos.addEventListener('touchend', ()=> logos.style.animationPlayState = 'running', {passive:true});
   })();
 
-  // Subtle parallax for background
+  // Subtle parallax for background (desktop), iOS fallback handled by CSS background-attachment
   (function parallaxBg(){
     const bg = document.querySelector('.bg');
     if(!bg) return;
@@ -139,6 +139,18 @@ document.addEventListener('DOMContentLoaded', () => {
     update();
     window.addEventListener('scroll', update, {passive:true});
     window.addEventListener('resize', update);
+  })();
+
+  // protect blurred listings: remove pointer events and prevent selection
+  (function protectListings(){
+    document.querySelectorAll('.blur .listing-img').forEach(img=>{
+      img.style.pointerEvents = 'none';
+      img.setAttribute('aria-hidden','true');
+    });
+    document.querySelectorAll('.protect-overlay').forEach(o=>{
+      o.addEventListener('contextmenu', e => e.preventDefault());
+      o.addEventListener('mousedown', e => e.preventDefault());
+    });
   })();
 
   // Missing images warnings (dev only)
