@@ -1,6 +1,7 @@
 // script.js — final interactions (i18n, anchors, reveal, protections, buy fx + delayed open, footer control, parallax)
 document.addEventListener('DOMContentLoaded', () => {
   const BUY_URL = 'https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM';
+  const X_URL = 'https://x.com/SunBullOfficial';
 
   // I18n (EN / 中文)
   const btnEn = document.getElementById('btn-en');
@@ -10,13 +11,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if(lang === 'en'){
       document.querySelectorAll('.lang-en').forEach(e => e.style.display = '');
       document.querySelectorAll('.lang-zh').forEach(e => e.style.display = 'none');
-      btnEn && btnEn.classList.add('active'); 
+      btnEn && btnEn.classList.add('active');
       btnZh && btnZh.classList.remove('active');
+      // update aria-pressed
+      btnEn && btnEn.setAttribute('aria-pressed','true');
+      btnZh && btnZh.setAttribute('aria-pressed','false');
     } else {
       document.querySelectorAll('.lang-en').forEach(e => e.style.display = 'none');
       document.querySelectorAll('.lang-zh').forEach(e => e.style.display = '');
-      btnZh && btnZh.classList.add('active'); 
+      btnZh && btnZh.classList.add('active');
       btnEn && btnEn.classList.remove('active');
+      btnZh && btnZh.setAttribute('aria-pressed','true');
+      btnEn && btnEn.setAttribute('aria-pressed','false');
     }
   }
 
@@ -47,39 +53,39 @@ document.addEventListener('DOMContentLoaded', () => {
       if(!dest) return;
       e.preventDefault();
 
-      // offset to avoid covering top of section
-      const headerOffset = Math.min(96, Math.max(48, Math.round(window.innerWidth * 0.06)));
+      // offset calculation (slightly dynamic for mobile)
+      const headerOffset = Math.min(96, Math.max(56, Math.round(window.innerWidth * 0.06)));
       const top = dest.getBoundingClientRect().top + window.scrollY - headerOffset;
 
       window.scrollTo({ top, behavior: 'smooth' });
     }, {passive:false});
   });
 
-  // Buy effect + delayed open
+  // BUY effect + delayed open (so effect plays before new tab)
   function playBuyAndOpen(url){
-    for(let i=0;i<14;i++){
+    for(let i=0;i<12;i++){
       const el = document.createElement('div');
       el.className = 'coin-fx';
       el.textContent = '☀️';
-      el.style.left = (6 + Math.random()*88) + '%';
+      el.style.left = (8 + Math.random()*84) + '%';
       el.style.top = '-18px';
       el.style.fontSize = (12 + Math.random()*28) + 'px';
       el.style.opacity = '1';
       document.body.appendChild(el);
 
       requestAnimationFrame(()=> {
-        el.style.transform = `translateY(${110 + Math.random()*20}vh) rotate(${Math.random()*720}deg)`;
-        el.style.transition = 'transform 1.5s cubic-bezier(.2,.9,.2,1), opacity 1.5s linear';
+        el.style.transform = `translateY(${95 + Math.random()*35}vh) rotate(${Math.random()*720}deg)`;
+        el.style.transition = 'transform 1.2s cubic-bezier(.2,.9,.2,1), opacity 1.2s linear';
         el.style.opacity = '0';
       });
 
-      setTimeout(()=> el.remove(), 1600);
+      setTimeout(()=> el.remove(), 1400);
     }
 
     setTimeout(()=> {
       try { window.open(url, '_blank', 'noopener'); } 
       catch(e){ location.href = url; }
-    }, 700);
+    }, 650);
   }
 
   document.querySelectorAll('.btn-buy').forEach(btn => {
@@ -90,22 +96,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }, {passive:false});
   });
 
-  // Protect images (best-effort)
-  (function protectImages(){
-    const protectedEls = document.querySelectorAll(
-      '.protected-img, .listing-card, .phase-img, .logo-main, .footer-track img, .listing-img, .x-icon'
-    );
+  // Special X button (style C) behavior: open X in new tab
+  const btnX = document.getElementById('btn-x');
+  if(btnX){
+    btnX.addEventListener('click', (e) => {
+      e.preventDefault();
+      try { window.open(X_URL, '_blank', 'noopener'); } catch(err){ location.href = X_URL; }
+    }, {passive:false});
+  }
 
+  // Protect images & listings (best-effort)
+  (function protectImages(){
+    const protectedEls = document.querySelectorAll('.protected-img, .listing-card, .phase-img, .logo-main, .footer-track img, .listing-img, .x-icon');
     protectedEls.forEach(el=>{
-      el.setAttribute('draggable','false');
-      el.addEventListener('contextmenu', e => e.preventDefault());
-      el.addEventListener('dragstart', e => e.preventDefault());
-      el.addEventListener('mousedown', e => { 
-        if(e.target.tagName === 'IMG') e.preventDefault(); 
-      });
-      el.addEventListener('touchstart', e => {}, {passive:true});
+      try{
+        el.setAttribute('draggable','false');
+      }catch(e){}
+      el.addEventListener && el.addEventListener('contextmenu', e => e.preventDefault());
+      el.addEventListener && el.addEventListener('dragstart', e => e.preventDefault());
+      el.addEventListener && el.addEventListener('mousedown', e => { if(e.target && e.target.tagName === 'IMG') e.preventDefault(); });
+      // best-effort: prevent long-press saving on mobile (not guaranteed)
+      el.addEventListener && el.addEventListener('touchstart', e => {}, {passive:true});
     });
 
+    // global image contextmenu block
     document.addEventListener('contextmenu', (e) => {
       if(e.target && e.target.tagName === 'IMG') e.preventDefault();
     });
@@ -120,9 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
     logos.addEventListener('mouseleave', ()=> logos.style.animationPlayState = 'running');
     logos.addEventListener('touchstart', ()=> logos.style.animationPlayState = 'paused', {passive:true});
     logos.addEventListener('touchend', ()=> logos.style.animationPlayState = 'running', {passive:true});
-
-    // ensure continuous loop by matching width of duplicate content if needed (works with duplicated imgs)
-    // No JS resize manipulation necessary; animation translateX(-50%) with duplicated set handles seamless loop.
   })();
 
   // Subtle parallax for background (desktop only)
@@ -144,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', update);
   })();
 
-  // protect blurred listings: remove pointer events and prevent selection
+  // ensure blurred listings are not interactive
   (function protectListings(){
     document.querySelectorAll('.blur .listing-img').forEach(img=>{
       img.style.pointerEvents = 'none';
