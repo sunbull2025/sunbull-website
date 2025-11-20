@@ -1,4 +1,3 @@
-
 // script.js — final interactions (i18n, anchors, reveal, protections, buy fx + delayed open, footer control, parallax)
 document.addEventListener('DOMContentLoaded', () => {
   const BUY_URL = 'https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM';
@@ -49,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
 
       // offset to avoid covering top of section
-      const headerOffset = Math.min(96, Math.max(64, Math.round(window.innerWidth * 0.06)));
+      const headerOffset = Math.min(96, Math.max(48, Math.round(window.innerWidth * 0.06)));
       const top = dest.getBoundingClientRect().top + window.scrollY - headerOffset;
 
       window.scrollTo({ top, behavior: 'smooth' });
@@ -94,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Protect images (best-effort)
   (function protectImages(){
     const protectedEls = document.querySelectorAll(
-      '.protected, .listing-card, .phase-img, .logo-main, .footer-track img, .listing-img, .x-icon'
+      '.protected-img, .listing-card, .phase-img, .logo-main, .footer-track img, .listing-img, .x-icon'
     );
 
     protectedEls.forEach(el=>{
@@ -121,6 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
     logos.addEventListener('mouseleave', ()=> logos.style.animationPlayState = 'running');
     logos.addEventListener('touchstart', ()=> logos.style.animationPlayState = 'paused', {passive:true});
     logos.addEventListener('touchend', ()=> logos.style.animationPlayState = 'running', {passive:true});
+
+    // ensure continuous loop by matching width of duplicate content if needed (works with duplicated imgs)
+    // No JS resize manipulation necessary; animation translateX(-50%) with duplicated set handles seamless loop.
   })();
 
   // Subtle parallax for background (desktop only)
@@ -140,6 +142,19 @@ document.addEventListener('DOMContentLoaded', () => {
     update();
     window.addEventListener('scroll', update, {passive:true});
     window.addEventListener('resize', update);
+  })();
+
+  // protect blurred listings: remove pointer events and prevent selection
+  (function protectListings(){
+    document.querySelectorAll('.blur .listing-img').forEach(img=>{
+      img.style.pointerEvents = 'none';
+      img.setAttribute('aria-hidden','true');
+      img.setAttribute('draggable','false');
+    });
+    document.querySelectorAll('.protect-overlay').forEach(o=>{
+      o.addEventListener('contextmenu', e => e.preventDefault());
+      o.addEventListener('mousedown', e => e.preventDefault());
+    });
   })();
 
   // Missing images warnings (dev only)
