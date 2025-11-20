@@ -16,7 +16,7 @@
 
   <div class="site-wrap">
 
-    <!-- HERO (logo large, header area) -->
+    <!-- HERO (EN + ZH complete) -->
     <header id="hero" class="hero reveal" role="banner" aria-label="SunBull hero">
       <div class="hero-inner">
         <div class="logo-wrap">
@@ -26,29 +26,58 @@
           </div>
         </div>
 
-        <h1 class="hero-title">SunBull — The SunPump Mascot</h1>
+        <div class="lang-en">
+          <h1 class="hero-title">SunBull — The SunPump Mascot</h1>
 
-        <p class="hero-lead">
-          Forged from TRON’s legendary Bull and the explosive memetic energy of SunPump — <strong>SunBull ($SUNBULL)</strong> is the cultural emblem for the SUN family:
-          <em>SunPump · SunSwap · SunPerp</em>. Built by the community, for the community — our audacious goal: make <strong>$SUNBULL</strong> the first TRON memecoin to reach <strong>$1B market cap</strong>.
-        </p>
+          <p class="hero-lead">
+            Forged from TRON’s legendary Bull and the explosive memetic energy of SunPump — <strong>SunBull ($SUNBULL)</strong> is the cultural emblem for the SUN family:
+            <em>SunPump · SunSwap · SunPerp</em>. Built by the community, for the community — our audacious goal: make <strong>$SUNBULL</strong> the first TRON memecoin to reach <strong>$1B market cap</strong>.
+          </p>
 
-        <nav class="hero-nav" aria-label="Primary navigation">
-          <button class="nav-btn" data-target="#about">About</button>
-          <button class="nav-btn" data-target="#tokenomics">Tokenomics</button>
-          <button class="nav-btn" data-target="#roadmap">Roadmap</button>
-          <button class="nav-btn" data-target="#listings">Listings</button>
-          <button class="nav-btn" data-target="#howto">How to Buy</button>
-          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener">BUY $SUNBULL</a>
-        </nav>
+          <nav class="hero-nav" aria-label="Primary navigation">
+            <button class="nav-btn" data-target="#about">About</button>
+            <button class="nav-btn" data-target="#tokenomics">Tokenomics</button>
+            <button class="nav-btn" data-target="#roadmap">Roadmap</button>
+            <button class="nav-btn" data-target="#listings">Listings</button>
+            <button class="nav-btn" data-target="#howto">How to Buy</button>
+            <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener">BUY $SUNBULL</a>
+          </nav>
 
-        <div class="hero-meta">
-          <div class="lang-toggle" role="tablist" aria-label="Language toggle">
-            <button id="btn-en" class="lang active" aria-pressed="true" role="tab">EN</button>
-            <button id="btn-zh" class="lang" aria-pressed="false" role="tab">中文</button>
+          <div class="hero-meta">
+            <div class="lang-toggle" role="tablist" aria-label="Language toggle">
+              <button id="btn-en" class="lang active" aria-pressed="true" role="tab">EN</button>
+              <button id="btn-zh" class="lang" aria-pressed="false" role="tab">中文</button>
+            </div>
+            <p class="contract muted">Contract (test): <code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
           </div>
-          <p class="contract muted">Contract (test): <code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
         </div>
+
+        <div class="lang-zh" style="display:none">
+          <h1 class="hero-title">SunBull — SunPump 的吉祥物</h1>
+
+          <p class="hero-lead">
+            由 TRON 传说中的公牛与 SunPump 爆发性的 Meme 能量锻造而成 —— <strong>SunBull ($SUNBULL)</strong> 是 SUN 家族的文化象征：
+            <em>SunPump · SunSwap · SunPerp</em>。由社区打造、为社区而生 —— 我们的大胆目标：让 <strong>$SUNBULL</strong> 成为首个达到 <strong>10 亿美元市值</strong> 的 TRON Meme 币。
+          </p>
+
+          <nav class="hero-nav" aria-label="主要导航">
+            <button class="nav-btn" data-target="#about">关于</button>
+            <button class="nav-btn" data-target="#tokenomics">代币经济</button>
+            <button class="nav-btn" data-target="#roadmap">路线图</button>
+            <button class="nav-btn" data-target="#listings">上架</button>
+            <button class="nav-btn" data-target="#howto">如何购买</button>
+            <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener">购买 $SUNBULL</a>
+          </nav>
+
+          <div class="hero-meta">
+            <div class="lang-toggle" role="tablist" aria-label="语言切换">
+              <button id="btn-en-2" class="lang" aria-pressed="false" role="tab">EN</button>
+              <button id="btn-zh-2" class="lang active" aria-pressed="true" role="tab">中文</button>
+            </div>
+            <p class="contract muted">合约（测试）：<code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
+          </div>
+        </div>
+
       </div>
     </header>
 
@@ -240,12 +269,12 @@
         <p class="muted small">Official integrations and listings will be announced on X.</p>
 
         <div class="listings-grid" aria-hidden="false">
-          <!-- visible listing -->
+          <!-- visible listing (full image shown) -->
           <div class="listing-card listing-visible">
             <img src="listing1.png" alt="Listing 1" class="listing-img protected-img">
           </div>
 
-          <!-- blurred & protected -->
+          <!-- blurred & protected (contain -> no crop; blur gentler to create hype but not too strong) -->
           <div class="listing-card blur protected">
             <img src="listing2.png" alt="Listing 2" class="listing-img protected-img">
             <div class="protect-overlay" aria-hidden="true"></div>
@@ -280,7 +309,7 @@
         </ol>
 
         <div style="margin-top:12px">
-          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">Open on SunPump</a>
+          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener">Open on SunPump</a>
         </div>
       </section>
 
@@ -289,7 +318,7 @@
         <h2>Join the #SUNBULLARMY</h2>
         <p class="muted">We represent the memetic soul of TRON. Follow official X for burns, drops and community calls.</p>
         <div style="margin-top:12px">
-          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank">BUY $SUNBULL</a>
+          <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener">BUY $SUNBULL</a>
           <a class="btn btn-ghost" href="https://x.com/SunBullOfficial" target="_blank" rel="noopener"><img src="x.png" alt="X" class="x-icon protected-img"> Follow on X</a>
         </div>
       </section>
