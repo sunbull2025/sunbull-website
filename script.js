@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Language toggle functionality
   const btnEn = document.getElementById('btn-en');
   const btnZh = document.getElementById('btn-zh');
+  
   function showLang(lang) {
+    // Alterna os painéis de conteúdo principais (EN vs ZH)
     if (lang === 'en') {
       document.querySelectorAll('.lang-en').forEach(e => e.style.display = '');
       document.querySelectorAll('.lang-zh').forEach(e => e.style.display = 'none');
@@ -18,34 +20,34 @@ document.addEventListener('DOMContentLoaded', () => {
       btnEn.classList.remove('active');
       document.documentElement.lang = 'zh';
     }
-    // Update navigation button texts based on language selection
-    document.querySelectorAll('.nav-btn, .btn-primary, .btn-ghost').forEach(btn => {
-      const i18nData = btn.getAttribute('data-i18n');
+
+    // CORREÇÃO: Lógica de tradução de botões (i18n) melhorada
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const i18nData = el.getAttribute('data-i18n');
       if (i18nData) {
         try {
           const dict = JSON.parse(i18nData);
-          if (btn.tagName === 'A' || btn.tagName === 'BUTTON') {
-            const span = btn.querySelector('span:not(.x-icon)')[0] || btn; // Look for a span inside the button for text change
-            // For primary/nav buttons that are text only:
-            if (!span || btn.classList.contains('btn-primary')) {
-                btn.textContent = dict[lang];
+          const newText = dict[lang];
+          if (newText) {
+            // Verifica se é um botão com um ícone (ex: "Follow on X")
+            const textSpan = el.querySelector('span');
+            if (textSpan && el.querySelector('img')) {
+              textSpan.textContent = newText; // Muda apenas o texto dentro do span
             } else {
-              // For buttons like "Follow on X" which contain images:
-              if (btn.querySelector('.x-icon')) {
-                  const spanText = btn.querySelector('span');
-                  if(spanText) spanText.textContent = dict[lang];
-              }
+              // Para botões de texto simples (ex: "BUY $SUNBULL" ou "About")
+              el.textContent = newText;
             }
           }
         } catch (e) {
-          console.error("i18n parsing error:", e);
+          console.error("i18n parsing error:", e, el);
         }
       }
     });
   }
+  
   btnEn.addEventListener('click', () => showLang('en'));
   btnZh.addEventListener('click', () => showLang('zh'));
-  showLang('en'); // Set default language on load
+  showLang('en'); // Define o idioma padrão ao carregar
 
   // Reveal sections on scroll (IntersectionObserver)
   (function revealOnScroll() {
@@ -57,19 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
           obs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.1 }); // Limiar ligeiramente mais baixo
     els.forEach(e => io.observe(e));
   })();
 
   // Smooth scroll for nav buttons
-  document.querySelectorAll('.nav-btn').forEach(btn => {
+  document.querySelectorAll('.nav-btn[data-target]').forEach(btn => {
     btn.addEventListener('click', e => {
       const targetId = btn.getAttribute('data-target');
       const dest = document.querySelector(targetId);
       if (!dest) return;
       e.preventDefault();
-      // Calculate offset dynamically based on screen size (for fixed headers if any)
-      const offset = Math.min(96, Math.max(50, Math.round(window.innerWidth * 0.05)));
+      const offset = 80; // Offset fixo para a navegação
       const top = dest.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     });
@@ -77,19 +78,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Buy button coin/sun effect and page opening
   function playBuyAndOpen(url) {
-    for (let i = 0; i < 16; i++) { // Increased number of suns for better effect
+    for (let i = 0; i < 16; i++) { 
       const el = document.createElement('div');
       el.className = 'coin-fx';
       el.textContent = '☀️';
       el.style.left = (6 + Math.random() * 88) + '%';
       el.style.top = '-18px';
-      el.style.fontSize = (18 + Math.random() * 32) + 'px'; // Larger suns
+      el.style.fontSize = (18 + Math.random() * 32) + 'px'; 
       el.style.opacity = '1';
       document.body.append(el);
 
       requestAnimationFrame(() => {
-        el.style.transform = `translateY(${120 + Math.random()*30}vh) rotate(${Math.random()*1080}deg)`; // More dramatic fall/rotation
-        el.style.transition = 'transform 1.8s cubic-bezier(.3, 1.2, .5, 1), opacity 1.8s linear'; // Slower, bouncier transition
+        el.style.transform = `translateY(${120 + Math.random()*30}vh) rotate(${Math.random()*1080}deg)`; 
+        el.style.transition = 'transform 1.8s cubic-bezier(.3, 1.2, .5, 1), opacity 1.8s linear'; 
         el.style.opacity = '0';
       });
 
@@ -111,22 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
       playBuyAndOpen(btn.getAttribute('href') || BUY_URL);
     });
   });
-  
-  // Back to top button (using the decorative sun)
-  const btnX = document.getElementById('btn-x');
-  if (btnX) {
-      btnX.addEventListener('click', () => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-      // Show/Hide button based on scroll position
-      const toggleVisibility = () => {
-          btnX.style.opacity = window.scrollY > 300 ? '1' : '0';
-          btnX.style.pointerEvents = window.scrollY > 300 ? 'auto' : 'none';
-      };
-      window.addEventListener('scroll', toggleVisibility);
-      toggleVisibility();
-  }
-
 
   // Protect images from drag / right-click
   (function protectImages() {
@@ -157,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!bg) return;
     function update() {
       if (window.innerWidth > 980) {
-        const y = window.scrollY * 0.04; // Slightly increased effect
+        const y = window.scrollY * 0.04; 
         bg.style.transform = `translateY(${y}px)`;
       } else {
         bg.style.transform = '';
