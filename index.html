@@ -3,20 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SunBull - The SunPump Mascot</title>
-  <meta name="description" content="SunBull ($SUNBULL) — community memecoin on TRON. Tokenomics, roadmap, burn schedule and how to buy." />
+  <title>SunBull - The SunPump Mascot | $SUNBULL TRON Memecoin</title>
+  <meta name="description" content="SunBull ($SUNBULL) — the cultural emblem for the SUN family on TRON. Tokenomics, roadmap, burn schedule and how to buy." />
   <link rel="icon" href="favicon.ico" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"> </head>
 <body>
 
-  <!-- Fullscreen fixed background (fundo.png) -->
   <div class="bg" aria-hidden="true"></div>
 
   <div class="site-wrap">
 
-    <!-- HERO (logo large, header area) -->
     <header id="hero" class="hero reveal" role="banner" aria-label="SunBull hero">
       <div class="hero-inner">
         <div class="hero-top">
@@ -27,11 +24,8 @@
             </div>
           </div>
 
-          <!-- X / top control (round) -->
-          <button id="btn-x" class="btn-x" aria-label="Top">✕</button>
-        </div>
+          <button id="btn-x" class="btn-x" aria-label="Top">☀️</button> </div>
 
-        <!-- English hero -->
         <div class="lang-en">
           <h1 class="hero-title">SunBull — The SunPump Mascot</h1>
 
@@ -41,7 +35,6 @@
           </p>
         </div>
 
-        <!-- Chinese hero (fully translated) -->
         <div class="lang-zh" style="display:none">
           <h1 class="hero-title">SunBull — SunPump 的吉祥物</h1>
 
@@ -52,14 +45,12 @@
         </div>
 
         <nav class="hero-nav" aria-label="Primary navigation">
-          <!-- nav labels are data-i18n so JS swaps them for full translation -->
           <button class="nav-btn" data-target="#about" data-i18n='{"en":"About","zh":"关于"}'>About</button>
           <button class="nav-btn" data-target="#tokenomics" data-i18n='{"en":"Tokenomics","zh":"代币经济"}'>Tokenomics</button>
           <button class="nav-btn" data-target="#roadmap" data-i18n='{"en":"Roadmap","zh":"路线图"}'>Roadmap</button>
           <button class="nav-btn" data-target="#listings" data-i18n='{"en":"Listings","zh":"上架"}'>Listings</button>
           <button class="nav-btn" data-target="#howto" data-i18n='{"en":"How to Buy","zh":"如何购买"}'>How to Buy</button>
 
-          <!-- BUY button text also i18n -->
           <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" rel="noopener" data-i18n='{"en":"BUY $SUNBULL","zh":"购买 $SUNBULL"}'>BUY $SUNBULL</a>
         </nav>
 
@@ -68,14 +59,17 @@
             <button id="btn-en" class="lang active" aria-pressed="true" role="tab">EN</button>
             <button id="btn-zh" class="lang" aria-pressed="false" role="tab">中文</button>
           </div>
-          <p class="contract muted" data-i18n='{"en":"Contract (test):","zh":"合约（测试）:"}'>Contract (test): <code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></p>
+          
+          <p class="contract-address-box muted">
+            <span class="lang-en">Contract Address:</span>
+            <span class="lang-zh" style="display:none">合约地址:</span>
+            <code class="contract-code">TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code>
+          </p>
         </div>
       </div>
     </header>
 
-    <!-- MAIN CONTENT -->
     <main>
-      <!-- ABOUT -->
       <section id="about" class="panel reveal">
         <div class="lang-en">
           <h2>The Legend of the Sun Bull</h2>
@@ -168,7 +162,6 @@
         </div>
       </section>
 
-      <!-- TOKENOMICS -->
       <section id="tokenomics" class="panel reveal">
         <div class="lang-en">
           <h2>Tokenomics — The Solar Empire</h2>
@@ -228,7 +221,6 @@
         </div>
       </section>
 
-      <!-- ROADMAP -->
       <section id="roadmap" class="panel reveal">
         <h2>Roadmap — Story as Journey</h2>
 
@@ -275,18 +267,15 @@
         </div>
       </section>
 
-      <!-- LISTINGS -->
       <section id="listings" class="panel reveal">
         <h2>Upcoming Listings</h2>
         <p class="muted small">Official integrations and listings will be announced on X.</p>
 
         <div class="listings-grid" aria-hidden="false">
-          <!-- visible listing -->
           <div class="listing-card listing-visible">
             <img src="listing1.png" alt="Listing 1" class="listing-img protected-img">
           </div>
 
-          <!-- blurred & protected -->
           <div class="listing-card blur protected">
             <img src="listing2.png" alt="Listing 2" class="listing-img protected-img">
             <div class="protect-overlay" aria-hidden="true"></div>
@@ -309,14 +298,13 @@
         </div>
       </section>
 
-      <!-- HOW TO BUY -->
       <section id="howto" class="panel reveal">
         <h2>How to Buy $SUNBULL</h2>
         <ol class="how-list">
           <li><strong>Install a TRON wallet</strong> — TronLink or TokenPocket recommended.</li>
           <li><strong>Fund your wallet</strong> with TRX for swap and network fees.</li>
           <li><strong>Open SunPump</strong> and connect your wallet to the token page.</li>
-          <li><strong>Optional:</strong> add the contract to your wallet: <code>TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></li>
+          <li><strong>Optional:</strong> add the contract to your wallet: <code class="contract-code">TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM</code></li>
           <li><strong>Choose amount & swap</strong> — confirm transaction and save tx hash.</li>
         </ol>
 
@@ -325,13 +313,13 @@
         </div>
       </section>
 
-      <!-- JOIN CTA -->
       <section class="panel reveal cta">
         <h2>Join the #SUNBULLARMY</h2>
         <p class="muted">We represent the memetic soul of TRON. Follow official X for burns, drops and community calls.</p>
-        <div style="margin-top:12px">
+        <div class="cta-actions" style="margin-top:20px;">
           <a class="btn btn-primary btn-buy" href="https://sunpump.meme/token/TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM" target="_blank" data-i18n='{"en":"BUY $SUNBULL","zh":"购买 $SUNBULL"}'>BUY $SUNBULL</a>
-          <a class="btn btn-ghost" href="https://x.com/SunBullOfficial" target="_blank" rel="noopener">
+          
+          <a class="btn nav-btn btn-ghost" href="https://x.com/SunBullOfficial" target="_blank" rel="noopener" style="margin-left: 10px;">
             <img src="x.png" alt="X" class="x-icon protected-img" />
             <span data-i18n='{"en":"Follow on X","zh":"在 X 上关注"}'>Follow on X</span>
           </a>
@@ -339,7 +327,6 @@
       </section>
     </main>
 
-    <!-- FOOTER -->
     <footer class="site-footer" role="contentinfo">
       <div class="footer-track" aria-hidden="true">
         <div class="logos" aria-hidden="true">
@@ -347,7 +334,10 @@
           <img src="sunpump.png" alt="SunPump" class="protected-img">
           <img src="sunswap.png" alt="SunSwap" class="protected-img">
           <img src="sunperp.png" alt="SunPerp" class="protected-img">
-          <!-- JS will duplicate if needed for perfect loop -->
+          <img src="tron.png" alt="TRON" class="protected-img">
+          <img src="sunpump.png" alt="SunPump" class="protected-img">
+          <img src="sunswap.png" alt="SunSwap" class="protected-img">
+          <img src="sunperp.png" alt="SunPerp" class="protected-img">
         </div>
       </div>
 
