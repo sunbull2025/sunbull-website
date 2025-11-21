@@ -1,4 +1,4 @@
-/* style.css — Upgraded Premium SunBull Theme (Revisão 2) */
+/* style.css — Upgraded Premium SunBull Theme (Revisão 3 - Mobile Fixes) */
 :root {
   --gold: #FFC700; 
   --accent: #FF5722; 
@@ -8,7 +8,7 @@
   --logo-size: 240px; 
   --listing-w: 140px;
   --listing-h: 90px;
-  --footer-speed: 15s; /* Ligeiramente mais lento para suavidade */
+  --footer-speed: 15s;
 }
 
 /* Base Reset */
@@ -20,10 +20,10 @@
 html, body {
   height: 100%;
   font-family: 'Poppins', 'Inter', system-ui, Arial, sans-serif;
-  /* CORREÇÃO: Removido o background preto daqui para deixar o .bg preencher */
+  /* CORREÇÃO MOBILE: Fundo 100% transparente para o .bg (fundo.png) preencher */
+  background: transparent; 
   color: #fff;
   -webkit-font-smoothing: antialiased;
-  background: #000; /* Fallback caso a imagem de fundo falhe */
 }
 a {
   color: var(--gold);
@@ -50,7 +50,7 @@ img {
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  filter: brightness(0.7) saturate(1.2); /* Ajustado o brilho */
+  filter: brightness(0.7) saturate(1.2); 
   will-change: transform;
 }
 .bg::after {
@@ -66,13 +66,14 @@ img {
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 24px; 
-  position: relative; /* Necessário para o z-index dos painéis */
+  position: relative; 
   z-index: 2;
+  overflow: hidden; /* Evita que tabelas em scroll afetem o layout */
 }
 
 /* Hero */
 .hero {
-  padding: 20px 18px; /* Reduzido o padding de topo */
+  padding: 20px 18px; 
   text-align: center;
   background: transparent;
 }
@@ -177,7 +178,7 @@ img {
 .hero-meta {
   margin-top: 24px;
   display: flex;
-  flex-wrap: wrap; /* Permite quebra de linha em telas pequenas */
+  flex-wrap: wrap; 
   gap: 12px;
   align-items: center;
   justify-content: center;
@@ -197,7 +198,7 @@ img {
   border-color: var(--gold);
 }
 
-/* NOVO: Estilo para o Botão X no Topo */
+/* Estilo para o Botão X no Topo */
 .hero-x-link {
   display: flex;
   align-items: center;
@@ -240,7 +241,7 @@ img {
 
 /* Panels - Glassmorphism Sutil */
 .panel {
-  background: rgba(10, 10, 10, 0.65); /* Um pouco mais opaco */
+  background: rgba(10, 10, 10, 0.65); 
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 30px; 
@@ -264,7 +265,7 @@ h3 {
   font-family: 'Poppins', sans-serif;
   color: var(--gold);
   font-size: 1.3rem;
-  margin-top: 24px; /* Mais espaço */
+  margin-top: 24px; 
   font-weight: 700;
 }
 p, li {
@@ -333,7 +334,7 @@ ol.how-list {
   align-items: center;
 }
 .phase:nth-child(even) {
-  flex-direction: row-reverse; /* Alternar */
+  flex-direction: row-reverse; 
 }
 .phase-thumb {
   width: 100%;
@@ -341,7 +342,6 @@ ol.how-list {
   border-radius: 12px;
   overflow: hidden;
   background: var(--dark-bg);
-  /* CORREÇÃO: Aumentado para 55% */
   flex: 0 0 55%; 
   display: flex;
   align-items: center;
@@ -352,7 +352,7 @@ ol.how-list {
 .phase-img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Não corta a imagem */
+  object-fit: contain; 
   display: block;
 }
 
@@ -384,14 +384,15 @@ ol.how-list {
   box-shadow: 0 15px 40px rgba(255, 199, 0, 0.2);
 }
 .listing-img {
-  width: 90%;
-  height: 90%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  /* CORREÇÃO: Preenche o card, removendo vermas pretas */
+  object-fit: cover; 
   display: block;
 }
-/* CORREÇÃO: Blur aumentado significativamente */
+/* CORREÇÃO: Blur reduzido para "ligeiramente visível" */
 .blur img {
-  filter: blur(12px) brightness(0.6) saturate(0.9);
+  filter: blur(8px) brightness(0.7) saturate(0.9);
   transform: scale(1.05);
   pointer-events: none;
 }
@@ -464,7 +465,7 @@ ol.how-list {
 
 /* Footer */
 .site-footer {
-  padding: 30px 0; /* Padding horizontal removido para o track preencher */
+  padding: 30px 0; 
   margin-top: 40px;
   background: transparent;
   border-top: 1px solid rgba(255, 199, 0, 0.05);
@@ -476,11 +477,10 @@ ol.how-list {
 }
 .footer-track .logos {
   display: flex;
-  /* CORREÇÃO: Gap aumentado para melhor espaçamento no loop */
   gap: 50px; 
   align-items: center;
   animation: logos-scroll var(--footer-speed) linear infinite;
-  padding-right: 50px; /* Deve ser igual ao gap */
+  padding-right: 50px; 
 }
 .footer-track img {
   height: 50px;
@@ -495,7 +495,7 @@ ol.how-list {
   color: rgba(255,255,255,0.7);
   font-size: 0.9rem;
   font-weight: 300;
-  padding: 0 24px; /* Adicionado padding para o texto não colar nas bordas */
+  padding: 0 24px; 
 }
 
 /* Keyframes */
@@ -518,13 +518,30 @@ ol.how-list {
   .hero-lead{font-size:1rem}
 }
 @media(max-width:600px){
-  :root{--logo-size:140px;--listing-w:45%;--listing-h:90px;--footer-speed:8s}
+  :root{--logo-size:140px;--listing-w:45%;--listing-h:90px;--footer-speed:10s} /* Footer speed ajustado */
+  
   .hero-title{font-size:2rem}
   .panel{padding:20px}
-  .footer-track img{height:35px}
-  .hero-nav{gap:8px}
   .phase-thumb {
-    aspect-ratio: 4/3; /* Ajuste em mobile */
+    aspect-ratio: 4/3; 
+  }
+  .hero-nav{gap:8px}
+
+  /* CORREÇÃO MOBILE: Scroll horizontal para tabelas (Tokenomics) */
+  .table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  /* CORREÇÃO MOBILE: Logos do rodapé mais pequenos e juntos */
+  .footer-track img {
+    height: 30px; 
+  }
+  .footer-track .logos {
+    gap: 30px; 
+    padding-right: 30px; 
   }
 }
 
