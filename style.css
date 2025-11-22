@@ -1,4 +1,4 @@
-/* style.css — Upgraded Premium SunBull Theme (Revisão 3 - Mobile Fixes) */
+/* style.css — Upgraded Premium SunBull Theme (Revisão 4 - Final Fixes) */
 :root {
   --gold: #FFC700; 
   --accent: #FF5722; 
@@ -8,7 +8,8 @@
   --logo-size: 240px; 
   --listing-w: 140px;
   --listing-h: 90px;
-  --footer-speed: 15s;
+  /* Aumentei a velocidade do footer (menos segundos = mais rápido) */
+  --footer-speed: 10s; 
 }
 
 /* Base Reset */
@@ -20,10 +21,10 @@
 html, body {
   height: 100%;
   font-family: 'Poppins', 'Inter', system-ui, Arial, sans-serif;
-  /* CORREÇÃO MOBILE: Fundo 100% transparente para o .bg (fundo.png) preencher */
   background: transparent; 
   color: #fff;
   -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
 }
 a {
   color: var(--gold);
@@ -68,7 +69,7 @@ img {
   padding: 24px; 
   position: relative; 
   z-index: 2;
-  overflow: hidden; /* Evita que tabelas em scroll afetem o layout */
+  overflow: hidden; 
 }
 
 /* Hero */
@@ -198,21 +199,21 @@ img {
   border-color: var(--gold);
 }
 
-/* Estilo para o Botão X no Topo */
+/* CORREÇÃO: Estilo para o Botão X no Topo (Aumentado) */
 .hero-x-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 54px;  /* Aumentado de 40px */
+  height: 54px; /* Aumentado de 40px */
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 199, 0, 0.1);
   border-radius: 50%;
   transition: all 0.3s var(--ease);
 }
 .hero-x-link img {
-  width: 20px;
-  height: 20px;
+  width: 26px; /* Aumentado de 20px */
+  height: 26px;
   object-fit: contain;
 }
 .hero-x-link:hover {
@@ -336,12 +337,13 @@ ol.how-list {
 .phase:nth-child(even) {
   flex-direction: row-reverse; 
 }
+/* CORREÇÃO: Ajuste nas imagens das fases para remover fundo preto */
 .phase-thumb {
   width: 100%;
   aspect-ratio: 16/9; 
   border-radius: 12px;
   overflow: hidden;
-  background: var(--dark-bg);
+  background: transparent; /* Removido background escuro */
   flex: 0 0 55%; 
   display: flex;
   align-items: center;
@@ -352,7 +354,7 @@ ol.how-list {
 .phase-img {
   width: 100%;
   height: 100%;
-  object-fit: contain; 
+  object-fit: cover; /* Mudado para cover para preencher totalmente */
   display: block;
 }
 
@@ -368,7 +370,7 @@ ol.how-list {
   width: var(--listing-w);
   height: var(--listing-h);
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(20, 20, 20, 0.8); /* Fundo mais escuro para o contain funcionar bem */
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   position: relative;
   flex: 0 0 auto;
@@ -383,14 +385,15 @@ ol.how-list {
   transform: translateY(-5px) scale(1.05);
   box-shadow: 0 15px 40px rgba(255, 199, 0, 0.2);
 }
+/* CORREÇÃO: listing-img agora é contain para não cortar */
 .listing-img {
   width: 100%;
   height: 100%;
-  /* CORREÇÃO: Preenche o card, removendo vermas pretas */
-  object-fit: cover; 
+  object-fit: contain; 
   display: block;
+  padding: 8px; /* Pequeno padding para não tocar nas bordas */
 }
-/* CORREÇÃO: Blur reduzido para "ligeiramente visível" */
+
 .blur img {
   filter: blur(8px) brightness(0.7) saturate(0.9);
   transform: scale(1.05);
@@ -475,12 +478,13 @@ ol.how-list {
   white-space: nowrap;
   padding: 10px 0;
 }
+/* CORREÇÃO: Removido padding-right que causava o corte visual */
 .footer-track .logos {
   display: flex;
   gap: 50px; 
   align-items: center;
   animation: logos-scroll var(--footer-speed) linear infinite;
-  padding-right: 50px; 
+  padding-right: 0; 
 }
 .footer-track img {
   height: 50px;
@@ -498,6 +502,49 @@ ol.how-list {
   padding: 0 24px; 
 }
 
+/* NOVO: Botão Back to Top */
+#backToTop {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 199, 0, 0.2);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+#backToTop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+#backToTop:hover {
+  background: var(--gold);
+  color: #000;
+  transform: translateY(-5px);
+}
+
+/* NOVO: Efeito de Moeda/Sol (Correção para o JS) */
+.coin-fx {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity;
+}
+
 /* Keyframes */
 @keyframes spin {
   0% { transform: rotate(0); }
@@ -510,7 +557,7 @@ ol.how-list {
 
 /* Responsive */
 @media(max-width:980px){
-  :root{--logo-size:180px;--listing-w:120px;--listing-h:80px;--footer-speed:12s}
+  :root{--logo-size:180px;--listing-w:120px;--listing-h:80px;--footer-speed:8s}
   .hero-title{font-size:2.5rem}
   .phase{flex-direction:column}
   .phase:nth-child(even){flex-direction:column}
@@ -518,7 +565,7 @@ ol.how-list {
   .hero-lead{font-size:1rem}
 }
 @media(max-width:600px){
-  :root{--logo-size:140px;--listing-w:45%;--listing-h:90px;--footer-speed:10s} /* Footer speed ajustado */
+  :root{--logo-size:140px;--listing-w:45%;--listing-h:90px;--footer-speed:6s} 
   
   .hero-title{font-size:2rem}
   .panel{padding:20px}
@@ -527,7 +574,6 @@ ol.how-list {
   }
   .hero-nav{gap:8px}
 
-  /* CORREÇÃO MOBILE: Scroll horizontal para tabelas (Tokenomics) */
   .table {
     display: block;
     width: 100%;
@@ -535,13 +581,20 @@ ol.how-list {
     white-space: nowrap;
   }
   
-  /* CORREÇÃO MOBILE: Logos do rodapé mais pequenos e juntos */
   .footer-track img {
     height: 30px; 
   }
   .footer-track .logos {
     gap: 30px; 
-    padding-right: 30px; 
+  }
+  
+  /* Ajuste do botão Back to Top em mobile */
+  #backToTop {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    bottom: 16px;
+    right: 16px;
   }
 }
 

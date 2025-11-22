@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.lang = 'zh';
     }
 
-    // CORREÇÃO: Lógica de tradução de botões (i18n) melhorada
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const i18nData = el.getAttribute('data-i18n');
       if (i18nData) {
@@ -29,12 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
           const dict = JSON.parse(i18nData);
           const newText = dict[lang];
           if (newText) {
-            // Verifica se é um botão com um ícone (ex: "Follow on X")
             const textSpan = el.querySelector('span');
             if (textSpan && el.querySelector('img')) {
-              textSpan.textContent = newText; // Muda apenas o texto dentro do span
+              textSpan.textContent = newText; 
             } else {
-              // Para botões de texto simples (ex: "BUY $SUNBULL" ou "About")
               el.textContent = newText;
             }
           }
@@ -47,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   btnEn.addEventListener('click', () => showLang('en'));
   btnZh.addEventListener('click', () => showLang('zh'));
-  showLang('en'); // Define o idioma padrão ao carregar
+  showLang('en'); 
 
   // Reveal sections on scroll (IntersectionObserver)
   (function revealOnScroll() {
@@ -59,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
           obs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1 }); // Limiar ligeiramente mais baixo
+    }, { threshold: 0.1 });
     els.forEach(e => io.observe(e));
   })();
 
@@ -70,11 +67,27 @@ document.addEventListener('DOMContentLoaded', () => {
       const dest = document.querySelector(targetId);
       if (!dest) return;
       e.preventDefault();
-      const offset = 80; // Offset fixo para a navegação
+      const offset = 80; 
       const top = dest.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });
+
+  // NOVO: Back to Top Button Logic
+  const backToTopBtn = document.getElementById('backToTop');
+  if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    }, { passive: true });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   // Buy button coin/sun effect and page opening
   function playBuyAndOpen(url) {
