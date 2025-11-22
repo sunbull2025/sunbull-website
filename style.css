@@ -1,4 +1,4 @@
-/* style.css — Upgraded Premium SunBull Theme (Revisão 4 - Final Fixes) */
+/* style.css — Upgraded Premium SunBull Theme (Revisão Final Perfeita) */
 :root {
   --gold: #FFC700; 
   --accent: #FF5722; 
@@ -8,7 +8,6 @@
   --logo-size: 240px; 
   --listing-w: 140px;
   --listing-h: 90px;
-  /* Aumentei a velocidade do footer (menos segundos = mais rápido) */
   --footer-speed: 10s; 
 }
 
@@ -199,20 +198,19 @@ img {
   border-color: var(--gold);
 }
 
-/* CORREÇÃO: Estilo para o Botão X no Topo (Aumentado) */
 .hero-x-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 54px;  /* Aumentado de 40px */
-  height: 54px; /* Aumentado de 40px */
+  width: 54px;  
+  height: 54px; 
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 199, 0, 0.1);
   border-radius: 50%;
   transition: all 0.3s var(--ease);
 }
 .hero-x-link img {
-  width: 26px; /* Aumentado de 20px */
+  width: 26px; 
   height: 26px;
   object-fit: contain;
 }
@@ -232,12 +230,16 @@ img {
   font-size: 0.95rem;
   color: rgba(255,255,255,0.8);
   font-weight: 500;
+  max-width: 100%; /* Evita overflow no header */
 }
+/* CORREÇÃO: Garante que o código quebra a linha em mobile */
 .contract-code {
   font-family: monospace;
   color: var(--gold);
   margin-left: 8px;
   font-size: 1rem;
+  word-break: break-all;
+  white-space: normal;
 }
 
 /* Panels - Glassmorphism Sutil */
@@ -337,13 +339,13 @@ ol.how-list {
 .phase:nth-child(even) {
   flex-direction: row-reverse; 
 }
-/* CORREÇÃO: Ajuste nas imagens das fases para remover fundo preto */
+
 .phase-thumb {
   width: 100%;
   aspect-ratio: 16/9; 
   border-radius: 12px;
   overflow: hidden;
-  background: transparent; /* Removido background escuro */
+  background: transparent; 
   flex: 0 0 55%; 
   display: flex;
   align-items: center;
@@ -351,11 +353,13 @@ ol.how-list {
   border: 2px solid rgba(255, 199, 0, 0.1);
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
+/* CORREÇÃO: Usa contain para não cortar a imagem */
 .phase-img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Mudado para cover para preencher totalmente */
+  object-fit: contain; 
   display: block;
+  background: transparent;
 }
 
 /* Listings */
@@ -370,7 +374,7 @@ ol.how-list {
   width: var(--listing-w);
   height: var(--listing-h);
   border-radius: 12px;
-  background: rgba(20, 20, 20, 0.8); /* Fundo mais escuro para o contain funcionar bem */
+  background: rgba(20, 20, 20, 0.8); 
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   position: relative;
   flex: 0 0 auto;
@@ -385,13 +389,12 @@ ol.how-list {
   transform: translateY(-5px) scale(1.05);
   box-shadow: 0 15px 40px rgba(255, 199, 0, 0.2);
 }
-/* CORREÇÃO: listing-img agora é contain para não cortar */
 .listing-img {
   width: 100%;
   height: 100%;
   object-fit: contain; 
   display: block;
-  padding: 8px; /* Pequeno padding para não tocar nas bordas */
+  padding: 8px; 
 }
 
 .blur img {
@@ -473,12 +476,12 @@ ol.how-list {
   background: transparent;
   border-top: 1px solid rgba(255, 199, 0, 0.05);
 }
+/* CORREÇÃO: Adicionado padding ao track para evitar corte nas laterais */
 .footer-track {
   overflow: hidden;
   white-space: nowrap;
-  padding: 10px 0;
+  padding: 10px 20px;
 }
-/* CORREÇÃO: Removido padding-right que causava o corte visual */
 .footer-track .logos {
   display: flex;
   gap: 50px; 
@@ -502,7 +505,7 @@ ol.how-list {
   padding: 0 24px; 
 }
 
-/* NOVO: Botão Back to Top */
+/* Back to Top Button */
 #backToTop {
   position: fixed;
   bottom: 24px;
@@ -536,7 +539,7 @@ ol.how-list {
   transform: translateY(-5px);
 }
 
-/* NOVO: Efeito de Moeda/Sol (Correção para o JS) */
+/* Efeito de Moeda/Sol */
 .coin-fx {
   position: fixed;
   z-index: 9999;
@@ -550,9 +553,10 @@ ol.how-list {
   0% { transform: rotate(0); }
   100% { transform: rotate(360deg); }
 }
+/* CORREÇÃO: O loop agora move apenas 33.33% (1/3) porque temos 3 conjuntos de logos */
 @keyframes logos-scroll {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(-33.3333%); }
 }
 
 /* Responsive */
@@ -588,7 +592,6 @@ ol.how-list {
     gap: 30px; 
   }
   
-  /* Ajuste do botão Back to Top em mobile */
   #backToTop {
     width: 40px;
     height: 40px;

@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // NOVO: Back to Top Button Logic
+  // Back to Top Button Logic
   const backToTopBtn = document.getElementById('backToTop');
   if (backToTopBtn) {
     window.addEventListener('scroll', () => {
