@@ -1,4 +1,4 @@
-/* style.css — Upgraded Premium SunBull Theme (Revisão Finalíssima) */
+/* style.css — Final Perfected Version */
 :root {
   --gold: #FFC700; 
   --accent: #FF5722; 
@@ -8,8 +8,10 @@
   --logo-size: 240px; 
   --listing-w: 140px;
   --listing-h: 90px;
-  /* Velocidade ajustada para os logos mais pequenos */
-  --footer-speed: 20s; 
+  /* Velocidade do footer duplicada (mais rápido = menos tempo) 
+     Estava 20s, passou para 10s para ser mais rápido como pediste. 
+     Se achares demasiado rápido, muda para 15s. */
+  --footer-speed: 10s; 
 }
 
 /* Base Reset */
@@ -221,7 +223,7 @@ img {
   box-shadow: 0 4px 15px rgba(255, 199, 0, 0.2);
 }
 
-/* Estilo para o Endereço de Contrato */
+/* Contract Address */
 .contract-address-box {
   display: inline-block;
   background: rgba(255, 199, 0, 0.08);
@@ -242,7 +244,7 @@ img {
   white-space: normal;
 }
 
-/* Panels - Glassmorphism Sutil */
+/* Panels */
 .panel {
   background: rgba(10, 10, 10, 0.65); 
   backdrop-filter: blur(10px);
@@ -325,7 +327,7 @@ ol.how-list {
   color: var(--accent);
 }
 
-/* Roadmap / Phases */
+/* Roadmap / Phases - CORREÇÃO DE IMAGENS */
 .phases {
   display: flex;
   flex-direction: column;
@@ -340,26 +342,30 @@ ol.how-list {
   flex-direction: row-reverse; 
 }
 
+/* CORREÇÃO: Removi o bordo e o fundo para tirar as "bermas" */
 .phase-thumb {
   width: 100%;
   aspect-ratio: 16/9; 
   border-radius: 12px;
   overflow: hidden;
-  background: transparent; /* Garante que não há fundo preto */
+  background: transparent; /* Fundo transparente */
   flex: 0 0 55%; 
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgba(255, 199, 0, 0.1);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  /* Removi o border e box-shadow para não parecer uma caixa vazia */
+  border: none;
+  box-shadow: none;
 }
-/* CORREÇÃO: Usa COVER para preencher o retângulo sem bermas (pode cortar ligeiramente) */
+
+/* CORREÇÃO: Usei CONTAIN para a imagem aparecer 100% completa sem cortes */
 .phase-img {
   width: 100%;
   height: 100%;
-  object-fit: cover; 
+  object-fit: contain; 
   display: block;
-  background: transparent;
+  /* Filtro suave para destacar (opcional, remove se não gostares) */
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
 }
 
 /* Listings */
@@ -480,16 +486,19 @@ ol.how-list {
   overflow: hidden;
   white-space: nowrap;
   padding: 10px 0;
+  /* CORREÇÃO: Removemos limites para não cortar o conteúdo */
+  width: 100%;
 }
-/* CORREÇÃO: Gap e padding ajustados para o novo tamanho dos logos */
+/* CORREÇÃO: max-content força a linha a ter a largura total dos logos,
+   evitando quebra de linha ou cortes no ultimo item */
 .footer-track .logos {
   display: flex;
   gap: 40px; 
   align-items: center;
   animation: logos-scroll var(--footer-speed) linear infinite;
+  width: max-content; 
   padding-right: 0; 
 }
-/* CORREÇÃO: Altura reduzida para 40px para caberem 4 no ecrã */
 .footer-track img {
   height: 40px;
   object-fit: contain;
@@ -540,7 +549,6 @@ ol.how-list {
   transform: translateY(-5px);
 }
 
-/* Efeito de Moeda/Sol */
 .coin-fx {
   position: fixed;
   z-index: 9999;
@@ -549,20 +557,19 @@ ol.how-list {
   will-change: transform, opacity;
 }
 
-/* Keyframes */
 @keyframes spin {
   0% { transform: rotate(0); }
   100% { transform: rotate(360deg); }
 }
-/* CORREÇÃO: O loop move exatamente 50% porque temos 2 conjuntos */
 @keyframes logos-scroll {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  /* Move 33.33% porque temos 3 sets no HTML. Isto é matematicamente perfeito. */
+  100% { transform: translateX(-33.3333%); }
 }
 
 /* Responsive */
 @media(max-width:980px){
-  :root{--logo-size:180px;--listing-w:120px;--listing-h:80px;--footer-speed:15s}
+  :root{--logo-size:180px;--listing-w:120px;--listing-h:80px;--footer-speed:8s} /* Velocidade ajustada mobile */
   .hero-title{font-size:2.5rem}
   .phase{flex-direction:column}
   .phase:nth-child(even){flex-direction:column}
@@ -570,29 +577,25 @@ ol.how-list {
   .hero-lead{font-size:1rem}
 }
 @media(max-width:600px){
-  :root{--logo-size:140px;--listing-w:45%;--listing-h:90px;--footer-speed:12s} 
-  
+  :root{--logo-size:140px;--listing-w:45%;--listing-h:90px;--footer-speed:6s} 
   .hero-title{font-size:2rem}
   .panel{padding:20px}
   .phase-thumb {
     aspect-ratio: 4/3; 
   }
   .hero-nav{gap:8px}
-
   .table {
     display: block;
     width: 100%;
     overflow-x: auto;
     white-space: nowrap;
   }
-  
   .footer-track img {
-    height: 30px; /* Ainda mais pequeno em mobile */
+    height: 30px; 
   }
   .footer-track .logos {
     gap: 30px; 
   }
-  
   #backToTop {
     width: 40px;
     height: 40px;
@@ -602,7 +605,6 @@ ol.how-list {
   }
 }
 
-/* reduce motion */
 @media (prefers-reduced-motion: reduce){
   .reveal, .footer-track .logos, .logo-shine { animation: none !important; transition: none !important; filter: none !important; }
   .coin-fx{display:none}
