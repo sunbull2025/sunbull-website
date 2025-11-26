@@ -1,4 +1,4 @@
-/* style.css — Final Perfected Version */
+/* style.css — Gold X Edition */
 :root {
   --gold: #FFC700; 
   --accent: #FF5722; 
@@ -8,9 +8,6 @@
   --logo-size: 240px; 
   --listing-w: 140px;
   --listing-h: 90px;
-  /* Velocidade do footer duplicada (mais rápido = menos tempo) 
-     Estava 20s, passou para 10s para ser mais rápido como pediste. 
-     Se achares demasiado rápido, muda para 15s. */
   --footer-speed: 10s; 
 }
 
@@ -201,26 +198,31 @@ img {
   border-color: var(--gold);
 }
 
+/* X BUTTON GOLDEN & BIGGER */
 .hero-x-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 54px;  
-  height: 54px; 
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 199, 0, 0.1);
+  width: 60px;  /* Aumentado */
+  height: 60px; /* Aumentado */
+  /* Gradient Dourado igual ao botão Buy */
+  background: linear-gradient(90deg, var(--gold), #FF9800);
+  border: none;
   border-radius: 50%;
   transition: all 0.3s var(--ease);
+  /* Sombra dourada */
+  box-shadow: 0 10px 40px rgba(255, 199, 0, 0.4), 0 0 0 4px rgba(255, 199, 0, 0.1);
 }
 .hero-x-link img {
-  width: 26px; 
-  height: 26px;
+  width: 30px; 
+  height: 30px;
   object-fit: contain;
+  /* Torna o ícone preto para contrastar com o ouro */
+  filter: brightness(0); 
 }
 .hero-x-link:hover {
   transform: scale(1.1);
-  background: rgba(255, 199, 0, 0.15);
-  box-shadow: 0 4px 15px rgba(255, 199, 0, 0.2);
+  box-shadow: 0 15px 50px rgba(255, 199, 0, 0.6), 0 0 0 4px rgba(255, 199, 0, 0.2);
 }
 
 /* Contract Address */
@@ -327,7 +329,7 @@ ol.how-list {
   color: var(--accent);
 }
 
-/* Roadmap / Phases - CORREÇÃO DE IMAGENS */
+/* Roadmap / Phases */
 .phases {
   display: flex;
   flex-direction: column;
@@ -342,29 +344,24 @@ ol.how-list {
   flex-direction: row-reverse; 
 }
 
-/* CORREÇÃO: Removi o bordo e o fundo para tirar as "bermas" */
 .phase-thumb {
   width: 100%;
   aspect-ratio: 16/9; 
   border-radius: 12px;
   overflow: hidden;
-  background: transparent; /* Fundo transparente */
+  background: transparent; 
   flex: 0 0 55%; 
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Removi o border e box-shadow para não parecer uma caixa vazia */
   border: none;
   box-shadow: none;
 }
-
-/* CORREÇÃO: Usei CONTAIN para a imagem aparecer 100% completa sem cortes */
 .phase-img {
   width: 100%;
   height: 100%;
   object-fit: contain; 
   display: block;
-  /* Filtro suave para destacar (opcional, remove se não gostares) */
   filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
 }
 
@@ -486,11 +483,8 @@ ol.how-list {
   overflow: hidden;
   white-space: nowrap;
   padding: 10px 0;
-  /* CORREÇÃO: Removemos limites para não cortar o conteúdo */
   width: 100%;
 }
-/* CORREÇÃO: max-content força a linha a ter a largura total dos logos,
-   evitando quebra de linha ou cortes no ultimo item */
 .footer-track .logos {
   display: flex;
   gap: 40px; 
@@ -563,13 +557,12 @@ ol.how-list {
 }
 @keyframes logos-scroll {
   0% { transform: translateX(0); }
-  /* Move 33.33% porque temos 3 sets no HTML. Isto é matematicamente perfeito. */
   100% { transform: translateX(-33.3333%); }
 }
 
 /* Responsive */
 @media(max-width:980px){
-  :root{--logo-size:180px;--listing-w:120px;--listing-h:80px;--footer-speed:8s} /* Velocidade ajustada mobile */
+  :root{--logo-size:180px;--listing-w:120px;--listing-h:80px;--footer-speed:8s} 
   .hero-title{font-size:2.5rem}
   .phase{flex-direction:column}
   .phase:nth-child(even){flex-direction:column}
